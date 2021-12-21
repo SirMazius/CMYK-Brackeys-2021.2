@@ -86,11 +86,8 @@ public class MoninkerController : MonoBehaviour
         spritesParent.transform.LookAt(pos, Camera.main.transform.up);
 
         //Detectar la casilla de la grid en la que se coloca
-        Vector2Int newCell = new Vector2Int();
-        Vector3 localDist = transform.position - GameManager.self.gridCorner;
-        newCell.x = Mathf.FloorToInt(localDist.x / GameManager.self.distX);
-        newCell.y = Mathf.FloorToInt(localDist.z / GameManager.self.distZ);
-
+        Vector2Int newCell = GameManager.self.GetCell(transform.position);
+        
         //Si se ha cambiado de celda, hacemos el cambio de lista
         if(currCell != newCell)
         {

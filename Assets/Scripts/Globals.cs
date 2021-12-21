@@ -30,4 +30,18 @@ public class Globals
     public static Color eraserColor = new Color32(180,180,180,255); //#C9C9C9
 
     public static string tagMoninker = "Moninker";
+
+
+    /////////////// FUNCIONES //////////////////
+
+    //Hacemos un raycast para obtener el punto del folio en el que choca
+    public static Vector3 GetCursorFloorPoint()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 6))
+            return hit.point + Vector3.up * 0.0001f;
+        else
+            return Vector3.positiveInfinity;
+    }
 }

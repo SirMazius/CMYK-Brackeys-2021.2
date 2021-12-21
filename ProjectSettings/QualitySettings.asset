@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 5
+  m_CurrentQuality: 3
   m_QualitySettings:
   - serializedVersion: 2
     name: Very Low
@@ -148,7 +148,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 0}
+    customRenderPipeline: {fileID: 11400000, guid: 44d16e7e83d909540b58f587078c4723, type: 2}
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Very High
@@ -220,15 +220,15 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 0}
+    customRenderPipeline: {fileID: 11400000, guid: 44d16e7e83d909540b58f587078c4723, type: 2}
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
-    Android: 2
+    Android: 3
     Lumin: 5
     Nintendo Switch: 5
     PS4: 5
     Stadia: 5
-    Standalone: 5
+    Standalone: 3
     WebGL: 3
     Windows Store Apps: 5
     XboxOne: 5

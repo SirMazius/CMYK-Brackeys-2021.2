@@ -5,7 +5,7 @@ using static Globals;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager self;
+    public static GameManager self = null;
     public GameObject moninkerPrefab;
     public GameObject paintShotPrefab, eraserPrefab;
     public Transform floor;
@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
             if (c.x >= 0 && c.y >= 0 && c.x < gridX && c.y < gridZ && gridLists[c.x, c.y].Count > 0)
             {
                 List<MoninkerController> cellMoninkers = gridLists[c.x, c.y];
-                for (int i = 0; i < moninkers.Count; i++)
+                for (int i = 0; i < cellMoninkers.Count; i++)
                 {
                     MoninkerController m = cellMoninkers[i];
                     float currDist = Vector3.Distance(m.transform.position, center);

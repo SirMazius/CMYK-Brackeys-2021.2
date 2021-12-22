@@ -182,21 +182,21 @@ public class MoninkerController : MonoBehaviour
         }
     }
 
-    private void OnMouseDrag()
-    {
-        if(Input.GetMouseButton(0) && !dragging && color != InkColorIndex.BLACK)
-        {
-            currState.StartDragging();
-            dragging = true;
-        }
-    }
+    //private void OnMouseDrag()
+    //{
+    //    if(Input.GetMouseButton(0) && !dragging && color != InkColorIndex.BLACK)
+    //    {
+    //        currState.StartDragging();
+    //        dragging = true;
+    //    }
+    //}
 
-    private void OnMouseUp()
-    {
-        if(Input.GetMouseButtonUp(0) && dragging)
-        {
-            currState.StartWander();
-            dragging = false;
-        }
-    }
+    //private void OnMouseUp()
+    //{
+    //    if(Input.GetMouseButtonUp(0) && dragging)
+    //    {
+    //        currState.StartWander();
+    //        dragging = false;
+    //    }
+    //}
 }

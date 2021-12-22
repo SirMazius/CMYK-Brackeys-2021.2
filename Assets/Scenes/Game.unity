@@ -262,6 +262,7 @@ GameObject:
   - component: {fileID: 297257176}
   - component: {fileID: 297257177}
   - component: {fileID: 297257178}
+  - component: {fileID: 297257179}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -381,6 +382,21 @@ MonoBehaviour:
   pressed: 0
   eraserCooldown: 3
   currEraser: {fileID: 0}
+--- !u!114 &297257179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297257173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afaf73078eb514840b333c6ca2d3ee8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabbedMoninkers: []
+  radius: 10
+  offsets: []
 --- !u!1 &329352255
 GameObject:
   m_ObjectHideFlags: 0

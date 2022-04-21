@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
     {
         gameOverScreen.SetActive(true);
         gameOverText.text = "Out of\n" + color;
-        gameOverText.color = InkColors[(int)color];
+        gameOverText.color = InkColors[color];
         scoreEndText.text = "Score: " + score;
     }
 

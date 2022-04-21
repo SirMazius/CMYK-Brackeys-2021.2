@@ -42,14 +42,14 @@ public class MoninkerDraggingState : MoninkerState
     public void UpdateState()
     {
         //Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 6))
-        {
-            lastPos = hit.point + controller.dragOffset;
-            lastPos.y = controller.transform.position.y;
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //RaycastHit hit;
+        //if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 6))
+        //{
+        //    lastPos = hit.point + controller.dragOffset;
+        //    lastPos.y = controller.transform.position.y;
 
-            controller.transform.position = lastPos;
-        }
+        //    controller.transform.position = lastPos;
+        //}
     }
 }

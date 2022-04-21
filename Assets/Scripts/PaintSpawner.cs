@@ -51,14 +51,9 @@ public class PaintSpawner : MonoBehaviour
             yield return new WaitForSeconds(nextPaintOffset);
 
             //Disparo en posicion aleatoria
-            GameObject shot = Instantiate(paintShotPrefab);
-            PaintShotController shotController = shot.GetComponent<PaintShotController>();
             Vector3 limits = GameManager.self.floorColl.bounds.extents;
             Vector3 randPos = new Vector3(Random.Range(-limits.x, limits.x), 0.001f, Random.Range(-limits.z, limits.z));
-            shot.transform.position = randPos;
-
-            //Color varia en funcion de la dificultad (mas secundarios y negros conforme avanza el tiempo)
-            shotController.SetPaintColor(GetPaintColor(prop));
+            CreatePaintShot(GetPaintColor(prop), randPos);
         }
 
         yield return null;
@@ -95,5 +90,16 @@ public class PaintSpawner : MonoBehaviour
             default:
                 return InkColorIndex.BLACK;
         }
+    }
+
+    //Instanciamos un chorro de pintura de un color en una ubicacion concreta
+    public void CreatePaintShot(InkColorIndex color, Vector3 point)
+    {
+        GameObject shot = Instantiate(paintShotPrefab);
+        PaintShotController shotController = shot.GetComponent<PaintShotController>();
+        shot.transform.position = point;
+
+        //Color varia en funcion de la dificultad (mas secundarios y negros conforme avanza el tiempo)
+        shotController.SetPaintColor(color);
     }
 }

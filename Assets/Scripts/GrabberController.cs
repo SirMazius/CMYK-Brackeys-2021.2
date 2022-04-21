@@ -8,8 +8,12 @@ public class GrabberController : MonoBehaviour
     public static GrabberController self;
     public List<MoninkerController> grabbedMoninkers;
     public Vector3 cursor { get => GetCursorFloorPoint();}
-    public float radius;
+    public float grabRadius = 10;
     public Vector3[] offsets;
+
+    [Header("Combinar moninkers")]
+    public int minMoninkersCombined = 10;
+    public float combineRadius = 10;
 
 
     void Awake()
@@ -26,29 +30,7 @@ public class GrabberController : MonoBehaviour
         //Comenzar el grab seleccionando a los monigotes implicados
         if (Input.GetMouseButtonDown(0))
         {
-            //Obtenemos los monikers cercanos a donde se ha clicado
-            Vector3 point = cursor;
-            GameManager.self.GetMoninkersInRadius(point, radius, out grabbedMoninkers);
-
-            //Tomamos el color del moninker mas cercano y cogemos solo los monigotes de ese color
-            InkColorIndex color = GetNearestMoninkerInList(point, grabbedMoninkers).color;
-            for (int i = 0; i < grabbedMoninkers.Count; i++)
-            {
-                if (grabbedMoninkers[i].color != color)
-                {
-                    grabbedMoninkers.RemoveAt(i);
-                    i--;
-                }
-            }
-
-            //Almacenamos los offsets respecto al punto clicado y pasamos a dragging
-            offsets = new Vector3[grabbedMoninkers.Count];
-            for (int i = 0; i < grabbedMoninkers.Count; i++)
-            {
-                MoninkerController m = grabbedMoninkers[i];
-                offsets[i] = m.transform.position - point;
-                m.currState = m.draggingState;
-            }
+            StartGrabMoninkers(cursor, grabRadius);
         }
         //Mover monigotes
         else if (Input.GetMouseButton(0) && grabbedMoninkers != null)
@@ -60,12 +42,58 @@ public class GrabberController : MonoBehaviour
         //Soltar monigotes y pasar a wander
         else if(Input.GetMouseButtonUp(0))
         {
-            for (int i = 0; i < grabbedMoninkers.Count; i++)
+            EndGrabMoninkers();
+        }
+    }
+
+    public void StartGrabMoninkers(Vector3 point, float radius)
+    {
+        //Obtenemos los monikers cercanos a donde se ha clicado
+        GameManager.self.GetMoninkersInRadius(point, radius, out grabbedMoninkers);
+
+        //Tomamos el color del moninker mas cercano y cogemos solo los monigotes de ese color
+        InkColorIndex color = GetNearestMoninkerInList(point, grabbedMoninkers).color;
+        for (int i = 0; i < grabbedMoninkers.Count; i++)
+        {
+            if (grabbedMoninkers[i].color != color)
             {
-                MoninkerController m = grabbedMoninkers[i];
-                m.currState = m.wanderState;
+                grabbedMoninkers.RemoveAt(i);
+                i--;
             }
-            grabbedMoninkers.Clear();
+        }
+
+        //Almacenamos los offsets respecto al punto clicado y pasamos a dragging
+        offsets = new Vector3[grabbedMoninkers.Count];
+        for (int i = 0; i < grabbedMoninkers.Count; i++)
+        {
+            MoninkerController m = grabbedMoninkers[i];
+            offsets[i] = m.transform.position - point;
+            m.currState = m.draggingState;
+        }
+    }
+
+    public void EndGrabMoninkers()
+    {
+        for (int i = 0; i < grabbedMoninkers.Count; i++)
+        {
+            MoninkerController m = grabbedMoninkers[i];
+            m.currState = m.wanderState;
+        }
+        grabbedMoninkers.Clear();
+    }
+
+    //Combinamos los grabbed moninkers en una habilidad(si hay la suficiente cantidad)
+    public void CombineMoninkers()
+    {
+        if(grabbedMoninkers.Count >= minMoninkersCombined)
+        {
+            InkColorIndex color = grabbedMoninkers[0].color;
+
+            for(int i=0; i<minMoninkersCombined; i++)
+                GameManager.self.DeactivateMoninker(grabbedMoninkers[i]);
+
+            //Instanciamos una nueva habilidad
+            SkillsController.self.CreateDyeSkillDrop(color, cursor);
         }
     }
 

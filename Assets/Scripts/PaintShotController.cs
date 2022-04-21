@@ -68,7 +68,7 @@ public class PaintShotController : MonoBehaviour
         //Gota de pintura para teñir
         if (colorIndex != InkColorIndex.NONE)
         {
-            color = InkColors[(int)colorIndex];
+            color = InkColors[colorIndex];
         }
         //Gota de tipex para borrar
         else

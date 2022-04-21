@@ -62,7 +62,7 @@ public class MoninkerController : MonoBehaviour
         //Preparar sprite
         foreach(SpriteRenderer s in sprites)
         {
-            s.material.SetColor("TintColor", InkColors[(int)color]);
+            s.material.SetColor("TintColor", InkColors[color]);
         }
 
         //Desactivar collider cuerpo hasta que este en celo
@@ -158,8 +158,8 @@ public class MoninkerController : MonoBehaviour
             color = colorIndex;
             foreach (SpriteRenderer s in sprites)
             {
-                s.material.SetColor("TintColor", InkColors[(int)color]);
-                //sprite.color = InkColors[(int)color];
+                s.material.SetColor("TintColor", InkColors[color]);
+                //sprite.color = InkColors[color];
             }
             GameManager.self.AddColor(colorIndex);
 

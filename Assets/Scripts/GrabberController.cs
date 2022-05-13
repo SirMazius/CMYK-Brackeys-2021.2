@@ -6,10 +6,15 @@ using static Globals;
 public class GrabberController : MonoBehaviour
 {
     public static GrabberController self;
-    public List<MoninkerController> grabbedMoninkers;
     public Vector3 cursor { get => GetCursorFloorPoint();}
-    public float grabRadius = 10;
     public Vector3[] offsets;
+
+    [Header("Atracción moninkers")]
+    public List<MoninkerController> grabbedMoninkers;
+    public float grabRadius = 3;
+    public float attractRadius = 10;
+    public float attractForce = 1;
+    //TODO: ¿offset de tiempo entre grabbed moninkers?/¿attractiopn force disminuye con el tiempo?
 
     [Header("Combinar moninkers")]
     public int minDyeSkillCombine = 10;
@@ -39,6 +44,8 @@ public class GrabberController : MonoBehaviour
             Vector3 point = cursor;
             for (int i = 0; i < grabbedMoninkers.Count; i++)
                 grabbedMoninkers[i].transform.position = cursor + offsets[i];
+            //TODO: Atraer además a moninkers
+
         }
         //Soltar monigotes y pasar a wander
         else if(Input.GetMouseButtonUp(0))
@@ -126,5 +133,22 @@ public class GrabberController : MonoBehaviour
         }
 
         return nearest;
+    }
+
+    //Mover los moninkers cercanos con una fuerza inversamente proporcional a la distancia
+    public void AtractMoninkers(Vector3 point)
+    {
+        List<MoninkerController> attractedMoninkers;
+        GameManager.self.GetMoninkersInRadius(point, attractRadius, out attractedMoninkers);
+
+        foreach(var m in attractedMoninkers)
+        {
+            Vector3 distVec = m.transform.position - point;
+            float distance = distVec.magnitude;
+
+            //Aplicamos una fuerza proporcionalmente inversa a la distancia
+            float force = attractRadius/distance * attractForce;
+            //TODO: Continuar aplicando fuerza segun el dt
+        }
     }
 }

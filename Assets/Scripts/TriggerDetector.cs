@@ -43,7 +43,7 @@ public class TriggerDetector : MonoBehaviour
         {
             MoninkerController otherContr = other.gameObject.GetComponent<MoninkerController>();
             //Nunca se busca a un monigote negro ni que se esta arrastrando
-            if (otherContr.color != InkColorIndex.BLACK)
+            if (otherContr.MoninkerColor != InkColorIndex.BLACK)
             {
                 controller.nearMoninkers.Add(otherContr);
             }

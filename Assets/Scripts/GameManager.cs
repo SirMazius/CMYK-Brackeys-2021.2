@@ -94,6 +94,8 @@ public class GameManager : MonoBehaviour
         currFrameSpawn = 0;
     }
 
+    #region POOLING MONINKERS
+
     //Sacar monigote de la cola y cambiar de color
     public void ActivateMoninker(Vector3 pos, InkColorIndex color)
     {
@@ -102,12 +104,8 @@ public class GameManager : MonoBehaviour
             MoninkerController m = moninkersPool.Dequeue();
             m.gameObject.SetActive(true);
             m.transform.position = pos;
-            m.SetColor(color);
-            AddChildScore();
-
-            //Actualizar contador de primarios
-            //if((int)color < 3 && (int)color >= 0)
-            //    ui.UpdatePrimary(color, ++primariesCount[(int)color]);
+            m.MoninkerColor = color;
+            AddScore();
         }
         else
             Debug.Log("ERROR: Cola sin elementos");
@@ -119,6 +117,11 @@ public class GameManager : MonoBehaviour
         m.gameObject.SetActive(false);
         moninkersPool.Enqueue(m);
     }
+
+    #endregion
+
+
+    #region SISTEMA CELDAS
 
     public Vector2Int GetCell(Vector3 point)
     {
@@ -191,8 +194,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+
+    #region PUNTUACION Y CONTEO
+
     //Actualizamos contador de primarios y añadimos puntuacion
-    public void AddColor(InkColorIndex color)
+    public void AddColorCount(InkColorIndex color)
     {
         if ((int)color >= 0 && (int)color < 3)
         {
@@ -201,12 +209,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddChildScore()
-    {
-        UIManager.self.UpdateScore(++score);
-    }
-
-    public void RemoveColor(InkColorIndex color)
+    public void RemoveColorCount(InkColorIndex color)
     {
         if ((int)color >= 0 && (int)color < 3)
         {
@@ -219,6 +222,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddScore()
+    {
+        UIManager.self.UpdateScore(++score);
+    }
+
     public void Lose(InkColorIndex color)
     {
         if(inGame)
@@ -228,4 +236,6 @@ public class GameManager : MonoBehaviour
             UIManager.self.Lose(color,score);
         }
     }
+
+    #endregion
 }

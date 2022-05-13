@@ -56,4 +56,46 @@ public class Globals
         else
             return Vector3.positiveInfinity;
     }
+
+    public static InkColorIndex MixColors(InkColorIndex c1, InkColorIndex c2)
+    {
+        InkColorIndex result = InkColorIndex.NONE;
+
+        //Si uno de los dos es negro, contagia al otro y no crea hijo
+        if (c1 == InkColorIndex.BLACK || c2 == InkColorIndex.BLACK)
+        {
+            result = InkColorIndex.BLACK;
+        }
+        //Mismo color
+        else if (c2 == c1)
+            result = c1;
+        //Mezclas
+        else
+        {
+            //Colores primarios + primarios
+            if ((c1 == InkColorIndex.MAGENTA && c2 == InkColorIndex.YELLOW) ||
+                (c2 == InkColorIndex.MAGENTA && c1 == InkColorIndex.YELLOW))
+                result = InkColorIndex.RED;
+            else if ((c1 == InkColorIndex.MAGENTA && c2 == InkColorIndex.CYAN) ||
+                (c2 == InkColorIndex.MAGENTA && c1 == InkColorIndex.CYAN))
+                result = InkColorIndex.BLUE;
+            else if ((c1 == InkColorIndex.CYAN && c2 == InkColorIndex.YELLOW) ||
+                (c2 == InkColorIndex.CYAN && c1 == InkColorIndex.YELLOW))
+                result = InkColorIndex.GREEN;
+
+            //Secundario + primario ya incluido = secundario
+            else if ((c1 == InkColorIndex.RED && (c2 == InkColorIndex.YELLOW || c2 == InkColorIndex.MAGENTA)) || (c2 == InkColorIndex.RED && (c1 == InkColorIndex.YELLOW || c1 == InkColorIndex.MAGENTA)))
+                result = InkColorIndex.RED;
+            else if ((c1 == InkColorIndex.BLUE && (c2 == InkColorIndex.CYAN || c2 == InkColorIndex.MAGENTA)) || (c2 == InkColorIndex.BLUE && (c1 == InkColorIndex.CYAN || c1 == InkColorIndex.MAGENTA)))
+                result = InkColorIndex.BLUE;
+            else if ((c1 == InkColorIndex.GREEN && (c2 == InkColorIndex.CYAN || c2 == InkColorIndex.YELLOW)) || (c2 == InkColorIndex.GREEN && (c1 == InkColorIndex.CYAN || c1 == InkColorIndex.YELLOW)))
+                result = InkColorIndex.GREEN;
+
+            //(secundario + secundario) / (secundario + primario faltante) = HIJO NEGRO
+            else
+                result = InkColorIndex.BLACK;
+        }
+
+        return result;
+    }
 }

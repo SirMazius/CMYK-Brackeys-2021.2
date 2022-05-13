@@ -15,7 +15,41 @@ public class MoninkerController : MonoBehaviour
 
     //Apariencia
     [Header("Appearance")]
-    public InkColorIndex color;
+    private InkColorIndex _moninkerColor;
+    [SerializeField]
+    public InkColorIndex MoninkerColor
+    {
+        get => _moninkerColor;
+        set
+        {
+            GameManager.self.RemoveColorCount(_moninkerColor);
+
+            //Teñir
+            if (value != InkColorIndex.NONE)
+            {
+                _moninkerColor = value;
+                GameManager.self.AddColorCount(value);
+                foreach (SpriteRenderer s in sprites)
+                {
+                    s.material.SetColor("TintColor", InkColors[MoninkerColor]);
+                }
+
+                //Si es negro cambiamos sus caracteristicas
+                if (MoninkerColor == InkColorIndex.BLACK)
+                {
+                    triggerDetector.radius = 10;
+                    if (currState != null)
+                    {
+                        currState.StartWander();
+                        wanderState.currHeatTime = 0;
+                    }
+                }
+            }
+            //Borrar
+            else
+                GameManager.self.DeactivateMoninker(this);
+        }
+    }
     public static float bodyRadius = 0.4f;
 
     //Drag
@@ -26,8 +60,7 @@ public class MoninkerController : MonoBehaviour
     public Vector2Int currCell = new Vector2Int(); 
 
     //Parametros de movimiento y tiempos de IA
-    [Header("IA")]
-    [SerializeField]
+    [Header("IA")][SerializeField]
     public Transform currTarget;
     public static float wanderSpeed = 1, pursueSpeed = 2f, blackSpeed = 3f;
     public static float wanderTargetMinDist = 0.3f, wanderTargetMaxDist = 1f;
@@ -62,12 +95,8 @@ public class MoninkerController : MonoBehaviour
         //Preparar sprite
         foreach(SpriteRenderer s in sprites)
         {
-            s.material.SetColor("TintColor", InkColors[color]);
+            s.material.SetColor("TintColor", InkColors[MoninkerColor]);
         }
-
-        //Desactivar collider cuerpo hasta que este en celo
-        //coll = GetComponent<SphereCollider>();
-        //coll.enabled = false;
 
         //Inicializar maquina de estados
         wanderState = new MoninkerWanderState(this);
@@ -97,106 +126,22 @@ public class MoninkerController : MonoBehaviour
         }
     }
 
-    public void CreateChild(MoninkerController other)
+    //Crea un hijo con el color mezclado de los dos monigotes (o contyagia si es negro)
+    public void ReproduceWith(MoninkerController other)
     {
-        InkColorIndex childColor;
+        InkColorIndex childColor = MixColors(MoninkerColor, other.MoninkerColor);
 
-        //Si uno de los dos es negro, contagia al otro y no crea hijo
-        if (color == InkColorIndex.BLACK || other.color == InkColorIndex.BLACK)
+        //Si uno es negro no se reproduce, sino que contagia al otro
+        if(childColor == InkColorIndex.BLACK)
         {
-            //Actualizar contador colores primarios
-            SetColor(InkColorIndex.BLACK);
-            other.SetColor(InkColorIndex.BLACK);
-            return;
+            MoninkerColor = InkColorIndex.BLACK;
+            other.MoninkerColor = InkColorIndex.BLACK;
         }
-        //Mismo color
-        else if(other.color == color)
-            childColor = color;
+        //Si son colores normales, crean un nuevo hijo entre medias de los dos
         else
         {
-            //Colores primarios + primarios
-            if ((color == InkColorIndex.MAGENTA && other.color == InkColorIndex.YELLOW) ||
-                (other.color == InkColorIndex.MAGENTA && color == InkColorIndex.YELLOW))
-                childColor = InkColorIndex.RED;
-            else if ((color == InkColorIndex.MAGENTA && other.color == InkColorIndex.CYAN) ||
-                (other.color == InkColorIndex.MAGENTA && color == InkColorIndex.CYAN))
-                childColor = InkColorIndex.BLUE;
-            else if ((color == InkColorIndex.CYAN && other.color == InkColorIndex.YELLOW) ||
-                (other.color == InkColorIndex.CYAN && color == InkColorIndex.YELLOW))
-                childColor = InkColorIndex.GREEN;
-
-            //Secundario + primario ya incluido = secundario
-            else if ((color == InkColorIndex.RED && (other.color == InkColorIndex.YELLOW || other.color == InkColorIndex.MAGENTA))|| (other.color == InkColorIndex.RED && (color == InkColorIndex.YELLOW || color == InkColorIndex.MAGENTA)))
-                childColor = InkColorIndex.RED;
-            else if ((color == InkColorIndex.BLUE && (other.color == InkColorIndex.CYAN || other.color == InkColorIndex.MAGENTA)) || (other.color == InkColorIndex.BLUE && (color == InkColorIndex.CYAN || color == InkColorIndex.MAGENTA)))
-                childColor = InkColorIndex.BLUE;
-            else if ((color == InkColorIndex.GREEN && (other.color == InkColorIndex.CYAN || other.color == InkColorIndex.YELLOW)) || (other.color == InkColorIndex.GREEN && (color == InkColorIndex.CYAN || color == InkColorIndex.YELLOW)))
-                childColor = InkColorIndex.GREEN;
-
-            //(secundario + secundario) / (secundario + primario faltante) = HIJO NEGRO
-            else
-                childColor = InkColorIndex.BLACK;
-        }
-
-        //Instanciamos el hijo con el color correcto en mitad de los dos monigotes
-        Vector3 pos = (other.transform.position - transform.position)/2f + transform.position;
-        GameManager.self.ActivateMoninker(pos, childColor);
-
-        //GameObject child = Instantiate(GameManager.self.moninkerPrefab);
-        //child.GetComponent<MoninkerController>().SetColor(childColor);
-        //Actualizar numero de moninkers
-        //GameManager.self.AddChildScore();
-    }
-
-    public void SetColor(InkColorIndex colorIndex)
-    {
-        GameManager.self.RemoveColor(color);
-
-        //Teñir de un color
-        if (colorIndex!= InkColorIndex.NONE)
-        {
-            color = colorIndex;
-            foreach (SpriteRenderer s in sprites)
-            {
-                s.material.SetColor("TintColor", InkColors[color]);
-                //sprite.color = InkColors[color];
-            }
-            GameManager.self.AddColor(colorIndex);
-
-            //Si es negro cambiamos sus caracteristicas
-            if (color == InkColorIndex.BLACK)
-            {
-                triggerDetector.radius = 10;
-                if (currState != null)
-                {
-                    currState.StartWander();
-                    wanderState.currHeatTime = 0;
-                }
-            }
-        }
-        //Borrar
-        else
-        {
-            GameManager.self.DeactivateMoninker(this);
-            //Destroy(gameObject);
+            Vector3 pos = (other.transform.position - transform.position)/2f + transform.position;
+            GameManager.self.ActivateMoninker(pos, childColor);
         }
     }
-
-    //private void OnMouseDrag()
-    //{
-    //    if(Input.GetMouseButton(0) && !dragging && color != InkColorIndex.BLACK)
-    //    {
-    //        currState.StartDragging();
-    //        dragging = true;
-    //    }
-    //}
-
-    //private void OnMouseUp()
-    //{
-    //    if(Input.GetMouseButtonUp(0) && dragging)
-    //    {
-    //        currState.StartWander();
-    //        dragging = false;
-    //    }
-    //}
 }

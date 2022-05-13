@@ -53,10 +53,10 @@ public class GrabberController : MonoBehaviour
         GameManager.self.GetMoninkersInRadius(point, radius, out grabbedMoninkers);
 
         //Tomamos el color del moninker mas cercano y cogemos solo los monigotes de ese color
-        InkColorIndex color = GetNearestMoninkerInList(point, grabbedMoninkers).color;
+        InkColorIndex color = GetNearestMoninkerInList(point, grabbedMoninkers).MoninkerColor;
         for (int i = 0; i < grabbedMoninkers.Count; i++)
         {
-            if (grabbedMoninkers[i].color != color)
+            if (grabbedMoninkers[i].MoninkerColor != color)
             {
                 grabbedMoninkers.RemoveAt(i);
                 i--;
@@ -94,7 +94,7 @@ public class GrabberController : MonoBehaviour
         //Drop teñido (del color de los moninkers)
         else if (grabbedMoninkers.Count >= minDyeSkillCombine)
         {
-            InkColorIndex color = grabbedMoninkers[0].color;
+            InkColorIndex color = grabbedMoninkers[0].MoninkerColor;
             SkillsController.self.CreateDyeSkillDrop(color, cursor);
         }
         //No se puede combinar

@@ -48,7 +48,7 @@ public class PaintShotController : MonoBehaviour
         //Cambiar color monigotes dentro del area
         if(other.CompareTag(tagMoninker))
         {
-            other.gameObject.GetComponent<MoninkerController>().SetColor(colorIndex);
+            other.gameObject.GetComponent<MoninkerController>().MoninkerColor = colorIndex;
         }     
     }
 

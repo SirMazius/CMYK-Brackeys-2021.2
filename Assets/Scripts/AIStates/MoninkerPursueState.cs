@@ -28,7 +28,7 @@ public class MoninkerPursueState : MoninkerState
             {
                 controller.agent.destination = controller.currTarget.position;
                 //Cambiamos la velocidad a más rapido para perseguir
-                if(controller.color == InkColorIndex.BLACK)
+                if(controller.MoninkerColor == InkColorIndex.BLACK)
                     controller.agent.speed = blackSpeed;
                 else
                     controller.agent.speed = pursueSpeed;
@@ -44,7 +44,7 @@ public class MoninkerPursueState : MoninkerState
     public void Reproduce(MoninkerController other)
     {
         //Instanciar hijo combinando colores
-        controller.CreateChild(other);
+        controller.ReproduceWith(other);
         GameManager.self.currFrameSpawn++;
 
         //Pasar de nuevo a wander y reiniciar celo

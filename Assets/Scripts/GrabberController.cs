@@ -12,7 +12,8 @@ public class GrabberController : MonoBehaviour
     public Vector3[] offsets;
 
     [Header("Combinar moninkers")]
-    public int minMoninkersCombined = 10;
+    public int minDyeSkillCombine = 10;
+    public int minMoabSkillCombine = 30;
     public float combineRadius = 10;
 
 
@@ -85,16 +86,27 @@ public class GrabberController : MonoBehaviour
     //Combinamos los grabbed moninkers en una habilidad(si hay la suficiente cantidad)
     public void CombineMoninkers()
     {
-        if(grabbedMoninkers.Count >= minMoninkersCombined)
+        //Drop BlackBomb
+        if(grabbedMoninkers.Count >= minMoabSkillCombine)
+        {
+            SkillsController.self.CreateBlackBombSkillDrop(cursor);
+        }
+        //Drop teñido (del color de los moninkers)
+        else if (grabbedMoninkers.Count >= minDyeSkillCombine)
         {
             InkColorIndex color = grabbedMoninkers[0].color;
-
-            for(int i=0; i<minMoninkersCombined; i++)
-                GameManager.self.DeactivateMoninker(grabbedMoninkers[i]);
-
-            //Instanciamos una nueva habilidad
             SkillsController.self.CreateDyeSkillDrop(color, cursor);
         }
+        //No se puede combinar
+        else
+        {
+            Debug.Log("No hay suficientes moninquers para combinar");
+            return;
+        }
+
+        //Eliminamos combinados
+        for (int i=0; i<grabbedMoninkers.Count; i++)
+            GameManager.self.DeactivateMoninker(grabbedMoninkers[i]);
     }
 
     public MoninkerController GetNearestMoninkerInList(Vector3 point, List<MoninkerController> moninkers)

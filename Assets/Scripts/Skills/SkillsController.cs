@@ -34,9 +34,9 @@ public class SkillsController : MonoBehaviour
     }
 
     //Genera un drop de habilidad de teñir de un color en un punto
-    public void CreateDyeSkillDrop(InkColorIndex moninkerColor, Vector3 point)
+    public void CreateDyeSkillDrop(InkColorIndex dyeColor, Vector3 point)
     {
-        switch(moninkerColor)
+        switch(dyeColor)
         {
             case InkColorIndex.CYAN:
                 CreateSkillDrop(SkillType.DYE_CYAN, point);
@@ -48,6 +48,12 @@ public class SkillsController : MonoBehaviour
                 CreateSkillDrop(SkillType.DYE_YELLOW, point);
                 break;
         }
+    }
+
+    //Generar un drop de habilidad de eliminar selectivamente en area un color
+    public void CreateBlackBombSkillDrop(Vector3 point)
+    {
+        CreateSkillDrop(SkillType.BLACK_BOMB, point);
     }
 
     //Añadir la habilidad que contiene el drop

@@ -21,7 +21,7 @@ public class Globals
         DYE_CYAN,
         DYE_MAGENTA,
         DYE_YELLOW,
-        RELOAD_ERASER,
+        DYE_ERASER,
         BLACK_BOMB
     }
 
@@ -33,12 +33,15 @@ public class Globals
         {InkColorIndex.RED, new Color32(255,141,92,255)}, // Red #FF8D5C
         {InkColorIndex.GREEN, new Color32(140,255,84,255)}, // Green #8CFF54
         {InkColorIndex.BLUE, new Color32(99,110,255,255)}, // Blue #636EFF
-        {InkColorIndex.BLACK, new Color32(48,48,48,255)} // Black #303030
+        {InkColorIndex.BLACK, new Color32(48,48,48,255)}, // Black #303030
+        {InkColorIndex.NONE, new Color32(180,180,180,255)} // Borrador #C9C9C9
     };
 
-    public static Color eraserColor = new Color32(180,180,180,255); //#C9C9C9
+    public static Dictionary<SkillType, Sprite> SkillsIcons = new Dictionary<SkillType, Sprite>();
 
     public static string tagMoninker = "Moninker";
+
+
 
 
     /////////////// FUNCIONES //////////////////

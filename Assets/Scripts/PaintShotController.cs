@@ -65,17 +65,10 @@ public class PaintShotController : MonoBehaviour
     public void SetPaintColor(InkColorIndex _colorIndex)
     {
         colorIndex = _colorIndex;
-        //Gota de pintura para teñir
-        if (colorIndex != InkColorIndex.NONE)
-        {
-            color = InkColors[colorIndex];
-        }
-        //Gota de tipex para borrar
-        else
-        {
+        color = InkColors[colorIndex];
+
+        if (colorIndex == InkColorIndex.NONE)
             eraser = true;
-            color = eraserColor;
-        }
 
         dropController.SetColor(color);
         color.a = 0.7f;

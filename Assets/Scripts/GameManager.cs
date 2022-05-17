@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
                 {
                     MoninkerController m = cellMoninkers[i];
                     float currDist = Vector3.Distance(m.transform.position, center);
-                    if (currDist < maxDist)
+                    if (currDist < maxDist && !(m.currState is MoninkerDraggingState))
                         moninkers.Add(m);
                 }
             }

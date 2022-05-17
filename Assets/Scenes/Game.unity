@@ -306,8 +306,8 @@ MonoBehaviour:
   - {fileID: 490043863}
   - {fileID: 619391360}
   gridCorner: {x: 0, y: 0, z: 0}
-  gridX: 15
-  gridZ: 15
+  gridX: 2
+  gridZ: 2
   distX: 0
   distZ: 0
   primariesCount: 000000000000000000000000
@@ -395,8 +395,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabbedMoninkers: []
-  radius: 10
-  offsets: []
+  grabbedColor: -1
+  grabRadius: 0.4
+  attractRadius: 5
+  attractForce: 3
+  minDyeSkillCombine: 10
+  minMoabSkillCombine: 30
 --- !u!1 &329352255
 GameObject:
   m_ObjectHideFlags: 0

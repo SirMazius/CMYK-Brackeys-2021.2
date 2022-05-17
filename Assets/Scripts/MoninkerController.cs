@@ -52,12 +52,9 @@ public class MoninkerController : MonoBehaviour
     }
     public static float bodyRadius = 0.4f;
 
-    //Drag
-    public bool dragging = false;
-
     //Listas de monigotes cercanos
     public List<MoninkerController> nearMoninkers = new List<MoninkerController>();
-    public Vector2Int currCell = new Vector2Int(); 
+    public Vector2Int currCell = new Vector2Int();
 
     //Parametros de movimiento y tiempos de IA
     [Header("IA")][SerializeField]
@@ -69,8 +66,8 @@ public class MoninkerController : MonoBehaviour
     public static float wanderWaitMinTime = 0.1f, wanderWaitMaxTime = 0.5f;
     public static float wanderMaxReachTime = 2;
     public static float minHeatTime = 4, maxHeatTime = 12, blackHeatTime = 3;
-    public Vector3 dragOffset;
-
+    
+    public Vector3 grabOffset = new Vector3();
     public bool heat = false;
 
     //Maquina de estados
@@ -87,6 +84,7 @@ public class MoninkerController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         sprites = GetComponentsInChildren<SpriteRenderer>();
+        coll = GetComponentInChildren<SphereCollider>(true);
     }
 
     // Start is called before the first frame update

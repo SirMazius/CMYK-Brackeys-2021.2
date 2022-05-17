@@ -57,6 +57,7 @@ public class Globals
             return Vector3.positiveInfinity;
     }
 
+    //Devuelve el resultado de mezclar dos colores de moninkers
     public static InkColorIndex MixColors(InkColorIndex c1, InkColorIndex c2)
     {
         InkColorIndex result = InkColorIndex.NONE;
@@ -97,5 +98,11 @@ public class Globals
         }
 
         return result;
+    }
+
+    //Devuelve la Y de una parabola concava donde con x maxima y es 0 y viceversa
+    public static float CenteredInverseParabola(float value, float maxValue, float maxReturn)
+    {
+        return Mathf.Clamp((value*value * (-maxReturn/(maxValue*maxValue)) + maxReturn), 0, maxReturn);
     }
 }

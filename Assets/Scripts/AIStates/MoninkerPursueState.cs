@@ -65,6 +65,7 @@ public class MoninkerPursueState : MoninkerState
         controller.currTarget = null;
         controller.agent.isStopped = true;
         controller.agent.ResetPath();
+        controller.coll.enabled = false;
     }
 
     public void StartWander()

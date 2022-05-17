@@ -7,19 +7,19 @@ public class GrabberController : MonoBehaviour
 {
     public static GrabberController self;
     public Vector3 cursor { get => GetCursorFloorPoint();}
-    public Vector3[] offsets;
 
     [Header("Atracción moninkers")]
     public List<MoninkerController> grabbedMoninkers;
-    public float grabRadius = 3;
+    public InkColorIndex grabbedColor = InkColorIndex.NONE;
+    public float grabRadius = 0.5f;
     public float attractRadius = 10;
-    public float attractForce = 1;
+    public float attractForce = 0.01f;
+    private bool inCombo = false; 
     //TODO: ¿offset de tiempo entre grabbed moninkers?/¿attractiopn force disminuye con el tiempo?
 
     [Header("Combinar moninkers")]
     public int minDyeSkillCombine = 10;
     public int minMoabSkillCombine = 30;
-    public float combineRadius = 10;
 
 
     void Awake()
@@ -33,61 +33,140 @@ public class GrabberController : MonoBehaviour
 
     void Update()
     {
-        //Comenzar el grab seleccionando a los monigotes implicados
         if (Input.GetMouseButtonDown(0))
-        {
             StartGrabMoninkers(cursor, grabRadius);
-        }
-        //Mover monigotes
-        else if (Input.GetMouseButton(0) && grabbedMoninkers != null)
-        {
-            Vector3 point = cursor;
-            for (int i = 0; i < grabbedMoninkers.Count; i++)
-                grabbedMoninkers[i].transform.position = cursor + offsets[i];
-            //TODO: Atraer además a moninkers
-
-        }
-        //Soltar monigotes y pasar a wander
+        else if (Input.GetMouseButton(0))
+            WhileHoldingDown(cursor);
         else if(Input.GetMouseButtonUp(0))
-        {
             EndGrabMoninkers();
-        }
     }
 
+    
+    #region LOGICA DE CLICK
+
+    //Comenzar el grab seleccionando a los monigotes implicados
     public void StartGrabMoninkers(Vector3 point, float radius)
     {
+        grabbedMoninkers.Clear();
+
         //Obtenemos los monikers cercanos a donde se ha clicado
-        GameManager.self.GetMoninkersInRadius(point, radius, out grabbedMoninkers);
+        List<MoninkerController> nearMoninkers;
+        GameManager.self.GetMoninkersInRadius(point, radius, out nearMoninkers);
 
         //Tomamos el color del moninker mas cercano y cogemos solo los monigotes de ese color
-        InkColorIndex color = GetNearestMoninkerInList(point, grabbedMoninkers).MoninkerColor;
-        for (int i = 0; i < grabbedMoninkers.Count; i++)
+        var nearest = GetNearestMoninkerInList(point, nearMoninkers);
+        if (nearest && nearest.MoninkerColor != InkColorIndex.NONE)
         {
-            if (grabbedMoninkers[i].MoninkerColor != color)
-            {
-                grabbedMoninkers.RemoveAt(i);
-                i--;
-            }
-        }
-
-        //Almacenamos los offsets respecto al punto clicado y pasamos a dragging
-        offsets = new Vector3[grabbedMoninkers.Count];
-        for (int i = 0; i < grabbedMoninkers.Count; i++)
-        {
-            MoninkerController m = grabbedMoninkers[i];
-            offsets[i] = m.transform.position - point;
-            m.currState = m.draggingState;
+            grabbedColor = nearest.MoninkerColor;
+            inCombo = true;
         }
     }
 
+    //Al mantener y arrastrar se atraen moninkers hasta agarrarlos, pudiendo desplazarlos completamente
+    public void WhileHoldingDown(Vector3 point)
+    {
+        if (inCombo)
+        {
+            //Desplazar atrayendo moninkers cercanos
+            var attracteds = AttractMoninkers(point);
+            //Coger atraidos muy cercanos o cortar combo
+            //inCombo = !
+            TryGrabIfNear(point, attracteds);
+        }
+
+        //Desplazar cogidos
+        for (int i = 0; i < grabbedMoninkers.Count; i++)
+            grabbedMoninkers[i].transform.position = point + grabbedMoninkers[i].grabOffset;
+    }
+
+    //Soltar monigotes y pasar a wander
     public void EndGrabMoninkers()
     {
+        inCombo = false;
+
         for (int i = 0; i < grabbedMoninkers.Count; i++)
         {
             MoninkerController m = grabbedMoninkers[i];
             m.currState = m.wanderState;
         }
+
         grabbedMoninkers.Clear();
+    }
+
+    #endregion
+
+
+    //Mover los moninkers cercanos con una fuerza inversamente proporcional a la distancia
+    public List<MoninkerController> AttractMoninkers(Vector3 point)
+    {
+        List<MoninkerController> attractedMoninkers;
+        GameManager.self.GetMoninkersInRadius(point, attractRadius, out attractedMoninkers);
+
+        foreach(var m in attractedMoninkers)
+        {
+            Vector3 distVec = point - m.transform.position;
+            distVec = Vector3.ProjectOnPlane(distVec, Vector3.up);
+            float distance = distVec.magnitude;
+
+            //Aplicamos un desplazamiento continuo proporcionalmente inverso a la distancia
+            float forceMag = CenteredInverseParabola(distance, attractRadius, attractForce); //(1 - Mathf.InverseLerp(0, attractRadius, distance)) * attractForce;
+            
+            //Evitamos que se pase al otro lado del punto
+            Vector3 moveIncrement = distVec.normalized * Mathf.Clamp(forceMag * Time.deltaTime, 0, distance);
+            Debug.DrawRay(m.transform.position, distVec.normalized * forceMag * 0.1f, Color.red);
+            m.transform.position += moveIncrement;
+        }
+
+        return attractedMoninkers;
+    }
+
+    //Coger moninkers en radio de grab del mismo color o cortar combo si son de otro
+    public bool TryGrabIfNear(Vector3 point, List<MoninkerController> moninkers)
+    {
+        bool breakCombo = false;
+
+        foreach(MoninkerController m in moninkers)
+        {
+            if(Vector3.Distance(m.transform.position, point) < grabRadius)
+            {
+                //Añadir a cogidos si es del mismo color
+                if (m.MoninkerColor == grabbedColor)
+                    GrabMoninker(m, point);
+                //Si es de otro color, corta el combo para la siguiente iteracion de update
+                else
+                    breakCombo = true;
+            }
+        }
+        return breakCombo;
+    }
+
+    //Pasar a cogido un moninker anotando su offset y cambiando a estado dragging
+    private void GrabMoninker(MoninkerController moninker, Vector3 point)
+    {
+        grabbedMoninkers.Add(moninker);
+        moninker.grabOffset = moninker.transform.position - point;
+        moninker.currState.StartDragging();
+    }
+
+    //Devuelve el moninker de la lista mas cercano al punto indicado
+    public MoninkerController GetNearestMoninkerInList(Vector3 point, List<MoninkerController> moninkers)
+    {
+        MoninkerController nearest = null;
+        float nearestDist = Mathf.Infinity;
+
+        for (int i = 0; i < moninkers.Count; i++)
+        {
+            MoninkerController m = moninkers[i];
+            float currDist = Vector3.Distance(m.transform.position, point);
+            //TODO: ¿Evitar coger negros?
+            if (currDist < nearestDist)
+            {
+                nearestDist = currDist;
+                nearest = m;
+            }
+        }
+
+        return nearest;
     }
 
     //Combinamos los grabbed moninkers en una habilidad(si hay la suficiente cantidad)
@@ -114,41 +193,5 @@ public class GrabberController : MonoBehaviour
         //Eliminamos combinados
         for (int i=0; i<grabbedMoninkers.Count; i++)
             GameManager.self.DeactivateMoninker(grabbedMoninkers[i]);
-    }
-
-    public MoninkerController GetNearestMoninkerInList(Vector3 point, List<MoninkerController> moninkers)
-    {
-        MoninkerController nearest = null;
-        float nearestDist = Mathf.Infinity;
-
-        for (int i = 0; i < moninkers.Count; i++)
-        {
-            MoninkerController m = moninkers[i];
-            float currDist = Vector3.Distance(m.transform.position, point);
-            if (currDist < nearestDist)
-            {
-                nearestDist = currDist;
-                nearest = m;
-            }
-        }
-
-        return nearest;
-    }
-
-    //Mover los moninkers cercanos con una fuerza inversamente proporcional a la distancia
-    public void AtractMoninkers(Vector3 point)
-    {
-        List<MoninkerController> attractedMoninkers;
-        GameManager.self.GetMoninkersInRadius(point, attractRadius, out attractedMoninkers);
-
-        foreach(var m in attractedMoninkers)
-        {
-            Vector3 distVec = m.transform.position - point;
-            float distance = distVec.magnitude;
-
-            //Aplicamos una fuerza proporcionalmente inversa a la distancia
-            float force = attractRadius/distance * attractForce;
-            //TODO: Continuar aplicando fuerza segun el dt
-        }
     }
 }

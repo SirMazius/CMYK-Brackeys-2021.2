@@ -36,6 +36,7 @@ public class MoninkerDraggingState : MoninkerState
     public void StartWander()
     {
         controller.currState = controller.wanderState;
+        controller.coll.enabled = true;
         controller.agent.isStopped = false;
     }
 

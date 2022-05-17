@@ -145,6 +145,7 @@ public class MoninkerWanderState : MoninkerState
         controller.currTarget = null;
         controller.agent.isStopped = true;
         controller.agent.ResetPath();
+        controller.coll.enabled = false;
     }
 
     public void OnTriggerEnter(Collider coll) { }

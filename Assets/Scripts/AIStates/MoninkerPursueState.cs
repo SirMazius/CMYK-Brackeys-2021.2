@@ -16,10 +16,9 @@ public class MoninkerPursueState : MoninkerState
     //Se dirige a su objetivo
     public void UpdateState()
     {
-        //Si tiene objetivo y si se busca una concha que no es de un enemigo o se va a por el enemigo directamente (es mas grande y ha sido atacado) se dirige al objetivo
         if (controller.currTarget != null && GameManager.self.currFrameSpawn< GameManager.self.maxFrameSpawn)
         {
-            if(Vector3.Distance(controller.transform.position, controller.currTarget.transform.position) < bodyRadius * 2f)
+            if(Vector3.Distance(controller.transform.position, controller.currTarget.transform.position) < controller.agent.radius * 2f)
             {
                 //Instanciar un nuevo monigote y resetear padres
                 Reproduce(controller.currTarget.GetComponent<MoninkerController>());
@@ -66,6 +65,7 @@ public class MoninkerPursueState : MoninkerState
         controller.agent.isStopped = true;
         controller.agent.ResetPath();
         controller.coll.enabled = false;
+        controller.agent.radius = grabbedCollRadius;
     }
 
     public void StartWander()
@@ -73,6 +73,7 @@ public class MoninkerPursueState : MoninkerState
         controller.currTarget = null;
         controller.currState = controller.wanderState;
         controller.agent.ResetPath();
+        controller.agent.radius = normalCollRadius;
     }
 
     public void OnTriggerEnter(Collider coll)

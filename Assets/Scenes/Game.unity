@@ -306,8 +306,8 @@ MonoBehaviour:
   - {fileID: 490043863}
   - {fileID: 619391360}
   gridCorner: {x: 0, y: 0, z: 0}
-  gridX: 2
-  gridZ: 2
+  gridX: 16
+  gridZ: 16
   distX: 0
   distZ: 0
   primariesCount: 000000000000000000000000
@@ -397,8 +397,8 @@ MonoBehaviour:
   grabbedMoninkers: []
   grabbedColor: -1
   grabRadius: 0.4
-  attractRadius: 5
-  attractForce: 3
+  attractRadius: 3
+  attractForce: 2.5
   minDyeSkillCombine: 10
   minMoabSkillCombine: 30
 --- !u!1 &329352255

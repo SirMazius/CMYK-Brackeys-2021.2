@@ -138,6 +138,7 @@ public class MoninkerWanderState : MoninkerState
     public void StartWander() 
     {
         currHeatTime = 0;
+        controller.agent.radius = normalCollRadius;
     }
     public void StartDragging()
     {
@@ -146,6 +147,7 @@ public class MoninkerWanderState : MoninkerState
         controller.agent.isStopped = true;
         controller.agent.ResetPath();
         controller.coll.enabled = false;
+        controller.agent.radius = grabbedCollRadius;
     }
 
     public void OnTriggerEnter(Collider coll) { }

@@ -43,7 +43,6 @@ public class Globals
 
 
 
-
     /////////////// FUNCIONES //////////////////
 
     //Hacemos un raycast para obtener el punto del folio en el que choca

@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     public bool inGame = false;
     public float currGameTime;
     public float secsUntilHardest = 180;
-
+    
     
     void Awake()
     {
@@ -171,12 +171,7 @@ public class GameManager : MonoBehaviour
     {
         moninkers = new List<MoninkerController>();
         Vector2Int cell = GetCell(center);
-        Vector2Int[] checkCells = {cell,
-            new Vector2Int(cell.x-1, cell.y),
-            new Vector2Int(cell.x+1, cell.y),
-            new Vector2Int(cell.x, cell.y+1),
-            new Vector2Int(cell.x, cell.y-1)
-        };
+        List<Vector2Int> checkCells = GetCheckCellsInRadius(center, maxDist);
 
         foreach (Vector2Int c in checkCells)
         {
@@ -193,6 +188,25 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    //Devuelve una lista de celdas en las que comporbar la cercania desde un punto
+    private List<Vector2Int> GetCheckCellsInRadius(Vector3 center, float radius)
+    {
+        List<Vector2Int> checkCells = new List<Vector2Int>();
+
+        //Obtenemos el numero de celdas de radio que vamos a seleccionar y la celda central de la que partimos
+        int radiusCellsX =  Mathf.CeilToInt(radius/distX);
+        int radiusCellsY =  Mathf.CeilToInt(radius/distZ);
+        Vector2Int centerCell = GetCell(center);
+
+        //Preparamos el array con el rectangulo de celdas en función del radio
+        for(int i = Mathf.Max(0, centerCell.x - radiusCellsX); i <= Mathf.Min(centerCell.x + radiusCellsX, gridX); i++)
+            for(int j = Mathf.Max(0, centerCell.y - radiusCellsY); j <= Mathf.Min(centerCell.y + radiusCellsY, gridZ); j++)
+                checkCells.Add(new Vector2Int(i,j));
+
+        return checkCells;
+    }
+
 
     #endregion
 

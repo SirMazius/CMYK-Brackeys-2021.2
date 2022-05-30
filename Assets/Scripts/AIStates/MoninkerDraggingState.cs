@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MoninkerController;
 
 public class MoninkerDraggingState : MoninkerState
 {
@@ -38,6 +39,7 @@ public class MoninkerDraggingState : MoninkerState
         controller.currState = controller.wanderState;
         controller.coll.enabled = true;
         controller.agent.isStopped = false;
+        controller.agent.radius = normalCollRadius;
     }
 
     public void UpdateState()

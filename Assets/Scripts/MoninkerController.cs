@@ -50,7 +50,6 @@ public class MoninkerController : MonoBehaviour
                 GameManager.self.DeactivateMoninker(this);
         }
     }
-    public static float bodyRadius = 0.4f;
 
     //Listas de monigotes cercanos
     public List<MoninkerController> nearMoninkers = new List<MoninkerController>();
@@ -66,9 +65,14 @@ public class MoninkerController : MonoBehaviour
     public static float wanderWaitMinTime = 0.1f, wanderWaitMaxTime = 0.5f;
     public static float wanderMaxReachTime = 2;
     public static float minHeatTime = 4, maxHeatTime = 12, blackHeatTime = 3;
-    
+
     public Vector3 grabOffset = new Vector3();
     public bool heat = false;
+
+    //Colliders moninkers
+    public static float normalCollRadius = 0.2f;
+    public static float grabbedCollRadius = 0.01f;
+    
 
     //Maquina de estados
     [HideInInspector]

@@ -70,8 +70,7 @@ public class GrabberController : MonoBehaviour
             //Desplazar atrayendo moninkers cercanos
             var attracteds = AttractMoninkers(point);
             //Coger atraidos muy cercanos o cortar combo
-            //inCombo = !
-            TryGrabIfNear(point, attracteds);
+            inCombo = !TryGrabIfNear(point, attracteds);
         }
 
         //Desplazar cogidos

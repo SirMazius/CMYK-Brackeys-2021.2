@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using static Globals;
+using static GameGlobals;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +18,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI scoreEndText;
     public BarController eraserBar;
     public Color countWarningColor;
+
+    //TODO: Controlar hover de exchangers
+    public UIElementCursor SkillPanelSimple, SkillPanelBetter;
+
 
     public void Awake()
     {
@@ -69,5 +75,10 @@ public class UIManager : MonoBehaviour
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ExitApplication()
+    {
+        Application.Quit();
     }
 }

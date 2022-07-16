@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static MoninkerController;
-using static Globals;
+using static GameGlobals;
 
 public class MoninkerPursueState : MoninkerState
 {

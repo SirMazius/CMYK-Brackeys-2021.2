@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Globals;
+using static GameGlobals;
 
 //Habilidad de bola de pintura para teñir (o borrar) moninkers
 public class SkillDye : Skill
 {
-    public InkColorIndex color;
+    public InkColorIndex Color;
+
+    public SkillDye(InkColorIndex color = InkColorIndex.NONE)
+    {
+        Color = color;
+    }
 
     private void Start()
     {
-        switch(color)
+        switch(Color)
         {
             case InkColorIndex.CYAN:
                 type = SkillType.DYE_CYAN;
@@ -28,11 +33,11 @@ public class SkillDye : Skill
     }
 
 
-    public override void LaunchSkill(Vector3 point)
+    public override void Launch(Vector3 point)
     {
-        base.LaunchSkill(point);
+        base.Launch(point);
 
         //Instanciar un chorro de pintura
-        PaintSpawner.self.CreatePaintShot(color, point);
+        PaintSpawner.self.CreatePaintShot(Color, point);
     }
 }

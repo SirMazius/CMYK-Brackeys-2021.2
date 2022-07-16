@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class Globals
+public static class GameGlobals
 {
     public enum InkColorIndex
     {
@@ -14,15 +15,34 @@ public class Globals
         GREEN = 4,
         BLUE = 5,
         BLACK = 6
-    }
-
+    }   
+    
     public enum SkillType
     {
-        DYE_CYAN,
-        DYE_MAGENTA,
-        DYE_YELLOW,
-        DYE_ERASER,
-        BLACK_BOMB
+        DYE_CYAN = 1<<0,
+        DYE_MAGENTA = 1<<1,
+        DYE_YELLOW = 1<<2,
+        DYE_ERASER = 1<<3,
+        BLACK_BOMB = 1<<4
+    }
+    //Selector exclusivo de flag enums
+    //
+    //private SkillType _exclusiveSkill = 0;
+    //[SerializeField][EnumToggleButtons]
+    //public SkillType ExclusiveSkill
+    //{
+    //    get => _exclusiveSkill;
+    //    set {
+    //        var prev = _exclusiveSkill;
+    //        _exclusiveSkill = value & ~prev;
+    //    }
+    //}
+
+    public enum ExchangerType
+    {
+        NONE = -1,
+        SIMPLE,
+        BETTER
     }
 
     public static Dictionary<InkColorIndex, Color> InkColors = new Dictionary<InkColorIndex, Color>
@@ -37,13 +57,17 @@ public class Globals
         {InkColorIndex.NONE, new Color32(180,180,180,255)} // Borrador #C9C9C9
     };
 
+    public static Dictionary<ExchangerType, int> ExchangeQuantities = new Dictionary<ExchangerType, int>()
+    {
+        {ExchangerType.SIMPLE, 10},
+        {ExchangerType.BETTER, 20}
+    };
+
     public static Dictionary<SkillType, Sprite> SkillsIcons = new Dictionary<SkillType, Sprite>();
-
     public static string tagMoninker = "Moninker";
+    
 
-
-
-    /////////////// FUNCIONES //////////////////
+    #region FUNCIONES
 
     //Hacemos un raycast para obtener el punto del folio en el que choca
     public static Vector3 GetCursorFloorPoint()
@@ -104,4 +128,6 @@ public class Globals
     {
         return Mathf.Clamp((value*value * (-maxReturn/(maxValue*maxValue)) + maxReturn), 0, maxReturn);
     }
+
+    #endregion
 }

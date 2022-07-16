@@ -1,22 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static SkillsController;
-using static Globals;
+using static GameGlobals;
 using TMPro;
 using System;
 
-public class Skill: MonoBehaviour
+public abstract class Skill: MonoBehaviour
 {
-    public Action<SkillType> OnLaunch;
     public SkillType type;
+    public bool grabbing = false;
 
-    [Header("UI")]
-    public GameObject iconUI;
+    public abstract void Launch(Vector3 point);
 
 
-    public virtual void LaunchSkill(Vector3 point)
+    public void StartGrabbing()
     {
-        OnLaunch(type);
+        grabbing = true;
     }
 }

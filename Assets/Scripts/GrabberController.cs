@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Globals;
+using static GameGlobals;
 
 public class GrabberController : MonoBehaviour
 {
@@ -10,16 +10,16 @@ public class GrabberController : MonoBehaviour
 
     [Header("Atracción moninkers")]
     public List<MoninkerController> grabbedMoninkers;
-    public InkColorIndex grabbedColor = InkColorIndex.NONE;
+    public InkColorIndex grabbedsColor = InkColorIndex.NONE;
     public float grabRadius = 0.5f;
     public float attractRadius = 10;
     public float attractForce = 0.01f;
-    private bool inCombo = false; 
+    private bool inCombo = false;
     //TODO: ¿offset de tiempo entre grabbed moninkers?/¿attractiopn force disminuye con el tiempo?
 
-    [Header("Combinar moninkers")]
-    public int minDyeSkillCombine = 10;
-    public int minMoabSkillCombine = 30;
+    //Exchanger sobre el que esta el cursor en este momento
+    //TODO: Controlar on hover enter y exit de exchangers
+    public SkillExchanger OveredExchanger = null;
 
 
     void Awake()
@@ -57,7 +57,7 @@ public class GrabberController : MonoBehaviour
         var nearest = GetNearestMoninkerInList(point, nearMoninkers);
         if (nearest && nearest.MoninkerColor != InkColorIndex.NONE)
         {
-            grabbedColor = nearest.MoninkerColor;
+            grabbedsColor = nearest.MoninkerColor;
             inCombo = true;
         }
     }
@@ -83,12 +83,21 @@ public class GrabberController : MonoBehaviour
     {
         inCombo = false;
 
+        //Se puede canjear moninkers por habilidades
+        if (IsOverExchanger())
+        {
+            if(OveredExchanger.TryExchange(grabbedMoninkers.Count, grabbedsColor))
+            {
+                //TODO: Destruir los X moninkers pedidos
+            }
+        }
+        
+        //Se sueltan los moninkers que no han sido intercambiados
         for (int i = 0; i < grabbedMoninkers.Count; i++)
         {
             MoninkerController m = grabbedMoninkers[i];
             m.currState = m.wanderState;
         }
-
         grabbedMoninkers.Clear();
     }
 
@@ -129,7 +138,7 @@ public class GrabberController : MonoBehaviour
             if(Vector3.Distance(m.transform.position, point) < grabRadius)
             {
                 //Añadir a cogidos si es del mismo color
-                if (m.MoninkerColor == grabbedColor)
+                if (m.MoninkerColor == grabbedsColor)
                     GrabMoninker(m, point);
                 //Si es de otro color, corta el combo para la siguiente iteracion de update
                 else
@@ -168,29 +177,15 @@ public class GrabberController : MonoBehaviour
         return nearest;
     }
 
-    //Combinamos los grabbed moninkers en una habilidad(si hay la suficiente cantidad)
-    public void CombineMoninkers()
+
+    //Comprueba si hay moninkers agarrados sobre un exchanger
+    public bool IsOverExchanger()
     {
-        //Drop BlackBomb
-        if(grabbedMoninkers.Count >= minMoabSkillCombine)
+        if(grabbedMoninkers.Count > 0 && OveredExchanger!= null)
         {
-            SkillsController.self.CreateBlackBombSkillDrop(cursor);
-        }
-        //Drop teñido (del color de los moninkers)
-        else if (grabbedMoninkers.Count >= minDyeSkillCombine)
-        {
-            InkColorIndex color = grabbedMoninkers[0].MoninkerColor;
-            SkillsController.self.CreateDyeSkillDrop(color, cursor);
-        }
-        //No se puede combinar
-        else
-        {
-            Debug.Log("No hay suficientes moninquers para combinar");
-            return;
+            //TODO: Comprobacion de estar sobre un exchanger
         }
 
-        //Eliminamos combinados
-        for (int i=0; i<grabbedMoninkers.Count; i++)
-            GameManager.self.DeactivateMoninker(grabbedMoninkers[i]);
+        return false;
     }
 }

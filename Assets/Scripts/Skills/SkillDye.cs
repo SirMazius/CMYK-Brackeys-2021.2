@@ -33,11 +33,9 @@ public class SkillDye : Skill
     }
 
 
-    public override void Launch(Vector3 point)
+    public override void Launch()
     {
-        base.Launch(point);
-
         //Instanciar un chorro de pintura
-        PaintSpawner.self.CreatePaintShot(Color, point);
+        PaintSpawner.self.CreatePaintShot(Color, GameGlobals.Cursor);
     }
 }

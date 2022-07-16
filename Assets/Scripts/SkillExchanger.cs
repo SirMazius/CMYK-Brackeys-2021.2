@@ -13,6 +13,7 @@ public class SkillExchanger : SerializedMonoBehaviour
 
     public ExchangerType Type = ExchangerType.NONE;
     public int ExchangeQuantity;
+    [SerializeField]
     private Queue<Skill> _skills = new Queue<Skill>();
 
 
@@ -42,7 +43,8 @@ public class SkillExchanger : SerializedMonoBehaviour
     {
         if(AreGrabbedsEnough(nMoninkers))
         {
-            Skill newSkill = CreateSkill(grabbedsColor);
+            Skill newSkill;
+            CreateSkill(grabbedsColor, out newSkill);
             return AddSkill(newSkill);
         }
         else
@@ -71,17 +73,21 @@ public class SkillExchanger : SerializedMonoBehaviour
     }
 
     //Devuelve un objeto skill del tipo correspondiente al exchanger y color de moninkers
-    private Skill CreateSkill(InkColorIndex color)
+    private void CreateSkill(InkColorIndex color, out Skill skill)
     {
+        //TODO: Instanciar el gameobject con el componente skill (prefab)
         switch (Type)
         {
             case ExchangerType.SIMPLE:
-                return new SkillDye(color);
+                skill = new SkillDye(color);
+                break;
             case ExchangerType.BETTER:
-                return new SkillBlackBomb();
+                skill = new SkillBlackBomb();
+                break;
             default:
                 Debug.Log("Error al crear skill");
-                return null;
+                skill = null;
+                break;
         }
     }
 

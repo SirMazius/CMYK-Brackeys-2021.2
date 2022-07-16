@@ -51,7 +51,7 @@ public class MoninkerPursueState : MoninkerState
         other.currState.StartWander();
         controller.wanderState.currHeatTime = 0;
         other.wanderState.currHeatTime = 0;
-        Debug.Log("Ha habido FOLLE");
+        //Debug.Log("Ha habido FOLLE");
     }
 
     public void Impact() { }

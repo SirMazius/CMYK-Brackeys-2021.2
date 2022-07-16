@@ -8,9 +8,8 @@ public class SkillBlackBomb : Skill
 {
     public const float radius = 5f;
 
-    public override void Launch(Vector3 point)
+    public override void Launch()
     {
-        base.Launch(point);
         //TODO: Eliminar negros selectivamente en area
     }
 }

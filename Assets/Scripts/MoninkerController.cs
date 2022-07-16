@@ -47,7 +47,7 @@ public class MoninkerController : MonoBehaviour
             }
             //Borrar
             else
-                GameManager.self.DeactivateMoninker(this);
+                GameManager.DeactivateMoninker(this);
         }
     }
 
@@ -83,6 +83,8 @@ public class MoninkerController : MonoBehaviour
     public MoninkerPursueState pursueState;
     public MoninkerDraggingState draggingState;
 
+    public bool grabbed = false;
+
 
     private void Awake()
     {
@@ -111,20 +113,23 @@ public class MoninkerController : MonoBehaviour
     {
         currState.UpdateState();
 
-        //Billboard sprite
-        Vector3 pos = Camera.main.transform.position;
-        pos.x = transform.position.x;
-        spritesParent.transform.LookAt(pos, Camera.main.transform.up);
-
-        //Detectar la casilla de la grid en la que se coloca
-        Vector2Int newCell = GameManager.self.GetCell(transform.position);
-        
-        //Si se ha cambiado de celda, hacemos el cambio de lista
-        if(currCell != newCell)
+        if(!grabbed)
         {
-            GameManager.self.gridLists[currCell.x, currCell.y].Remove(this);
-            currCell = newCell;
-            GameManager.self.gridLists[currCell.x, currCell.y].Add(this);
+            //Billboard sprite
+            Vector3 pos = Camera.main.transform.position;
+            pos.x = transform.position.x;
+            spritesParent.transform.LookAt(pos, Camera.main.transform.up);
+
+            //Detectar la casilla de la grid en la que se coloca
+            Vector2Int newCell = GameManager.self.GetCell(transform.position);
+        
+            //Si se ha cambiado de celda, hacemos el cambio de lista
+            if(currCell != newCell)
+            {
+                GameManager.self.gridLists[currCell.x, currCell.y].Remove(this);
+                currCell = newCell;
+                GameManager.self.gridLists[currCell.x, currCell.y].Add(this);
+            }
         }
     }
 

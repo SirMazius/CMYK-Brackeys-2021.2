@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public BoxCollider floorColl;
 
     //Pooling de moninkers
-    public Queue<MoninkerController> moninkersPool;
+    public static Queue<MoninkerController> moninkersPool;
     public int poolSize = 1000;
     public int maxFrameSpawn = 2;
     public int currFrameSpawn = 0;
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
     }
 
     //Desactivar monigote y devolverlo a la pool
-    public void DeactivateMoninker(MoninkerController m)
+    public static void DeactivateMoninker(MoninkerController m)
     {
         m.gameObject.SetActive(false);
         moninkersPool.Enqueue(m);
@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour
         if ((int)color >= 0 && (int)color < 3)
         {
             UIManager.self.UpdatePrimary(color, ++primariesCount[(int)color]);
-            Debug.Log("Add " + color);
+            //Debug.Log("Add " + color);
         }
     }
 
@@ -232,7 +232,7 @@ public class GameManager : MonoBehaviour
                 Lose(color);
             }
             UIManager.self.UpdatePrimary(color, primariesCount[(int)color]);
-            Debug.Log("Remove " + color);
+            //Debug.Log("Remove " + color);
         }
     }
 

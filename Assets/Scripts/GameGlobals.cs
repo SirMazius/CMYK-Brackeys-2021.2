@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public static class GameGlobals
 {
@@ -65,12 +64,34 @@ public static class GameGlobals
 
     public static Dictionary<SkillType, Sprite> SkillsIcons = new Dictionary<SkillType, Sprite>();
     public static string tagMoninker = "Moninker";
-    
+
+    public static Vector3 Cursor { get => GetCursor3DPoint(); }
+
+
+    //Modificacion del input module para poder obtener el objeto de UI sobre el que esta en todo momento
+    //https://stackoverflow.com/questions/39150165/how-do-i-find-which-object-is-eventsystem-current-ispointerovergameobject-detect/47412060#47412060
+    private static StandaloneInputModuleV2 _inputModule;
+    public static StandaloneInputModuleV2 InputModule
+    {
+        get
+        {
+            if (_inputModule == null)
+            {
+                _inputModule = EventSystem.current.currentInputModule as StandaloneInputModuleV2;
+                if (_inputModule == null)
+                    Debug.LogError("Missing StandaloneInputModuleV2");
+            }
+
+            return _inputModule;
+        }
+    }
+
+
 
     #region FUNCIONES
 
     //Hacemos un raycast para obtener el punto del folio en el que choca
-    public static Vector3 GetCursorFloorPoint()
+    public static Vector3 GetCursor3DPoint()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;

@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static GameGlobals;
 
 public class GrabberController : MonoBehaviour
 {
     public static GrabberController self;
-    public Vector3 cursor { get => GetCursorFloorPoint();}
+    
+    public bool grabbing = false;
 
     [Header("Atracción moninkers")]
     public List<MoninkerController> grabbedMoninkers;
@@ -15,11 +17,8 @@ public class GrabberController : MonoBehaviour
     public float attractRadius = 10;
     public float attractForce = 0.01f;
     private bool inCombo = false;
-    //TODO: ¿offset de tiempo entre grabbed moninkers?/¿attractiopn force disminuye con el tiempo?
+    //TODO: ¿offset de tiempo entre grabbed moninkers?/¿attraction force disminuye con el tiempo?
 
-    //Exchanger sobre el que esta el cursor en este momento
-    //TODO: Controlar on hover enter y exit de exchangers
-    public SkillExchanger OveredExchanger = null;
 
 
     void Awake()
@@ -33,16 +32,21 @@ public class GrabberController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-            StartGrabMoninkers(cursor, grabRadius);
-        else if (Input.GetMouseButton(0))
-            WhileHoldingDown(cursor);
-        else if(Input.GetMouseButtonUp(0))
-            EndGrabMoninkers();
+        //Si se hace click sobre el escenario (no UI) se comienza a atraer moninkers
+        if (Input.GetMouseButtonDown(0) && !InputModule.OveredUIElement)
+            StartGrabMoninkers(GameGlobals.Cursor, grabRadius);
+        //Si se esta agarrando o atrayendo moninkers controlamos el drag y el drop
+        else if(grabbing)
+        {
+            if (Input.GetMouseButton(0))
+                WhileGrabbingMoninkers(GameGlobals.Cursor);
+            else if (Input.GetMouseButtonUp(0))
+                EndGrabMoninkers();
+        }
     }
 
-    
-    #region LOGICA DE CLICK
+
+    #region GRABBING
 
     //Comenzar el grab seleccionando a los monigotes implicados
     public void StartGrabMoninkers(Vector3 point, float radius)
@@ -58,12 +62,13 @@ public class GrabberController : MonoBehaviour
         if (nearest && nearest.MoninkerColor != InkColorIndex.NONE)
         {
             grabbedsColor = nearest.MoninkerColor;
+            grabbing = true;
             inCombo = true;
         }
     }
 
     //Al mantener y arrastrar se atraen moninkers hasta agarrarlos, pudiendo desplazarlos completamente
-    public void WhileHoldingDown(Vector3 point)
+    public void WhileGrabbingMoninkers(Vector3 point)
     {
         if (inCombo)
         {
@@ -81,14 +86,20 @@ public class GrabberController : MonoBehaviour
     //Soltar monigotes y pasar a wander
     public void EndGrabMoninkers()
     {
+        grabbing = false;
         inCombo = false;
 
+        //Exchanger sobre el que esta el cursor en este momento
+        //TODO: Controlar on hover enter y exit de exchangers
+        SkillExchanger OveredExchanger = null;
+
         //Se puede canjear moninkers por habilidades
-        if (IsOverExchanger())
+        if (IsOverExchanger(out OveredExchanger))
         {
+            //Si se cumplen las condiciones de intrercambio, se eliminan los mininkers intercambiados
             if(OveredExchanger.TryExchange(grabbedMoninkers.Count, grabbedsColor))
             {
-                //TODO: Destruir los X moninkers pedidos
+                DestroySeveralGrabbeds(OveredExchanger.ExchangeQuantity);
             }
         }
         
@@ -97,12 +108,45 @@ public class GrabberController : MonoBehaviour
         {
             MoninkerController m = grabbedMoninkers[i];
             m.currState = m.wanderState;
+            //TODO: Mejorar como se sueltan(contemplar fuera de mapa y tal)
         }
         grabbedMoninkers.Clear();
     }
 
+    //Coger moninkers en radio de grab del mismo color o cortar combo si son de otro
+    private bool TryGrabIfNear(Vector3 point, List<MoninkerController> moninkers)
+    {
+        bool breakCombo = false;
+
+        foreach(MoninkerController m in moninkers)
+        {
+            if(Vector3.Distance(m.transform.position, point) < grabRadius)
+            {
+                //Añadir a cogidos si es del mismo color
+                if (m.MoninkerColor == grabbedsColor)
+                    GrabMoninker(m, point);
+                //Si es de otro color, corta el combo para la siguiente iteracion de update
+                else
+                    breakCombo = true;
+            }
+        }
+        return breakCombo;
+    }
+
+    //Pasar a cogido un moninker anotando su offset y cambiando a estado dragging
+    private void GrabMoninker(MoninkerController moninker, Vector3 point)
+    {
+        grabbedMoninkers.Add(moninker);
+        moninker.grabOffset = moninker.transform.position - point;
+        moninker.currState.StartDragging();
+        moninker.grabbed = true;
+    }
+
     #endregion
 
+
+
+    #region ATRAER MONINKERS
 
     //Mover los moninkers cercanos con una fuerza inversamente proporcional a la distancia
     public List<MoninkerController> AttractMoninkers(Vector3 point)
@@ -128,36 +172,8 @@ public class GrabberController : MonoBehaviour
         return attractedMoninkers;
     }
 
-    //Coger moninkers en radio de grab del mismo color o cortar combo si son de otro
-    public bool TryGrabIfNear(Vector3 point, List<MoninkerController> moninkers)
-    {
-        bool breakCombo = false;
-
-        foreach(MoninkerController m in moninkers)
-        {
-            if(Vector3.Distance(m.transform.position, point) < grabRadius)
-            {
-                //Añadir a cogidos si es del mismo color
-                if (m.MoninkerColor == grabbedsColor)
-                    GrabMoninker(m, point);
-                //Si es de otro color, corta el combo para la siguiente iteracion de update
-                else
-                    breakCombo = true;
-            }
-        }
-        return breakCombo;
-    }
-
-    //Pasar a cogido un moninker anotando su offset y cambiando a estado dragging
-    private void GrabMoninker(MoninkerController moninker, Vector3 point)
-    {
-        grabbedMoninkers.Add(moninker);
-        moninker.grabOffset = moninker.transform.position - point;
-        moninker.currState.StartDragging();
-    }
-
     //Devuelve el moninker de la lista mas cercano al punto indicado
-    public MoninkerController GetNearestMoninkerInList(Vector3 point, List<MoninkerController> moninkers)
+    private MoninkerController GetNearestMoninkerInList(Vector3 point, List<MoninkerController> moninkers)
     {
         MoninkerController nearest = null;
         float nearestDist = Mathf.Infinity;
@@ -177,15 +193,44 @@ public class GrabberController : MonoBehaviour
         return nearest;
     }
 
+    #endregion
+
+
+
+    #region METODOS AUXILIARES
 
     //Comprueba si hay moninkers agarrados sobre un exchanger
-    public bool IsOverExchanger()
+    private bool IsOverExchanger(out SkillExchanger exchanger)
     {
-        if(grabbedMoninkers.Count > 0 && OveredExchanger!= null)
+        //Hay grabbeds y el cursor esta sobre UI
+        if(grabbedMoninkers.Count > 0 && InputModule.OveredUIElement)
         {
-            //TODO: Comprobacion de estar sobre un exchanger
+            //Comprobacion de estar sobre un exchanger
+            exchanger = InputModule.OveredUIElement.GetComponent<SkillExchanger>();
+            if(exchanger)
+            {
+                return true;
+            }
         }
 
+        exchanger = null;
         return false;
     }
+
+    //Destruye un numero de moninkers de grabbeds
+    public void DestroySeveralGrabbeds(int nDestroyed)
+    {
+        //LImitado por el numero de grabbeds
+        nDestroyed = Mathf.Min(nDestroyed, grabbedMoninkers.Count);
+
+        //Quitar de lista de grabbeds y desactivar n moninkers
+        for(int i = 0; i<nDestroyed; i++)
+        {
+            var moninker = grabbedMoninkers[0];
+            grabbedMoninkers.Remove(moninker);
+            GameManager.DeactivateMoninker(moninker);
+        }
+    }
+
+    #endregion
 }

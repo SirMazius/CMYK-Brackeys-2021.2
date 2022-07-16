@@ -47,7 +47,7 @@ public class EraserController : MonoBehaviour
         //Si se está apuntando con el borrador, cambiamos su posición a lo largo del tablero
         if (currEraser != null)
         {
-            lastEraserPos = GetCursorFloorPoint();
+            lastEraserPos = GetCursor3DPoint();
             
             if(lastEraserPos != Vector3.positiveInfinity)
                 currEraser.transform.position = lastEraserPos;

@@ -62,7 +62,6 @@ public static class GameGlobals
         {ExchangerType.BETTER, 20}
     };
 
-    public static Dictionary<SkillType, Sprite> SkillsIcons = new Dictionary<SkillType, Sprite>();
     public static string tagMoninker = "Moninker";
 
     public static Vector3 Cursor { get => GetCursor3DPoint(); }
@@ -75,9 +74,10 @@ public static class GameGlobals
     {
         get
         {
-            if (_inputModule == null)
+            if (Application.isPlaying)
             {
-                _inputModule = EventSystem.current.currentInputModule as StandaloneInputModuleV2;
+                if(EventSystem.current && EventSystem.current.currentInputModule)
+                    _inputModule = EventSystem.current.currentInputModule as StandaloneInputModuleV2;
                 if (_inputModule == null)
                     Debug.LogError("Missing StandaloneInputModuleV2");
             }
@@ -85,7 +85,6 @@ public static class GameGlobals
             return _inputModule;
         }
     }
-
 
 
     #region FUNCIONES

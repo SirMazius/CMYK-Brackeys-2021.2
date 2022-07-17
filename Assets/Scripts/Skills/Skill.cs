@@ -5,10 +5,33 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static GameGlobals;
 
-public abstract class Skill: MonoBehaviour
+public abstract class Skill : MonoBehaviour
 {
-    public SkillType type;
-    public Image icon;
+    private SkillType _type;
+    public SkillType Type
+    {
+        get => _type;
+        set
+        {
+            _type = value;
+            Icon.sprite = GameManager.self.SkillsIcons[_type];
+        }
+    }
+
+    private Image _icon;
+    public Image Icon
+    {   
+        get
+        {
+            if(!_icon)
+                _icon = GetComponentInChildren<Image>();
+
+            if (!_icon)
+                Debug.LogError("Skill sin sprite");
+
+            return _icon;
+        }
+    }
 
     private bool _grabbing = false;
     public bool Grabbing
@@ -18,17 +41,10 @@ public abstract class Skill: MonoBehaviour
         {
             _grabbing = value;
             //Se cambia la visibilidad del icono de la skill
-            icon.enabled = value;
+            Icon.enabled = value;
         }
     }
 
-
-    public void Awake()
-    {
-        icon = GetComponentInChildren<Image>();
-        if (!icon)
-            Debug.LogError("Skill sin sprite");
-    }
 
 
     public void Update()
@@ -63,5 +79,12 @@ public abstract class Skill: MonoBehaviour
     {
         Grabbing = false;
         Launch();
+    }
+
+    public static T CreateSkill<T>() where T : Skill
+     {
+        var go = Instantiate(GameManager.self.SkillPrefab);
+        T skill = go.AddComponent<T>();
+        return skill;
     }
 }

@@ -1,9 +1,9 @@
-using System.Collections;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 using static GameGlobals;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SerializedMonoBehaviour
 {
     public static GameManager self = null;
     public GameObject moninkerPrefab;
@@ -11,32 +11,34 @@ public class GameManager : MonoBehaviour
     public Transform floor;
     public BoxCollider floorColl;
 
-    //Pooling de moninkers
+    [Header("Pooling moninkers")]
     public static Queue<MoninkerController> moninkersPool;
     public int poolSize = 1000;
     public int maxFrameSpawn = 2;
     public int currFrameSpawn = 0;
 
-    //Posiciones moninkers iniciales
-    public List<Transform> cyanInitPos, magentaInitPos, yellowInitPos;
-
-    //Listas de moninkers y dimensiones de celdas del terreno
+    [Header("Moninkers y celdas")]
     public Vector3 gridCorner;
     public int gridX = 15, gridZ = 15;
     public float distX, distZ;
+    [HideInInspector]
     public List<MoninkerController>[,] gridLists;
+    public List<Transform> cyanInitPos, magentaInitPos, yellowInitPos;
 
-    //Puntuacion
+    [Header("Puntuacion")]
     public int[] primariesCount = {0,0,0};
     public int score = 0;
 
-    //Juego y dificultad
-    [SerializeField]
+    [Header("Juego y dificultad")]
     public bool inGame = false;
     public float currGameTime;
     public float secsUntilHardest = 180;
-    
-    
+
+    [Header("Skills")]
+    public GameObject SkillPrefab;
+    public Dictionary<SkillType, Sprite> SkillsIcons = new Dictionary<SkillType, Sprite>();
+
+
     void Awake()
     {
         //Singleton

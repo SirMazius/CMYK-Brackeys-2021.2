@@ -4,6 +4,7 @@ using UnityEngine;
 using static GameGlobals;
 using Sirenix.OdinInspector;
 using UnityEditor;
+using UnityEngine.UI;
 
 //Intercambiador de habilidades que controla tanto la generacion de nuevas habilidades en funcion del tipo
 // y moninkers arrastrados a el como el almacenaje de habilidades conseguidas
@@ -15,27 +16,38 @@ public class SkillExchanger : SerializedMonoBehaviour
     public int ExchangeQuantity;
     [SerializeField]
     private Queue<Skill> _skills = new Queue<Skill>();
+    private Image _image;
+
+    private void Awake()
+    {
+        _image = GetComponent<Image>();
+    }
 
 
     //Añadir una skill almacenada, quitando la mas antigua si es necesaria
     public bool AddSkill(Skill skill)
     {
-        if(!skill)
+        if(skill)
         {
             //Comprueba si se ha alcanzado el tope de skills. Se elimina la mas antigua si es asi
             if(_skills.Count >= SkillsLimit)
                 _skills.Dequeue();
 
             _skills.Enqueue(skill);
+
+            UpdateUI();
+
             return true;
         }
         return false;
     }
 
     //Elimina la mas antigua
-    public void RemoveSkill()
+    public Skill RemoveSkill()
     {
-        _skills.Dequeue();
+        var skill = _skills.Dequeue();
+        UpdateUI();
+        return skill;
     }
 
     //Devuelve la skill conseguida en función del tipo de exchanger y los moninkers cogidos
@@ -59,7 +71,7 @@ public class SkillExchanger : SerializedMonoBehaviour
     {
         if(_skills.Count > 0)
         {
-            _skills.Dequeue().StartGrabbing();
+            RemoveSkill().StartGrabbing();
         }
     }
 
@@ -79,16 +91,31 @@ public class SkillExchanger : SerializedMonoBehaviour
         switch (Type)
         {
             case ExchangerType.SIMPLE:
-                skill = new SkillDye(color);
+                skill = Skill.CreateSkill<SkillDye>();
+                (skill as SkillDye).Color = color;
                 break;
             case ExchangerType.BETTER:
-                skill = new SkillBlackBomb();
+                skill = Skill.CreateSkill<SkillBlackBomb>();
                 break;
             default:
                 Debug.Log("Error al crear skill");
                 skill = null;
                 break;
         }
+    }
+
+
+    //TODO:
+    private void UpdateUI()
+    {
+        var color = _image.color;
+
+        if (_skills.Count > 0)
+            color.a = 1;
+        else
+            color.a = 0.5f;
+
+        _image.color = color;
     }
 
     //TODO: Controlar hover de exchangers

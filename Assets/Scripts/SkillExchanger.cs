@@ -11,6 +11,8 @@ using UnityEngine.EventSystems;
 // y moninkers arrastrados a el como el almacenaje de habilidades conseguidas
 public class SkillExchanger : SerializedMonoBehaviour, IPointerDownHandler
 {
+    private Animator _animator;
+
     public static int SkillsLimit = 2;
 
     public ExchangerType Type = ExchangerType.NONE;
@@ -19,9 +21,27 @@ public class SkillExchanger : SerializedMonoBehaviour, IPointerDownHandler
     private Queue<Skill> _skills = new Queue<Skill>();
     private Image _image;
 
+    private int _grabbeds = 0;
+    public int Grabbeds
+    {
+        get => _grabbeds;
+        set
+        {
+            _grabbeds = value;
+            UpdateUI();
+        }
+    }
+
+
     private void Awake()
     {
+        _animator = GetComponentInChildren<Animator>();
         _image = GetComponent<Image>();
+    }
+
+    private void Start()
+    {
+        GrabberController.self.OnGrabbedsChange.AddListener((count) => Grabbeds = count);
     }
 
 
@@ -106,17 +126,11 @@ public class SkillExchanger : SerializedMonoBehaviour, IPointerDownHandler
         }
     }
 
-    //TODO:
+    //Saca o mete el cajetin del exchanger en funcion de si hay grabbeds para intercambio o si hay skill
     private void UpdateUI()
     {
-        var color = _image.color;
-
-        if (_skills.Count > 0)
-            color.a = 1;
-        else
-            color.a = 0.5f;
-
-        _image.color = color;
+        bool aux = (AreGrabbedsEnough(Grabbeds) || _skills.Count>0);
+        _animator.SetBool("Out", aux);
     }
 
     #endregion

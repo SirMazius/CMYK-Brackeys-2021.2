@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using static GameGlobals;
 
@@ -18,6 +19,8 @@ public class GrabberController : MonoBehaviour
     public float attractForce = 0.01f;
     private bool inCombo = false;
     //TODO: ¿offset de tiempo entre grabbed moninkers?/¿attraction force disminuye con el tiempo?
+
+    public UnityEvent<int> OnGrabbedsChange = new UnityEvent<int>();
 
 
 
@@ -52,6 +55,7 @@ public class GrabberController : MonoBehaviour
     public void StartGrabMoninkers(Vector3 point, float radius)
     {
         grabbedMoninkers.Clear();
+        OnGrabbedsChange.Invoke(0);
 
         //Obtenemos los monikers cercanos a donde se ha clicado
         List<MoninkerController> nearMoninkers;
@@ -111,6 +115,7 @@ public class GrabberController : MonoBehaviour
             //TODO: Mejorar como se sueltan(contemplar fuera de mapa y tal)
         }
         grabbedMoninkers.Clear();
+        OnGrabbedsChange.Invoke(0);
     }
 
     //Coger moninkers en radio de grab del mismo color o cortar combo si son de otro
@@ -140,6 +145,9 @@ public class GrabberController : MonoBehaviour
         moninker.grabOffset = moninker.transform.position - point;
         moninker.currState.StartDragging();
         moninker.grabbed = true;
+
+        //Avisar a exchangers del numero actual de cogidos
+        OnGrabbedsChange.Invoke(grabbedMoninkers.Count);
     }
 
     #endregion
@@ -206,7 +214,7 @@ public class GrabberController : MonoBehaviour
         if(grabbedMoninkers.Count > 0 && InputModule.OveredUIElement)
         {
             //Comprobacion de estar sobre un exchanger
-            exchanger = InputModule.OveredUIElement.GetComponent<SkillExchanger>();
+            exchanger = InputModule.OveredUIElement.GetComponentInParent<SkillExchanger>();
             if(exchanger)
             {
                 return true;
@@ -230,6 +238,8 @@ public class GrabberController : MonoBehaviour
             grabbedMoninkers.Remove(moninker);
             GameManager.DeactivateMoninker(moninker);
         }
+
+        OnGrabbedsChange.Invoke(grabbedMoninkers.Count);
     }
 
     #endregion

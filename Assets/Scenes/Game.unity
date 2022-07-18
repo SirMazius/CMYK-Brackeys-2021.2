@@ -502,6 +502,9 @@ MonoBehaviour:
   grabRadius: 0.5
   attractRadius: 4
   attractForce: 3
+  OnGrabbedsChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &329352255
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,6 +2735,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BetterSkillExchanger
       objectReference: {fileID: 0}
+    - target: {fileID: 975673980366208268, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 975673980366208270, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: m_Color.b
       value: 0.5764706
@@ -2856,6 +2863,18 @@ PrefabInstance:
     - target: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056393176299371902, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.21851191
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056393176299371902, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.77796817
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056393176299371902, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8773585
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
@@ -3331,72 +3350,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587150629}
   m_CullTransparentMesh: 1
---- !u!1 &1771802026
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1771802028}
-  - component: {fileID: 1771802027}
-  m_Layer: 0
-  m_Name: Prueba
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1771802027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1771802026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe681265c76061641b25fe874869353c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: _skills
-      Entry: 7
-      Data: 0|System.Collections.Generic.Queue`1[[Skill, Assembly-CSharp]], System
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  Type: -1
-  ExchangeQuantity: 0
---- !u!4 &1771802028
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1771802026}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1306.0522, y: 607.77747, z: -92.61402}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1845169201
 GameObject:
   m_ObjectHideFlags: 0
@@ -4360,6 +4313,18 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+    - target: {fileID: 8056393176299371902, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.7169812
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056393176299371902, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7169812
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056393176299371902, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7169812
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
 --- !u!1001 &3634693251344085569

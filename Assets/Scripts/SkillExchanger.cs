@@ -5,10 +5,11 @@ using static GameGlobals;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 //Intercambiador de habilidades que controla tanto la generacion de nuevas habilidades en funcion del tipo
 // y moninkers arrastrados a el como el almacenaje de habilidades conseguidas
-public class SkillExchanger : SerializedMonoBehaviour
+public class SkillExchanger : SerializedMonoBehaviour, IPointerDownHandler
 {
     public static int SkillsLimit = 2;
 
@@ -47,6 +48,7 @@ public class SkillExchanger : SerializedMonoBehaviour
     {
         var skill = _skills.Dequeue();
         UpdateUI();
+        Debug.Log("Quitando skill de exchanger: " + skill.Type);
         return skill;
     }
 
@@ -65,11 +67,11 @@ public class SkillExchanger : SerializedMonoBehaviour
             return false;
         }
     }
-    
+
     //Cuando se pulsa un exchanger se obtiene la skill disponible mas antigua
-    public void OnPressExchanger()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        if(_skills.Count > 0)
+        if (_skills.Count > 0)
         {
             RemoveSkill().StartGrabbing();
         }
@@ -104,7 +106,6 @@ public class SkillExchanger : SerializedMonoBehaviour
         }
     }
 
-
     //TODO:
     private void UpdateUI()
     {
@@ -117,9 +118,6 @@ public class SkillExchanger : SerializedMonoBehaviour
 
         _image.color = color;
     }
-
-    //TODO: Controlar hover de exchangers
-    //public UIElementCursor SkillPanelSimple, SkillPanelBetter;
 
     #endregion
 }

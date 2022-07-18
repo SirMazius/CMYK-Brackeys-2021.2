@@ -77,8 +77,8 @@ public abstract class Skill : MonoBehaviour
 
     protected void EndGrabbing()
     {
-        Grabbing = false;
         Launch();
+        Grabbing = false;
     }
 
     public static T CreateSkill<T>() where T : Skill

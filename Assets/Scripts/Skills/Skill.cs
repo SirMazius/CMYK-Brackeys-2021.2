@@ -49,11 +49,8 @@ public abstract class Skill : MonoBehaviour
 
     public void Update()
     {
-        //Si se hace click sobre el escenario (no UI) se comienza a atraer moninkers
-        if (Input.GetMouseButtonDown(0) && !InputModule.OveredUIElement)
-            StartGrabbing();
         //Si se esta agarrando o atrayendo moninkers controlamos el drag y el drop
-        else if (Grabbing)
+        if (Grabbing)
         {
             if (Input.GetMouseButton(0))
                 DragGrabbing();

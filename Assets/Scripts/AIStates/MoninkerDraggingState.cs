@@ -40,6 +40,7 @@ public class MoninkerDraggingState : MoninkerState
         controller.coll.enabled = true;
         controller.agent.isStopped = false;
         controller.agent.radius = normalCollRadius;
+        controller.grabbed = false;
     }
 
     public void UpdateState()

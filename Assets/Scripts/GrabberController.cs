@@ -107,7 +107,7 @@ public class GrabberController : MonoBehaviour
         for (int i = 0; i < grabbedMoninkers.Count; i++)
         {
             MoninkerController m = grabbedMoninkers[i];
-            m.currState = m.wanderState;
+            m.currState.StartWander();
             //TODO: Mejorar como se sueltan(contemplar fuera de mapa y tal)
         }
         grabbedMoninkers.Clear();

@@ -114,8 +114,9 @@ public class GameManager : SerializedMonoBehaviour
     }
 
     //Desactivar monigote y devolverlo a la pool
-    public static void DeactivateMoninker(MoninkerController m)
+    public void DeactivateMoninker(MoninkerController m)
     {
+        RemoveColorCount(m.MoninkerColor);
         m.gameObject.SetActive(false);
         moninkersPool.Enqueue(m);
     }

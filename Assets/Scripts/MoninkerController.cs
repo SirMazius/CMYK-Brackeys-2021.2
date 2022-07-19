@@ -15,18 +15,19 @@ public class MoninkerController : MonoBehaviour
 
     //Apariencia
     [Header("Appearance")]
-    private InkColorIndex _moninkerColor;
+    private InkColorIndex _moninkerColor = InkColorIndex.NONE;
     [SerializeField]
     public InkColorIndex MoninkerColor
     {
         get => _moninkerColor;
         set
         {
-            GameManager.self.RemoveColorCount(_moninkerColor);
-
             //Teñir
             if (value != InkColorIndex.NONE)
             {
+                if(_moninkerColor != InkColorIndex.NONE)
+                    GameManager.self.RemoveColorCount(_moninkerColor);
+
                 _moninkerColor = value;
                 GameManager.self.AddColorCount(value);
                 foreach (SpriteRenderer s in sprites)
@@ -47,7 +48,7 @@ public class MoninkerController : MonoBehaviour
             }
             //Borrar
             else
-                GameManager.DeactivateMoninker(this);
+                GameManager.self.DeactivateMoninker(this);
         }
     }
 

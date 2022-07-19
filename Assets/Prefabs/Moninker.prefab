@@ -114,11 +114,13 @@ MonoBehaviour:
   rb: {fileID: 0}
   sprites: []
   spritesParent: {fileID: 6002748038462584358}
+  _moninkerColor: -1
   nearMoninkers: []
   currCell: {x: 0, y: 0}
   currTarget: {fileID: 0}
   grabOffset: {x: 0, y: 0, z: 0}
   heat: 0
+  grabbed: 0
 --- !u!195 &5354327601688366275
 NavMeshAgent:
   m_ObjectHideFlags: 0

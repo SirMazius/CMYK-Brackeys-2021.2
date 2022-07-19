@@ -214,11 +214,11 @@ public class GrabberController : MonoBehaviour
         if(grabbedMoninkers.Count > 0 && InputModule.OveredUIElement)
         {
             //Comprobacion de estar sobre un exchanger
-            exchanger = InputModule.OveredUIElement.GetComponentInParent<SkillExchanger>();
+            //exchanger = InputModule.OveredUIElement.GetComponentInParent<SkillExchanger>();
+            //TODO:fix
+            exchanger = UIElementCursor.CurrentHovered.GetComponentInParent<SkillExchanger>();
             if(exchanger)
-            {
                 return true;
-            }
         }
 
         exchanger = null;
@@ -236,7 +236,7 @@ public class GrabberController : MonoBehaviour
         {
             var moninker = grabbedMoninkers[0];
             grabbedMoninkers.Remove(moninker);
-            GameManager.DeactivateMoninker(moninker);
+            GameManager.self.DeactivateMoninker(moninker);
         }
 
         OnGrabbedsChange.Invoke(grabbedMoninkers.Count);

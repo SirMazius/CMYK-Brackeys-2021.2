@@ -6,13 +6,14 @@ using UnityEngine.SceneManagement;
 using static GameGlobals;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Sirenix.OdinInspector;
 
-public class UIManager : MonoBehaviour
+public class UIManager : SerializedMonoBehaviour
 {
     public static UIManager self;
 
+    public Dictionary<InkColorIndex,TextMeshProUGUI> primaryCounts = new Dictionary<InkColorIndex, TextMeshProUGUI>();
     public TextMeshProUGUI score;
-    public TextMeshProUGUI[] primaryCounts = new TextMeshProUGUI[3];
     public GameObject gameOverScreen;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI scoreEndText;
@@ -44,9 +45,9 @@ public class UIManager : MonoBehaviour
     public void UpdatePrimary(InkColorIndex color, int num)
     {
         if (num <= 3)
-            primaryCounts[(int)color].text = num.ToString()+"<color=#"+ ColorUtility.ToHtmlStringRGB(countWarningColor)+">!</color>";
+            primaryCounts[color].text = num.ToString()+"<color=#"+ ColorUtility.ToHtmlStringRGB(countWarningColor)+">!</color>";
         else
-            primaryCounts[(int)color].text = num.ToString();
+            primaryCounts[color].text = num.ToString();
     }
 
     public void UpdateScore(int _score)

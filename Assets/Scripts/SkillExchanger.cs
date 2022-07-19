@@ -9,11 +9,13 @@ using UnityEngine.EventSystems;
 
 //Intercambiador de habilidades que controla tanto la generacion de nuevas habilidades en funcion del tipo
 // y moninkers arrastrados a el como el almacenaje de habilidades conseguidas
-public class SkillExchanger : SerializedMonoBehaviour, IPointerDownHandler
+public class SkillExchanger : SerializedMonoBehaviour
 {
     private Animator _animator;
+    private UIElementCursor _cursorController;
 
     public static int SkillsLimit = 2;
+    public static float noSkillAlpha = 0.6f;
 
     public ExchangerType Type = ExchangerType.NONE;
     public int ExchangeQuantity;
@@ -36,12 +38,15 @@ public class SkillExchanger : SerializedMonoBehaviour, IPointerDownHandler
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
-        _image = GetComponent<Image>();
+        _cursorController = GetComponentInChildren<UIElementCursor>();
+        _cursorController.OnPressed.AddListener(OnClick);
+        _image = GetComponentInChildren<Image>();
     }
 
     private void Start()
     {
         GrabberController.self.OnGrabbedsChange.AddListener((count) => Grabbeds = count);
+        UpdateUI();
     }
 
 
@@ -89,7 +94,7 @@ public class SkillExchanger : SerializedMonoBehaviour, IPointerDownHandler
     }
 
     //Cuando se pulsa un exchanger se obtiene la skill disponible mas antigua
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnClick()
     {
         if (_skills.Count > 0)
         {
@@ -129,8 +134,12 @@ public class SkillExchanger : SerializedMonoBehaviour, IPointerDownHandler
     //Saca o mete el cajetin del exchanger en funcion de si hay grabbeds para intercambio o si hay skill
     private void UpdateUI()
     {
-        bool aux = (AreGrabbedsEnough(Grabbeds) || _skills.Count>0);
+        bool aux = (AreGrabbedsEnough(Grabbeds));
         _animator.SetBool("Out", aux);
+
+        var color = _image.color;
+        color.a = (_skills.Count > 0) ? 1f : noSkillAlpha;
+        _image.color = color;
     }
 
     #endregion

@@ -11,21 +11,17 @@ public abstract class Skill : MonoBehaviour
     public SkillType Type
     {
         get => _type;
-        set
-        {
-            _type = value;
-        }
+        set => _type = value;
     }
 
     private bool _grabbing = false;
     public bool Grabbing
     {
         get => _grabbing;
-        set
-        {
-            _grabbing = value;
-        }
+        set => _grabbing = value;
     }
+
+    public GameObject ExchangerIcon;
 
 
     public void Update()
@@ -42,25 +38,24 @@ public abstract class Skill : MonoBehaviour
 
     public abstract void Launch();
 
-    
-    public void StartGrabbing()
+    public virtual void StartGrabbing()
     {
         Grabbing = true;
     }
 
-    protected void DragGrabbing()
+    protected virtual void DragGrabbing()
     {
         transform.position = GameGlobals.Cursor;
     }
 
-    protected void EndGrabbing()
+    protected virtual void EndGrabbing()
     {
         Launch();
         Grabbing = false;
     }
 
     public static T CreateSkill<T>() where T : Skill
-     {
+    {
         var go = Instantiate(GameManager.self.SkillPrefab);
         T skill = go.AddComponent<T>();
         return skill;

@@ -7,6 +7,8 @@ using static GameGlobals;
 public class SkillDye : Skill
 {
     private InkColorIndex _color = InkColorIndex.NONE;
+    private PaintShotController paintShot = null;
+
     public InkColorIndex Color
     {
         get => _color;
@@ -37,10 +39,22 @@ public class SkillDye : Skill
         Color = color;
     }
 
-
+    //Soltar chorro de pintura
     public override void Launch()
     {
-        //Instanciar un chorro de pintura
-        PaintSpawner.self.CreatePaintShot(Color, GameGlobals.Cursor);
+        if (paintShot)
+            paintShot.Drop(true);
+    }
+
+    public override void StartGrabbing()
+    {
+        base.StartGrabbing();
+        paintShot = PaintSpawner.self.CreatePaintShot(Color, GameGlobals.Cursor);
+    }
+
+    protected override void DragGrabbing()
+    {
+        base.DragGrabbing();
+        paintShot.transform.position = GameGlobals.Cursor;
     }
 }

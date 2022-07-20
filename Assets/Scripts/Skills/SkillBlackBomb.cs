@@ -9,6 +9,11 @@ public class SkillBlackBomb : Skill
 {
     public const float radius = 5f;
 
+    public void Awake()
+    {
+        Type = SkillType.BLACK_BOMB;
+    }
+
     public override void Launch()
     {
         var moninkers = FindObjectsOfType<MoninkerController>();

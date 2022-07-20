@@ -47,7 +47,6 @@ public class SkillExchanger : SerializedMonoBehaviour
         UpdateUI();
     }
 
-
     //Añadir una skill almacenada, quitando la mas antigua si es necesaria
     public bool AddSkill(Skill skill)
     {
@@ -60,6 +59,7 @@ public class SkillExchanger : SerializedMonoBehaviour
             _skills.Enqueue(skill);
 
             UpdateUI();
+            _ui.AddSkillIcon(skill);
 
             return true;
         }
@@ -71,6 +71,8 @@ public class SkillExchanger : SerializedMonoBehaviour
     {
         var skill = _skills.Dequeue();
         UpdateUI();
+        _ui.RemoveSkillIcon(skill);
+
         Debug.Log("Quitando skill de exchanger: " + skill.Type);
         return skill;
     }

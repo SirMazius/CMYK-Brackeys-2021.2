@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.18431373}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.12941177}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -434,6 +434,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece586508d014f54592a08f0a7b1d46c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Background: {fileID: 8056393176299371902}
+  SkillContainer: {fileID: 1016628214}
+  ExchangeQuantity: {fileID: 1372565412}
 --- !u!1 &5816856446930291394
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,8 +474,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 120, y: 0.12130737}
-  m_SizeDelta: {x: 474.8675, y: 390.24}
+  m_AnchoredPosition: {x: 120, y: -0.0013885498}
+  m_SizeDelta: {x: 474.8675, y: 382.12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8038881679721476578
 CanvasRenderer:

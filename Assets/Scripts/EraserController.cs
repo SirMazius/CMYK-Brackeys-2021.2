@@ -65,7 +65,7 @@ public class EraserController : MonoBehaviour
     //Cuando soltamos clic dejamos caer el tipex y ya no lo movemos de posicion
     public void Erase()
     {
-        currEraser.Drop();
+        currEraser.Drop(true);
         currEraser = null;
     }
 }

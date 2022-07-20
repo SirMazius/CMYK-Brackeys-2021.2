@@ -12,8 +12,7 @@ public class PaintShotController : MonoBehaviour
 
     public InkColorIndex colorIndex;
     public Color color;
-    public bool autoDrop = true;
-    private bool eraser = false;
+
 
     void Awake()
     {
@@ -26,8 +25,8 @@ public class PaintShotController : MonoBehaviour
     private void Start()
     {
         //Dejamos caer la gota al inicio si es gota automática
-        if(autoDrop)
-            Drop();
+        //if(autoDrop)
+        //    Drop();
     }
 
     //Activamos area de cambio de color de monigotes durante un tiempo y destruimos todo despues
@@ -53,11 +52,11 @@ public class PaintShotController : MonoBehaviour
     }
 
     //Dejar caer gota de pintura en vertical
-    public void Drop()
+    public void Drop(bool fast)
     {
         drop.SetActive(true);
-        //Hacer que caiga más rapido para el tipex
-        if (eraser)
+        //Hacer que caiga más rapido cuando se indique
+        if (fast)
             dropController.rb.AddForce(Vector3.down * 20, ForceMode.Impulse);
     }
 
@@ -66,9 +65,6 @@ public class PaintShotController : MonoBehaviour
     {
         colorIndex = _colorIndex;
         color = InkColors[colorIndex];
-
-        if (colorIndex == InkColorIndex.NONE)
-            eraser = true;
 
         dropController.SetColor(color);
         color.a = 0.7f;

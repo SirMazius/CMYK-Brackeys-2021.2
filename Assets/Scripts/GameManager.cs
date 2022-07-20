@@ -36,7 +36,6 @@ public class GameManager : SerializedMonoBehaviour
 
     [Header("Skills")]
     public GameObject SkillPrefab;
-    public Dictionary<SkillType, Sprite> SkillsIcons = new Dictionary<SkillType, Sprite>();
 
 
     void Awake()

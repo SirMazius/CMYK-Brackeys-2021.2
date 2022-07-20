@@ -285,8 +285,7 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 5580631962394682516, guid: 1ac58b4361ccb55438f06a14985fa788, type: 3}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -294,92 +293,6 @@ MonoBehaviour:
     SerializationNodes:
     - Name: gridLists
       Entry: 6
-      Data: 
-    - Name: SkillsIcons
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[GameGlobals+SkillType, Assembly-CSharp],[UnityEngine.Sprite,
-        UnityEngine.CoreModule]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[GameGlobals+SkillType,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 5
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 4
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 8
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 16
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
   moninkerPrefab: {fileID: 5354327601688366284, guid: 40d32c24862c69e4dbf6565746c4588d, type: 3}
   paintShotPrefab: {fileID: 3561863081966820995, guid: 5a2b7e47305fb4a43a475ed23c72ff4c, type: 3}
@@ -448,6 +361,9 @@ MonoBehaviour:
     - {fileID: 1956596325}
     - {fileID: 3634693251344085571}
     - {fileID: 2145029969}
+    - {fileID: 21300000, guid: 4bcc618234054ce40a8875a97fd83c94, type: 3}
+    - {fileID: 21300000, guid: edd6ed450e97eaf4d981abedc7f887e2, type: 3}
+    - {fileID: 21300000, guid: 010d87ff9d1d9c54495f4cbd13f98c78, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -515,14 +431,259 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SkillsIcons
+      Entry: 7
+      Data: 2|System.Collections.Generic.Dictionary`2[[GameGlobals+SkillType, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[GameGlobals+SkillType,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 16
+    - Name: $v
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 8
+    - Name: $v
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SkillsIconsTint
+      Entry: 7
+      Data: 4|System.Collections.Generic.Dictionary`2[[GameGlobals+SkillType, Assembly-CSharp],[UnityEngine.Color,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 5|System.Collections.Generic.EnumEqualityComparer`1[[GameGlobals+SkillType,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0.9416543
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.7528167
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 8
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 16
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.2264151
+    - Name: 
+      Entry: 4
+      Data: 0.212317556
+    - Name: 
+      Entry: 4
+      Data: 0.212317556
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   score: {fileID: 2138480074}
   gameOverScreen: {fileID: 1247004581}
   gameOverText: {fileID: 1379773121}
   scoreEndText: {fileID: 1551848382}
   eraserBar: {fileID: 1313021266}
   countWarningColor: {r: 1, g: 0.32082546, b: 0, a: 1}
-  SkillPanelSimple: {fileID: 0}
-  SkillPanelBetter: {fileID: 0}
 --- !u!114 &297257177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2801,6 +2962,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 716806500}
     m_Modifications:
+    - target: {fileID: 1016628214, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016628214, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016628214, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016628214, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016628214, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372565411, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372565411, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372565411, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372565411, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372565411, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 975673980366208268, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: m_Name
       value: BetterSkillExchanger
@@ -2808,18 +3009,6 @@ PrefabInstance:
     - target: {fileID: 975673980366208268, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 975673980366208270, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
-      propertyPath: m_Color.b
-      value: 0.5764706
-      objectReference: {fileID: 0}
-    - target: {fileID: 975673980366208270, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
-      propertyPath: m_Color.g
-      value: 0.6676213
-      objectReference: {fileID: 0}
-    - target: {fileID: 975673980366208270, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
-      propertyPath: m_Color.r
-      value: 0.83137256
       objectReference: {fileID: 0}
     - target: {fileID: 975673980366208271, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: m_Pivot.x
@@ -2945,6 +3134,18 @@ PrefabInstance:
     - target: {fileID: 8056393176299371902, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: m_Color.r
       value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.b
+      value: 0.5764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.g
+      value: 0.6676213
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.r
+      value: 0.83137256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
@@ -4291,6 +4492,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 716806500}
     m_Modifications:
+    - target: {fileID: 1016628214, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016628214, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016628214, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016628214, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016628214, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372565411, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372565411, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372565411, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372565411, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372565411, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 975673980366208268, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: m_Name
       value: SimpleSkillExchanger
@@ -4383,18 +4624,6 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
-    - target: {fileID: 8056393176299371902, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
-      propertyPath: m_Color.b
-      value: 0.7169812
-      objectReference: {fileID: 0}
-    - target: {fileID: 8056393176299371902, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
-      propertyPath: m_Color.g
-      value: 0.7169812
-      objectReference: {fileID: 0}
-    - target: {fileID: 8056393176299371902, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
-      propertyPath: m_Color.r
-      value: 0.7169812
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
 --- !u!1001 &3634693251344085569

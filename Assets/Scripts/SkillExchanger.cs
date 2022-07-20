@@ -11,17 +11,16 @@ using UnityEngine.EventSystems;
 // y moninkers arrastrados a el como el almacenaje de habilidades conseguidas
 public class SkillExchanger : SerializedMonoBehaviour
 {
-    private Animator _animator;
+    private UISkillExchanger _ui;
     private UIElementCursor _cursorController;
 
-    public static int SkillsLimit = 2;
-    public static float noSkillAlpha = 0.6f;
-
     public ExchangerType Type = ExchangerType.NONE;
+    public static int SkillsLimit = 2;
     public int ExchangeQuantity;
+
     [SerializeField]
     private Queue<Skill> _skills = new Queue<Skill>();
-    private Image _image;
+    
 
     private int _grabbeds = 0;
     public int Grabbeds
@@ -37,10 +36,9 @@ public class SkillExchanger : SerializedMonoBehaviour
 
     private void Awake()
     {
-        _animator = GetComponentInChildren<Animator>();
+        _ui = GetComponent<UISkillExchanger>();
         _cursorController = GetComponentInChildren<UIElementCursor>();
         _cursorController.OnPressed.AddListener(OnClick);
-        _image = GetComponentInChildren<Image>();
     }
 
     private void Start()
@@ -134,12 +132,7 @@ public class SkillExchanger : SerializedMonoBehaviour
     //Saca o mete el cajetin del exchanger en funcion de si hay grabbeds para intercambio o si hay skill
     private void UpdateUI()
     {
-        bool aux = (AreGrabbedsEnough(Grabbeds));
-        _animator.SetBool("Out", aux);
-
-        var color = _image.color;
-        color.a = (_skills.Count > 0) ? 1f : noSkillAlpha;
-        _image.color = color;
+        _ui.UpdateExchangeBox(AreGrabbedsEnough(Grabbeds), (_skills.Count > 0));
     }
 
     #endregion

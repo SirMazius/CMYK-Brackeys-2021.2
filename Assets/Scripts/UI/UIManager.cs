@@ -19,9 +19,7 @@ public class UIManager : SerializedMonoBehaviour
     public TextMeshProUGUI scoreEndText;
     public BarController eraserBar;
     public Color countWarningColor;
-
-    //TODO: Controlar hover de exchangers
-    public UIElementCursor SkillPanelSimple, SkillPanelBetter;
+    public Dictionary<SkillType, GameObject> SkillsIcons = new Dictionary<SkillType, GameObject>();
 
 
     public void Awake()

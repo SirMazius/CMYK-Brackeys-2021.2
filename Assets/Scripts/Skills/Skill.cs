@@ -14,22 +14,6 @@ public abstract class Skill : MonoBehaviour
         set
         {
             _type = value;
-            Icon.sprite = GameManager.self.SkillsIcons[_type];
-        }
-    }
-
-    private Image _icon;
-    public Image Icon
-    {   
-        get
-        {
-            if(!_icon)
-                _icon = GetComponentInChildren<Image>();
-
-            if (!_icon)
-                Debug.LogError("Skill sin sprite");
-
-            return _icon;
         }
     }
 
@@ -40,11 +24,8 @@ public abstract class Skill : MonoBehaviour
         set
         {
             _grabbing = value;
-            //Se cambia la visibilidad del icono de la skill
-            Icon.enabled = value;
         }
     }
-
 
 
     public void Update()

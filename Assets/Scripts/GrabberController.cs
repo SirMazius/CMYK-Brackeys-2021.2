@@ -211,7 +211,7 @@ public class GrabberController : MonoBehaviour
     private bool IsOverExchanger(out SkillExchanger exchanger)
     {
         //Hay grabbeds y el cursor esta sobre UI
-        if(grabbedMoninkers.Count > 0 && InputModule.OveredUIElement)
+        if(grabbedMoninkers.Count > 0 && UIElementCursor.CurrentHovered)
         {
             //Comprobacion de estar sobre un exchanger
             //exchanger = InputModule.OveredUIElement.GetComponentInParent<SkillExchanger>();

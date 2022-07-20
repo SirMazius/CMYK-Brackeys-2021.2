@@ -28,8 +28,8 @@ public class UIElementCursor : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void OnPointerExit(PointerEventData eventData)
     {
         IsHovered = false;
-        if (CurrentHovered == this)
-            CurrentHovered = null;
+        //Fix para evitar perder el hover al levantar dedo(primero logica de clic up)
+        StartCoroutine(DelayedChangeHovered());
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -44,5 +44,12 @@ public class UIElementCursor : MonoBehaviour, IPointerEnterHandler, IPointerExit
         IsPressed = false;
         if (CurrentPressed == this)
             CurrentPressed = null;
+    }
+
+    private IEnumerator DelayedChangeHovered()
+    {
+        yield return new WaitForEndOfFrame();
+        if (CurrentHovered == this)
+            CurrentHovered = null;
     }
 }

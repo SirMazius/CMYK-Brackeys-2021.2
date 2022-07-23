@@ -37,7 +37,7 @@ public class GrabberController : MonoBehaviour
     {
         //Si se hace click sobre el escenario (no UI) se comienza a atraer moninkers
         if (Input.GetMouseButtonDown(0) && !InputModule.OveredUIElement)
-            StartGrabMoninkers(GameGlobals.Cursor, grabRadius);
+            StartGrabMoninkers(GameGlobals.Cursor);
         //Si se esta agarrando o atrayendo moninkers controlamos el drag y el drop
         else if(grabbing)
         {
@@ -52,39 +52,50 @@ public class GrabberController : MonoBehaviour
     #region GRABBING
 
     //Comenzar el grab seleccionando a los monigotes implicados
-    public void StartGrabMoninkers(Vector3 point, float radius)
+    public void StartGrabMoninkers(Vector3 point)
     {
         grabbedMoninkers.Clear();
         OnGrabbedsChange.Invoke(0);
-
-        //Obtenemos los monikers cercanos a donde se ha clicado
-        List<MoninkerController> nearMoninkers;
-        GameManager.self.GetMoninkersInRadius(point, radius, out nearMoninkers);
-
-        //Tomamos el color del moninker mas cercano y cogemos solo los monigotes de ese color
-        var nearest = GetNearestMoninkerInList(point, nearMoninkers);
-        if (nearest && nearest.MoninkerColor != InkColorIndex.NONE)
-        {
-            grabbedsColor = nearest.MoninkerColor;
-            grabbing = true;
-            inCombo = true;
-        }
+        grabbing = true;
     }
 
     //Al mantener y arrastrar se atraen moninkers hasta agarrarlos, pudiendo desplazarlos completamente
     public void WhileGrabbingMoninkers(Vector3 point)
     {
-        if (inCombo)
-        {
-            //Desplazar atrayendo moninkers cercanos
-            var attracteds = AttractMoninkers(point);
-            //Coger atraidos muy cercanos o cortar combo
-            inCombo = !TryGrabIfNear(point, attracteds);
-        }
+        //Desplazar atrayendo moninkers cercanos
+        List<MoninkerController> attracteds;
 
-        //Desplazar cogidos
-        for (int i = 0; i < grabbedMoninkers.Count; i++)
-            grabbedMoninkers[i].transform.position = point + grabbedMoninkers[i].grabOffset;
+        //No se ha comenzado a coger moninkers
+        if(grabbedMoninkers.Count == 0)
+        {
+            attracteds = AttractMoninkers(point);
+
+            //Obtenemos los monikers en el area cercana a donde se ha clicado
+            List<MoninkerController> nearMoninkers;
+            GameManager.self.GetMoninkersInRadius(point, grabRadius, out nearMoninkers);
+
+            //Tomamos el color del moninker mas cercano y cogemos solo los monigotes de ese color
+            var nearest = GetNearestMoninkerInList(point, nearMoninkers);
+            if (nearest && nearest.MoninkerColor != InkColorIndex.NONE)
+            {
+                grabbedsColor = nearest.MoninkerColor;
+                inCombo = !TryGrabIfNear(point, attracteds);
+            }
+        }
+        //Hay moninkers agarrados
+        else
+        {
+            //Si sigue en combo se intentan agarrar más cercanos cortando combo cuando se acerque otro color
+            if (inCombo)
+            {
+                attracteds = AttractMoninkers(point);
+                inCombo = !TryGrabIfNear(point, attracteds);
+            }
+
+            //Desplazar agarrados
+            for (int i = 0; i < grabbedMoninkers.Count; i++)
+                grabbedMoninkers[i].transform.position = point + grabbedMoninkers[i].grabOffset;
+        }
     }
 
     //Soltar monigotes y pasar a wander
@@ -127,6 +138,13 @@ public class GrabberController : MonoBehaviour
         {
             if(Vector3.Distance(m.transform.position, point) < grabRadius)
             {
+                //Comenzar a coger, seleccionando el color que se va a agarrar
+                if(moninkers.Count == 0)
+                {
+                    grabbedsColor = m.MoninkerColor;
+                    inCombo = true;
+                }
+
                 //Añadir a cogidos si es del mismo color
                 if (m.MoninkerColor == grabbedsColor)
                     GrabMoninker(m, point);

@@ -957,6 +957,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1055,13 +1056,36 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0.38268366, y: -0, z: -0, w: 0.9238795}
-  m_LocalPosition: {x: -0.7712685, y: 13.938032, z: -12.510822}
+  m_LocalPosition: {x: -0.7712685, y: 14.5, z: -13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 277435974}
   m_Father: {fileID: 2017423007}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed293737622827846bb32c131cef8a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _beginingCameraPos: {x: 0, y: 13.661968, z: -30.572433}
+  _inGameCameraPos: {x: 0, y: 13.661968, z: -13.569178}
+  _endingCameraPos: {x: 0, y: 13.661968, z: 3.4340773}
+  beginEndOffsetPos: 3
+  printSteps: 10
+  startPrintTime: 3
+  endPrintTime: 1
+  moveTimePercentage: 0.1
+  state: 1
+  gizmoUp: {fileID: 1036718378}
+  gizmoDown: {fileID: 1615870376}
 --- !u!1 &602440082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,9 +1385,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 657980650}
   m_LocalRotation: {x: 0.0000014454124, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.7712685, y: 0.83803153, z: 0.3691774}
-  m_LocalScale: {x: 1.6594715, y: 1.458876, z: 1.4588764}
-  m_Children: []
+  m_LocalPosition: {x: -0.7712685, y: 0.83803153, z: 0.58}
+  m_LocalScale: {x: 1.6594715, y: 1.458876, z: 1.7589818}
+  m_Children:
+  - {fileID: 1036718378}
+  - {fileID: 1615870376}
   m_Father: {fileID: 2017423007}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1680,6 +1706,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 879107338}
   m_CullTransparentMesh: 1
+--- !u!1 &1036718377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1036718378}
+  - component: {fileID: 1036718379}
+  m_Layer: 6
+  m_Name: GizmoUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1036718378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036718377}
+  m_LocalRotation: {x: 0.000000014901161, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 0.82938886}
+  m_Children: []
+  m_Father: {fileID: 657980654}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1036718379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036718377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aabe0df39e482ea4da74f51efdc23e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.5
+  notSelectedColor: {r: 0.9811321, g: 0.6608758, b: 0.6608758, a: 1}
+  selectedColor: {r: 1, g: 0.02512573, b: 0.015686274, a: 1}
 --- !u!1 &1101231800
 GameObject:
   m_ObjectHideFlags: 0
@@ -3023,7 +3095,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 101.28}
+  m_AnchoredPosition: {x: 0, y: 101.279785}
   m_SizeDelta: {x: 204.6913, y: 99}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1524286070
@@ -3454,6 +3526,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587150629}
   m_CullTransparentMesh: 1
+--- !u!1 &1615870375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1615870376}
+  - component: {fileID: 1615870377}
+  m_Layer: 6
+  m_Name: GizmoDown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1615870376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615870375}
+  m_LocalRotation: {x: 0.000000014901161, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -3.961}
+  m_LocalScale: {x: 1, y: 1, z: 0.82938886}
+  m_Children: []
+  m_Father: {fileID: 657980654}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1615870377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615870375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aabe0df39e482ea4da74f51efdc23e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.5
+  notSelectedColor: {r: 0.9811321, g: 0.6608758, b: 0.6608758, a: 1}
+  selectedColor: {r: 1, g: 0.02512573, b: 0.015686274, a: 1}
 --- !u!1 &1845169201
 GameObject:
   m_ObjectHideFlags: 0

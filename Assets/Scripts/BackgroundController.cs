@@ -19,7 +19,7 @@ public class BackgroundController : MonoBehaviour
     //Desplazar fondo en funcion mas rapido en menu que en juego
     void Update()
     {
-        if (GameManager.self != null && GameManager.self.inGame)
+        if (GameManager.self != null && GameManager.self.IsInGame)
             runTime += Time.deltaTime * inGameSpeed;
         else
             runTime += Time.deltaTime * menuSpeed;

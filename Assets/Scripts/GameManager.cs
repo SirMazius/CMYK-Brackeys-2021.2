@@ -5,9 +5,29 @@ using static GameGlobals;
 
 public class GameManager : SerializedMonoBehaviour
 {
+    public enum GameState
+    {
+        MENU,
+        GAME,
+        PAUSE,
+        ENDGAME
+    }
+
     public static GameManager self = null;
+
+    [Header("Game variables")]
+    private GameState _currentState = GameState.MENU;
+
+    public bool IsInGame
+    {
+        get => (_currentState == GameState.GAME);
+    }
+
+    [Header("Prefabs")]
     public GameObject moninkerPrefab;
     public GameObject paintShotPrefab, eraserPrefab;
+
+    [Header("Enviroment")]
     public Transform floor;
     public BoxCollider floorColl;
 
@@ -30,7 +50,6 @@ public class GameManager : SerializedMonoBehaviour
     public int score = 0;
 
     [Header("Juego y dificultad")]
-    public bool inGame = false;
     public float currGameTime;
     public float secsUntilHardest = 180;
 
@@ -38,7 +57,7 @@ public class GameManager : SerializedMonoBehaviour
     public GameObject SkillPrefab;
 
 
-    void Awake()
+    private void Awake()
     {
         //Singleton
         if (self == null)
@@ -49,12 +68,36 @@ public class GameManager : SerializedMonoBehaviour
 
     private void Start()
     {
+        ShowMenu();
+    }
+
+    private void Update()
+    {
+        //Contadores de tiempo de partida y borrador
+        currGameTime += Time.deltaTime;
+        
+        //Reset limite de spawns de monigotes por frame
+        currFrameSpawn = 0;
+    }
+
+
+    #region TRANSICIONES ESTADOS
+
+    public void ShowMenu()
+    {
+        _currentState = GameState.MENU;
+        //TODO: Mostrar menu con opciones y cambiar posicion de camara arriba
+    }
+
+    public void StartGame()
+    {
+        _currentState = GameState.GAME;
+
         currGameTime = 0;
-        inGame = true;
 
         //Llenar pool de moninkers
         moninkersPool = new Queue<MoninkerController>();
-        for(int i = 0; i< poolSize; i++)
+        for (int i = 0; i < poolSize; i++)
         {
             GameObject go = Instantiate(moninkerPrefab);
             moninkersPool.Enqueue(go.GetComponent<MoninkerController>());
@@ -64,11 +107,13 @@ public class GameManager : SerializedMonoBehaviour
         //Preparar grid de listas de moninkers
         gridCorner = floorColl.bounds.min;
         gridCorner.y = 0;
-        distX = floorColl.bounds.size.x/gridX;
-        distZ = floorColl.bounds.size.z/gridZ;
+        distX = floorColl.bounds.size.x / gridX;
+        distZ = floorColl.bounds.size.z / gridZ;
         gridLists = new List<MoninkerController>[gridX, gridZ];
-        for(int i = 0; i<gridX; i++) {
-            for (int j = 0; j < gridZ; j++) {
+        for (int i = 0; i < gridX; i++)
+        {
+            for (int j = 0; j < gridZ; j++)
+            {
                 gridLists[i, j] = new List<MoninkerController>();
             }
         }
@@ -86,14 +131,32 @@ public class GameManager : SerializedMonoBehaviour
         UIManager.self.UpdateScore(score);
     }
 
-    void Update()
+    public void Pause()
     {
-        //Contadores de tiempo de partida y borrador
-        currGameTime += Time.deltaTime;
-        
-        //Reset limite de spawns de monigotes por frame
-        currFrameSpawn = 0;
+        if (IsInGame)
+        {
+            _currentState = GameState.MENU;
+            //TODO: Mostrar menu y pausar accion
+        }
+        else
+            Debug.LogError("No tiene sentido pausar fuera de juego");
     }
+
+    //Finaliza el juego mostrando resultados y opciones
+    public void EndGame(InkColorIndex color)
+    {
+        if(IsInGame)
+        {
+            _currentState = GameState.MENU;
+            Debug.Log("YOU LOSE, final score: " + score);
+            UIManager.self.Lose(color, score);
+
+            //TODO: Animacion final y mostrar opciones reinicio, volver a menus, highscores
+        }
+    }
+
+    #endregion
+
 
     #region POOLING MONINKERS
 
@@ -231,7 +294,7 @@ public class GameManager : SerializedMonoBehaviour
         {
             if (--primariesCount[(int)color] <= 0)
             { 
-                Lose(color);
+                EndGame(color);
             }
             UIManager.self.UpdatePrimary(color, primariesCount[(int)color]);
             //Debug.Log("Remove " + color);
@@ -241,16 +304,6 @@ public class GameManager : SerializedMonoBehaviour
     public void AddScore()
     {
         UIManager.self.UpdateScore(++score);
-    }
-
-    public void Lose(InkColorIndex color)
-    {
-        if(inGame)
-        {
-            inGame = false;
-            Debug.Log("YOU LOSE, final score: " + score);
-            UIManager.self.Lose(color,score);
-        }
     }
 
     #endregion

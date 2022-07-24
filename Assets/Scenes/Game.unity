@@ -324,7 +324,6 @@ MonoBehaviour:
   - {fileID: 619391360}
   primariesCount: 000000000000000000000000
   score: 0
-  inGame: 0
   currGameTime: 0
   secsUntilHardest: 180
   SkillPrefab: {fileID: 3471495652255657565, guid: c2eee327c84ae1c41b3f5f6fe97ffb6f, type: 3}
@@ -1079,8 +1078,8 @@ MonoBehaviour:
   _inGameCameraPos: {x: 0, y: 13.661968, z: -13.569178}
   _endingCameraPos: {x: 0, y: 13.661968, z: 3.4340773}
   beginEndOffsetPos: 3
-  printSteps: 10
-  startPrintTime: 3
+  printSteps: 8
+  startPrintTime: 2.5
   endPrintTime: 1
   moveTimePercentage: 0.1
   state: 1

@@ -40,7 +40,7 @@ public class PaintSpawner : MonoBehaviour
     //Generador de una bola de pintura con color aleatorio segun la dificultad progresiva
     public IEnumerator SpawnPaint()
     {
-        while (GameManager.self.inGame)
+        while (GameManager.self.IsInGame)
         {
             //Proporcion de tiempo hasta el tope de dificultad
             float prop = 1 - Mathf.Min(GameManager.self.currGameTime / GameManager.self.secsUntilHardest, 1);

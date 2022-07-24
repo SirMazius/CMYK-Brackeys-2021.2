@@ -44,8 +44,6 @@ public class CameraMotion : MonoBehaviour
     {
         _cam = Camera.main.transform;
         _folioHeight = Vector3.Distance(gizmoUp.position, gizmoDown.position);
-
-        StartCoroutine(StartPrintAnimation());
     }
 
     [Button]
@@ -81,6 +79,12 @@ public class CameraMotion : MonoBehaviour
         }
     }
 
+    [Button]
+    public void StartPrinting()
+    {
+        StartCoroutine(StartPrintAnimation());
+    }
+
     private IEnumerator StartPrintAnimation()
     {
         //Ponemos cámara en posición inicial
@@ -89,28 +93,62 @@ public class CameraMotion : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         //Calculamos la distancia a mover en cada paso de impresion
-        float stepDist = Vector3.Distance(_beginingCameraPos, _inGameCameraPos) / printSteps;
+        float stepDist = Mathf.Abs(_beginingCameraPos.z - _inGameCameraPos.z) / printSteps;
         float stepTime = startPrintTime/printSteps * moveTimePercentage;
+        float speed = stepDist / stepTime;
         float waitTime = startPrintTime / printSteps * (1 - moveTimePercentage);
 
+        //Para cada "trompicon" de la impresora...
         for (int i = 0; i < printSteps; i++)
         {
+            //Movemos poco a poco rapidamente el folio (la camara en realidad)
             for(float acum = 0; acum < stepDist; )
             {
                 yield return new WaitForEndOfFrame();
 
-                float incr = stepDist/stepTime * Time.deltaTime; 
-                //TODO: ESTA MAL, tiene error
+                float incr = speed * Time.deltaTime;
+                acum += incr;
+
+                //Evitar exceso de desplazamiento (por dt variable)
+                if (acum > stepDist)
+                    incr -= acum - stepDist;
+
                 var vec = _cam.position;
                 vec.z += incr;
                 _cam.position = vec;
-
-                acum += incr;
             }
 
+            //Y hacemos una pausa
             yield return new WaitForSecondsRealtime(waitTime);
         }
 
         //TODO: evento de empezar partida
+    }
+
+    [Button]
+    public void EndPrinting()
+    {
+        StartCoroutine(EndPrintAnimation());
+    }
+
+    private IEnumerator EndPrintAnimation()
+    {
+        _cam.position = _inGameCameraPos;
+
+        float dist = Mathf.Abs(_endingCameraPos.z - _inGameCameraPos.z);
+        float speed = dist / endPrintTime;
+
+        //Movemos poco a poco el folio hasta salid de la pantalla (la camara en realidad)
+        for (float acum = 0; acum < dist;)
+        {
+            yield return new WaitForEndOfFrame();
+
+            float incr = speed * Time.deltaTime;
+            acum += incr;
+
+            var vec = _cam.position;
+            vec.z += incr;
+            _cam.position = vec;
+        }
     }
 }

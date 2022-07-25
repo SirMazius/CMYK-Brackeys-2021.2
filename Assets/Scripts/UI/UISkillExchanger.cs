@@ -36,7 +36,7 @@ public class UISkillExchanger : MonoBehaviour
 
     public void AddSkillIcon(Skill skill)
     {
-        skill.ExchangerIcon = Instantiate(UIManager.self.SkillsIcons[skill.Type], SkillContainer);
+        skill.ExchangerIcon = Instantiate(UIManager.self.skillsIcons[skill.Type], SkillContainer);
     }
 
     public void RemoveSkillIcon(Skill skill)

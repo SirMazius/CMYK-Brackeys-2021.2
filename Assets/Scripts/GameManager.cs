@@ -87,6 +87,7 @@ public class GameManager : SerializedMonoBehaviour
     {
         _currentState = GameState.MENU;
         //TODO: Mostrar menu con opciones y cambiar posicion de camara arriba
+        UIManager.self.ShowMainMenu();
     }
 
     public void StartGame()

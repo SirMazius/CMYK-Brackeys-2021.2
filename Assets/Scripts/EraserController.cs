@@ -29,29 +29,29 @@ public class EraserController : MonoBehaviour
 
     public void Update()
     {
-        currEraserCooldown += Time.deltaTime;
+        //currEraserCooldown += Time.deltaTime;
 
-        //Pulsar para mostrar area de borrado
-        if (UIManager.self.UpdateEraser(currEraserCooldown) && !pressed && Input.GetMouseButtonDown(1))
-        {
-            pressed = true;
-            CreateEraser();
-        }
-        //Soltar clic para disparar borrado
-        else if (pressed && !Input.GetMouseButton(1))
-        {
-            Erase();
-            pressed = false;
-        }
+        ////Pulsar para mostrar area de borrado
+        //if (UIManager.self.UpdateEraser(currEraserCooldown) && !pressed && Input.GetMouseButtonDown(1))
+        //{
+        //    pressed = true;
+        //    CreateEraser();
+        //}
+        ////Soltar clic para disparar borrado
+        //else if (pressed && !Input.GetMouseButton(1))
+        //{
+        //    Erase();
+        //    pressed = false;
+        //}
 
-        //Si se está apuntando con el borrador, cambiamos su posición a lo largo del tablero
-        if (currEraser != null)
-        {
-            lastEraserPos = GetCursor3DPoint();
+        ////Si se está apuntando con el borrador, cambiamos su posición a lo largo del tablero
+        //if (currEraser != null)
+        //{
+        //    lastEraserPos = GetCursor3DPoint();
             
-            if(lastEraserPos != Vector3.positiveInfinity)
-                currEraser.transform.position = lastEraserPos;
-        }
+        //    if(lastEraserPos != Vector3.positiveInfinity)
+        //        currEraser.transform.position = lastEraserPos;
+        //}
     }
 
     //Instanciamos el reticulo de borrador sin llegar a lanzarlo

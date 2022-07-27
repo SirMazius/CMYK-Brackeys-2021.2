@@ -64,11 +64,15 @@ public class GameManager : SerializedMonoBehaviour
             self = this;
         else
             Destroy(gameObject);
+
+        //Comenzar juego como tal al terminar la transicion de inicio
+        CameraMotion.OnPrintFinished.AddListener(StartGame);
     }
 
     private void Start()
     {
         ShowMenu();
+        PrepareGame();
     }
 
     private void Update()
@@ -87,13 +91,11 @@ public class GameManager : SerializedMonoBehaviour
     {
         _currentState = GameState.MENU;
         //TODO: Mostrar menu con opciones y cambiar posicion de camara arriba
-        UIManager.self.ShowMainMenu();
+        UIManager.self.SetMainMenuShow(true);
     }
 
-    public void StartGame()
+    public void PrepareGame()
     {
-        _currentState = GameState.GAME;
-
         currGameTime = 0;
 
         //Llenar pool de moninkers
@@ -129,7 +131,14 @@ public class GameManager : SerializedMonoBehaviour
 
         //Preparar putuacion inicial
         score = 0;
-        UIManager.self.UpdateScore(score);
+    }
+
+    //Activa moninkers, muestra UI in game, comienza lluvia de pintura
+    public void StartGame()
+    {
+        _currentState = GameState.GAME;
+        UIManager.self.StartGameUI();
+        PaintSpawner.self.StartSpawn();
     }
 
     public void Pause()

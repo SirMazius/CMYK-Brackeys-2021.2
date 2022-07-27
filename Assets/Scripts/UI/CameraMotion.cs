@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.Events;
 
 public class CameraMotion : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class CameraMotion : MonoBehaviour
         IN_GAME,
         ENDING
     }
+
+    public static UnityEvent OnPrintFinished = new UnityEvent();
 
     private Transform _cam;
     private float _folioHeight;
@@ -123,6 +126,7 @@ public class CameraMotion : MonoBehaviour
         }
 
         //TODO: evento de empezar partida
+        OnPrintFinished.Invoke();
     }
 
     [Button]

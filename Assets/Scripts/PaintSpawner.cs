@@ -32,7 +32,7 @@ public class PaintSpawner : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void Start()
+    public void StartSpawn()
     {
         StartCoroutine(SpawnPaint());
     }

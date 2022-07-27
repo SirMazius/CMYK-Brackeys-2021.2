@@ -13,9 +13,17 @@ public class UIManager : SerializedMonoBehaviour
     public static UIManager self;
 
     [Header("Main menu")]
-    public GameObject mainMenu;
+    [SerializeField]
+    private GameObject _mainMenu;
+    public Vector2 inkFillingRange;
+    public Image filledTitle;
+    public float fillingTime = 1.5f;
+    private const string _fillinfShaderParam = "Filling";
+    private Coroutine startGameCoroutine = null;
 
     [Header("In game")]
+    [SerializeField]
+    private GameObject _inGameUI;
     public Dictionary<InkColorIndex,TextMeshProUGUI> primaryCounts = new Dictionary<InkColorIndex, TextMeshProUGUI>();
     public Dictionary<SkillType, GameObject> skillsIcons = new Dictionary<SkillType, GameObject>();
     public TextMeshProUGUI score;
@@ -23,8 +31,8 @@ public class UIManager : SerializedMonoBehaviour
     //public BarController eraserBar;
 
     [Header("End game")]
-    public TextMeshProUGUI gameOverText;
     public GameObject gameOverScreen;
+    public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI scoreEndText;
 
 
@@ -37,20 +45,83 @@ public class UIManager : SerializedMonoBehaviour
             Destroy(gameObject);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        //InitEraser(EraserController.self.eraserCooldown);
+        SetMainMenuShow(true);
+        SetGameUIShow(false);
         gameOverScreen.SetActive(false);
         UpdateScore(0);
+
+        filledTitle.material.SetFloat(_fillinfShaderParam, inkFillingRange.x);
     }
 
-    public void ShowMainMenu()
+
+    #region MAIN MENU
+
+    public void SetMainMenuShow(bool show)
     {
-        mainMenu.SetActive(true);
+        _mainMenu.SetActive(show);
         //TODO:
     }
 
+    public void SetGameUIShow(bool show)
+    {
+        _inGameUI.SetActive(show);
+        //TODO:
+    }
+
+    public void StartGameTransition()
+    {
+        if(startGameCoroutine == null)
+        {
+            startGameCoroutine = StartCoroutine(StartTransitionCorroutine());
+        }
+    }
+
+    //Transicion completa de inicio de la partida
+    private IEnumerator StartTransitionCorroutine()
+    {
+        float currTime = 0;
+
+        //Mostrar fondo poco a poco acelerando su movimiento
+        StartCoroutine(FindObjectOfType<BackgroundController>(true).StartGameCoroutine(fillingTime));
+
+        //Rellenar titulo de tinta
+        while (currTime < fillingTime)
+        {
+            float prop = currTime / fillingTime;
+
+            float filling = Mathf.SmoothStep(inkFillingRange.x, inkFillingRange.y, prop);
+            filledTitle.material.SetFloat(_fillinfShaderParam, filling);
+
+            yield return new WaitForEndOfFrame();
+            currTime += Time.deltaTime;
+        }
+
+        //Efecto de imprimir para mostrar pagina
+        FindObjectOfType<CameraMotion>(true).StartPrinting();
+
+        //TODO: Quitar sutilmente la UI de menu
+        SetMainMenuShow(false);
+    }
+
+    public void EndGameTransition()
+    {
+        //TODO:
+        startGameCoroutine = null;
+    }
+
+    #endregion
+
+
+    #region IN_GAME
+
+    public void StartGameUI()
+    {
+        //TODO: Mostrar UI in game (contadores y demas)
+        SetGameUIShow(true);
+        UpdateScore(0);
+    }
 
     //Actualizamos interfaz de puntuacion y contadores primarios
     public void UpdatePrimary(InkColorIndex color, int num)
@@ -61,11 +132,13 @@ public class UIManager : SerializedMonoBehaviour
             primaryCounts[color].text = num.ToString();
     }
 
+    //Actualizar contador de puntos
     public void UpdateScore(int _score)
     {
         score.text = _score.ToString();
     }
 
+    //Mostrar pantalla de derrota
     public void Lose(InkColorIndex color, int score)
     {
         gameOverScreen.SetActive(true);
@@ -74,11 +147,18 @@ public class UIManager : SerializedMonoBehaviour
         scoreEndText.text = "Score: " + score;
     }
 
+    #endregion
+
+
+    #region FUNCIONES GENERICAS
+
+    //Reiniciar escena
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    //Salir de la aplicacion
     public void ExitApplication()
     {
         Application.Quit();
@@ -93,4 +173,6 @@ public class UIManager : SerializedMonoBehaviour
     //{
     //    return eraserBar.UpdateValue(value);
     //}
+
+    #endregion
 }

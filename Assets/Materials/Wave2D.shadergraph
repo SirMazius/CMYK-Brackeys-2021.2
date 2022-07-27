@@ -3061,9 +3061,9 @@
     "m_Guid": {
         "m_GuidSerialized": "75b5eff1-3522-4f2a-ad84-73f4621b1b5a"
     },
-    "m_Name": "_MainTex",
+    "m_Name": "MainTex",
     "m_DefaultReferenceName": "Texture2D_f86265ec288d40c3976080844cbe3c2b",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_MainTex",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -3147,11 +3147,11 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 0.10999999940395355,
+    "m_Value": 0.800000011920929,
     "m_FloatType": 1,
     "m_RangeValues": {
-        "x": -0.800000011920929,
-        "y": 1.2000000476837159
+        "x": -0.30000001192092898,
+        "y": 0.800000011920929
     }
 }
 

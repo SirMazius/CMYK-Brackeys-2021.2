@@ -21,6 +21,13 @@ public class MoninkerWanderState : MoninkerState
     
     public void UpdateState()
     {
+        //Hasta que no empieza la partida no se mueven
+        if (!GameManager.self.IsInGame)
+        {
+            controller.agent.isStopped = true;
+            return;
+        }
+
         //Si estamos cerca del punto de destino actual calculamos un nuevo punto aleatorio (o se ha agotado el tiempo para ese destino)
         if (currTargetTime <= 0 || controller.agent.remainingDistance <= controller.agent.stoppingDistance)
         {

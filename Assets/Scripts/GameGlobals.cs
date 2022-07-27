@@ -62,6 +62,7 @@ public static class GameGlobals
         {ExchangerType.BETTER, 20}
     };
 
+    public const string animPressedParam = "Pressed";
     public static string tagMoninker = "Moninker";
 
     public static Vector3 Cursor { get => GetCursor3DPoint(); }

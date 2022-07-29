@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -66,6 +68,14 @@ public static class GameGlobals
     public static string tagMoninker = "Moninker";
 
     public static Vector3 Cursor { get => GetCursor3DPoint(); }
+
+    public enum CurveType
+    {
+        Lineal,
+        Smoothed,
+        ParabolicLow, //parabola con asintota en Y = 0
+        ParabolicHigh //TODO: parabola con asintota en Y = max
+    }
 
 
     //Modificacion del input module para poder obtener el objeto de UI sobre el que esta en todo momento
@@ -144,10 +154,91 @@ public static class GameGlobals
         return result;
     }
 
-    //Devuelve la Y de una parabola concava donde con x maxima y es 0 y viceversa
-    public static float CenteredInverseParabola(float value, float maxValue, float maxReturn)
+    /// <summary>
+    /// Devuelve la Y de una parabola concava donde con x (value) maxima Y (return) es 0 y viceversa.
+    /// En otras palabras, el valor devuelto va describiendo un descenso a medida que aumenta value, que va decreciendo cada vez en menor medida. Podriamos decir que se hacen asintotas en los ejes X e Y
+    ///  .
+    ///  .
+    ///   . 
+    ///     . 
+    ///        . 
+    ///             .    .    ---> value
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="maxValue"></param>
+    /// <param name="maxReturn"></param>
+    /// <returns></returns>
+    public static float ParabolicDecrease(float value, float maxValue, float maxReturn)
     {
         return Mathf.Clamp((value*value * (-maxReturn/(maxValue*maxValue)) + maxReturn), 0, maxReturn);
+    }
+
+    /// <summary>
+    /// Igual que ParabolicDecrease pero al revés: el resultado parte de 0 y va a aumentando cada vez mas hasta alcanzar su máximo cuando el valor tambien es máximo, 
+    /// describiendo una parábola ascendente con asintotas en el eje Y y en X = maxValue
+    /// 
+    ///                   .
+    ///                   .
+    ///                  . 
+    ///                .   
+    ///            . 
+    ///  .   .         ------> value
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="maxValue"></param>
+    /// <param name="maxReturn"></param>
+    /// <returns></returns>
+    public static float ParabolicIncrease(float value, float maxValue, float maxReturn)
+    {
+        return ParabolicDecrease(maxValue - value, maxValue, maxReturn);
+    }
+
+    /// <summary>
+    /// Cambia progresivamente un valor en el tiempo, siguiendo una función de curva específica.
+    /// Hay que devolver el valor de la corrutina por un action, ya que las corrutinas no aceptan atributos por referencia.
+    /// </summary>
+    /// <param name="outValue"></param>
+    /// <param name="original"></param>
+    /// <param name="desired"></param>
+    /// <param name="time"></param>
+    /// <returns></returns>
+    public static IEnumerator ParamTransitionOverTime(Action<float> outValue, float original, float desired, float time, CurveType curve = CurveType.Lineal)
+    {
+        float currTime = 0;
+
+        //Diferencia del valor actual respecto al deseado (incremento)
+        float diff = desired - original;
+
+        while (currTime < time)
+        {
+            float value = 0;
+
+            //Aumentamos o decrecemos la velocidad siguiendo una parabola hasta alcanzar el valor indicado
+            switch (curve)
+            {
+                //Interpolacion con suavizado en los extremos
+                case CurveType.Smoothed:
+                    value = Mathf.SmoothStep(original, desired, Mathf.Clamp01(currTime / time));
+                    break;
+                //Aumento/decremento cada vez mayor
+                case CurveType.ParabolicLow:
+                    if (diff > 0)
+                        value = ParabolicIncrease(currTime, time, diff);
+                    else
+                        value = ParabolicIncrease(currTime, time, Mathf.Abs(diff));
+                    break;
+                //Por defecto interpolacion lineal
+                default:
+                    value = Mathf.Lerp(original, desired, Mathf.Clamp01(currTime / time));
+                    break;
+            }
+
+            //Devolver valor cambiado a traves de la action
+            outValue(value);
+
+            yield return new WaitForEndOfFrame();
+            currTime += Time.deltaTime;
+        }
     }
 
     #endregion

@@ -187,7 +187,7 @@ public class GrabberController : MonoBehaviour
             float distance = distVec.magnitude;
 
             //Aplicamos un desplazamiento continuo proporcionalmente inverso a la distancia
-            float forceMag = CenteredInverseParabola(distance, attractRadius, attractForce); //(1 - Mathf.InverseLerp(0, attractRadius, distance)) * attractForce;
+            float forceMag = ParabolicDecrease(distance, attractRadius, attractForce); //(1 - Mathf.InverseLerp(0, attractRadius, distance)) * attractForce;
             
             //Evitamos que se pase al otro lado del punto
             Vector3 moveIncrement = distVec.normalized * Mathf.Clamp(forceMag * Time.deltaTime, 0, distance);

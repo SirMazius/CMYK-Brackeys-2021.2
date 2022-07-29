@@ -6,29 +6,26 @@ using UnityEngine.SceneManagement;
 using static GameGlobals;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Sirenix.OdinInspector;
 
-public class UIManager : SerializedMonoBehaviour
+
+public class UIManager : SingletonMono<UIManager>
 {
-    public static UIManager self;
-
     [Header("Main menu")]
-    [SerializeField]
-    private GameObject _mainMenu;
-    public Vector2 inkFillingRange;
-    public Image filledTitle;
-    public float fillingTime = 1.5f;
-    private const string _fillinfShaderParam = "Filling";
+    public GameObject mainMenuUI;
+    public ImageFiller titleFiller;
+    private CameraMotion _cameraMotion;
+    private BackgroundController _background;
     private Coroutine startGameCoroutine = null;
+    public float bgAppearingTime = 1.5f;
+    public float bgSpeedTime = 3f;
+    public float printTime = 2;
 
     [Header("In game")]
-    [SerializeField]
-    private GameObject _inGameUI;
+    public GameObject inGameUI;
     public Dictionary<InkColorIndex,TextMeshProUGUI> primaryCounts = new Dictionary<InkColorIndex, TextMeshProUGUI>();
     public Dictionary<SkillType, GameObject> skillsIcons = new Dictionary<SkillType, GameObject>();
     public TextMeshProUGUI score;
     public Color countWarningColor;
-    //public BarController eraserBar;
 
     [Header("End game")]
     public GameObject gameOverScreen;
@@ -36,13 +33,11 @@ public class UIManager : SerializedMonoBehaviour
     public TextMeshProUGUI scoreEndText;
 
 
-    public void Awake()
+    protected override void Awake()
     {
-        //Singleton
-        if (self == null)
-            self = this;
-        else
-            Destroy(gameObject);
+        base.Awake();
+        _cameraMotion = CameraMotion.self;
+        _background = BackgroundController.self;
     }
 
     private void Start()
@@ -51,8 +46,6 @@ public class UIManager : SerializedMonoBehaviour
         SetGameUIShow(false);
         gameOverScreen.SetActive(false);
         UpdateScore(0);
-
-        filledTitle.material.SetFloat(_fillinfShaderParam, inkFillingRange.x);
     }
 
 
@@ -60,13 +53,13 @@ public class UIManager : SerializedMonoBehaviour
 
     public void SetMainMenuShow(bool show)
     {
-        _mainMenu.SetActive(show);
+        mainMenuUI.SetActive(show);
         //TODO:
     }
 
     public void SetGameUIShow(bool show)
     {
-        _inGameUI.SetActive(show);
+        inGameUI.SetActive(show);
         //TODO:
     }
 
@@ -74,35 +67,29 @@ public class UIManager : SerializedMonoBehaviour
     {
         if(startGameCoroutine == null)
         {
-            startGameCoroutine = StartCoroutine(StartTransitionCorroutine());
+            startGameCoroutine = StartCoroutine(StartTransitionsCorroutine());
         }
     }
 
     //Transicion completa de inicio de la partida
-    private IEnumerator StartTransitionCorroutine()
+    private IEnumerator StartTransitionsCorroutine()
     {
-        float currTime = 0;
+        //Rellenar titulo
+        titleFiller.StartCompleteFill(bgAppearingTime);
+        yield return new WaitForSeconds(1);
 
         //Mostrar fondo poco a poco acelerando su movimiento
-        StartCoroutine(FindObjectOfType<BackgroundController>(true).StartGameCoroutine(fillingTime));
+        _background.Show(bgAppearingTime);
+        _background.StartMoving(bgSpeedTime);
+        //TODO: Quitar sutilmente la UI de menu
 
-        //Rellenar titulo de tinta
-        while (currTime < fillingTime)
-        {
-            float prop = currTime / fillingTime;
-
-            float filling = Mathf.SmoothStep(inkFillingRange.x, inkFillingRange.y, prop);
-            filledTitle.material.SetFloat(_fillinfShaderParam, filling);
-
-            yield return new WaitForEndOfFrame();
-            currTime += Time.deltaTime;
-        }
+        yield return new WaitForSeconds(bgAppearingTime);
 
         //Efecto de imprimir para mostrar pagina
-        FindObjectOfType<CameraMotion>(true).StartPrinting();
+        _cameraMotion.StartPrinting(printTime);
+        //TODO: util aparicion ui in game
 
-        //TODO: Quitar sutilmente la UI de menu
-        SetMainMenuShow(false);
+        //SetMainMenuShow(false);
     }
 
     public void EndGameTransition()
@@ -163,16 +150,6 @@ public class UIManager : SerializedMonoBehaviour
     {
         Application.Quit();
     }
-
-    //public void InitEraser(float max)
-    //{
-    //    eraserBar.InitBar(max);
-    //}
-
-    //public bool UpdateEraser(float value)
-    //{
-    //    return eraserBar.UpdateValue(value);
-    //}
 
     #endregion
 }

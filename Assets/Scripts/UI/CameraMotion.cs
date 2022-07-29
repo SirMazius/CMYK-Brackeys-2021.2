@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Events;
 
-public class CameraMotion : MonoBehaviour
+public class CameraMotion : SingletonMono<CameraMotion>
 {
     public enum PrintStates
     {
@@ -25,14 +25,10 @@ public class CameraMotion : MonoBehaviour
     [SerializeField]
     private Vector3 _endingCameraPos;
 
-    //public MeshRenderer folioMesh;
-
     public float beginEndOffsetPos;
 
     [Header("PRINT ANIMATIONS")]
     public int printSteps = 5;
-    public float startPrintTime = 2;
-    public float endPrintTime = 1;
     public float moveTimePercentage = 0.5f;
     public PrintStates state = PrintStates.IN_GAME;
 
@@ -41,10 +37,10 @@ public class CameraMotion : MonoBehaviour
     public Transform gizmoDown;
 
 
-
     // Start is called before the first frame update
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _cam = Camera.main.transform;
         _folioHeight = Vector3.Distance(gizmoUp.position, gizmoDown.position);
     }
@@ -83,12 +79,12 @@ public class CameraMotion : MonoBehaviour
     }
 
     [Button]
-    public void StartPrinting()
+    public void StartPrinting(float time)
     {
-        StartCoroutine(StartPrintAnimation());
+        StartCoroutine(StartPrintAnimation(time));
     }
 
-    private IEnumerator StartPrintAnimation()
+    private IEnumerator StartPrintAnimation(float time)
     {
         //Ponemos cámara en posición inicial
         _cam.position = _beginingCameraPos;
@@ -97,9 +93,9 @@ public class CameraMotion : MonoBehaviour
 
         //Calculamos la distancia a mover en cada paso de impresion
         float stepDist = Mathf.Abs(_beginingCameraPos.z - _inGameCameraPos.z) / printSteps;
-        float stepTime = startPrintTime/printSteps * moveTimePercentage;
-        float speed = stepDist / stepTime;
-        float waitTime = startPrintTime / printSteps * (1 - moveTimePercentage);
+        float stepTime = time/printSteps * moveTimePercentage;
+        float speed = stepDist/stepTime;
+        float waitTime = time/printSteps * (1 - moveTimePercentage);
 
         //Para cada "trompicon" de la impresora...
         for (int i = 0; i < printSteps; i++)
@@ -130,17 +126,17 @@ public class CameraMotion : MonoBehaviour
     }
 
     [Button]
-    public void EndPrinting()
+    public void EndPrinting(float time)
     {
-        StartCoroutine(EndPrintAnimation());
+        StartCoroutine(EndPrintAnimation(time));
     }
 
-    private IEnumerator EndPrintAnimation()
+    private IEnumerator EndPrintAnimation(float time)
     {
         _cam.position = _inGameCameraPos;
 
         float dist = Mathf.Abs(_endingCameraPos.z - _inGameCameraPos.z);
-        float speed = dist / endPrintTime;
+        float speed = dist / time;
 
         //Movemos poco a poco el folio hasta salid de la pantalla (la camara en realidad)
         for (float acum = 0; acum < dist;)

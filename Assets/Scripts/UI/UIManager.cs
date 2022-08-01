@@ -90,9 +90,11 @@ public class UIManager : SingletonMono<UIManager>
 
         //Efecto de imprimir para mostrar pagina
         _cameraMotion.StartPrinting(printTime);
-        //TODO: aparicion ui in game
         
-        //SetMainMenuShow(false);
+        yield return new WaitForSeconds(printTime);
+
+        //TODO: aparicion ui in game
+        SetMainMenuShow(false);
     }
 
     public void EndGameTransition()

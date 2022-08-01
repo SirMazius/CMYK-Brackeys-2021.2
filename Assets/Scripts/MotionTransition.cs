@@ -59,7 +59,9 @@ public class MotionTransition : MonoBehaviour
                 child.transform.localScale = Vector3.one;
                 points.Add(child.transform);
 
+#if UNITY_EDITOR
                 UnityEditor.EditorUtility.SetDirty(child);
+#endif
             }
         }
     }

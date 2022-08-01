@@ -74,7 +74,7 @@ public static class GameGlobals
         Lineal,
         Smoothed,
         ParabolicLow, //parabola con asintota en Y = 0
-        ParabolicHigh //TODO: parabola con asintota en Y = max
+        //ParabolicHigh //TODO: parabola con asintota en Y = max
     }
 
 
@@ -223,9 +223,9 @@ public static class GameGlobals
                 //Aumento/decremento cada vez mayor
                 case CurveType.ParabolicLow:
                     if (diff > 0)
-                        value = ParabolicIncrease(currTime, time, diff);
+                        value = original + ParabolicIncrease(currTime, time, diff);
                     else
-                        value = ParabolicIncrease(currTime, time, Mathf.Abs(diff));
+                        value = original - ParabolicIncrease(currTime, time, Mathf.Abs(diff));
                     break;
                 //Por defecto interpolacion lineal
                 default:

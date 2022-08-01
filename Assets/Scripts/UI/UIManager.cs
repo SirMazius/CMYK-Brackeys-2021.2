@@ -13,10 +13,12 @@ public class UIManager : SingletonMono<UIManager>
     [Header("Main menu")]
     public GameObject mainMenuUI;
     public ImageFiller titleFiller;
+    public MotionTransition titleMotion;
     private CameraMotion _cameraMotion;
     private BackgroundController _background;
     private Coroutine startGameCoroutine = null;
     public float bgAppearingTime = 1.5f;
+    public float titleFillTime = 3f;
     public float bgSpeedTime = 3f;
     public float printTime = 2;
 
@@ -67,28 +69,29 @@ public class UIManager : SingletonMono<UIManager>
     {
         if(startGameCoroutine == null)
         {
-            startGameCoroutine = StartCoroutine(StartTransitionsCorroutine());
+            startGameCoroutine = StartCoroutine(StartTransitionsCoroutine());
         }
     }
 
     //Transicion completa de inicio de la partida
-    private IEnumerator StartTransitionsCorroutine()
+    private IEnumerator StartTransitionsCoroutine()
     {
         //Rellenar titulo
-        titleFiller.StartCompleteFill(bgAppearingTime);
+        titleFiller.StartCompleteFill(titleFillTime);
         yield return new WaitForSeconds(1);
 
         //Mostrar fondo poco a poco acelerando su movimiento
         _background.Show(bgAppearingTime);
         _background.StartMoving(bgSpeedTime);
-        //TODO: Quitar sutilmente la UI de menu
+        //Mover titulo al centro
+        titleMotion.GoToEndPoint(bgAppearingTime);
 
-        yield return new WaitForSeconds(bgAppearingTime);
+        yield return new WaitForSeconds(bgAppearingTime-1);
 
         //Efecto de imprimir para mostrar pagina
         _cameraMotion.StartPrinting(printTime);
-        //TODO: util aparicion ui in game
-
+        //TODO: aparicion ui in game
+        
         //SetMainMenuShow(false);
     }
 

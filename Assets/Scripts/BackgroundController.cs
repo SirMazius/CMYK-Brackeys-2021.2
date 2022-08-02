@@ -28,15 +28,26 @@ public class BackgroundController : SingletonMono<BackgroundController>
         rend.material.SetTextureOffset("_BaseMap", new Vector2(runTime, 0));
     }
 
-    //Aparicion de fondo con aumento de velocidad progresivos
+    //Aparicion de fondo progresiva
     public void Show(float opacityIncrTime)
     {
         OpacityTransition(opacityIncrTime, 1, 0);
     }
 
+    //Desaparicion de fondo progresiva
+    public void Hide(float opacityIncrTime)
+    {
+        OpacityTransition(opacityIncrTime, 0, 1);
+    }
+
     public void StartMoving(float speedIncrTime)
     {
         SpeedTransition(speedIncrTime, normalSpeed, 0);
+    }
+
+    public void StartStopping(float speedIncrTime)
+    {
+        SpeedTransition(speedIncrTime, 0, normalSpeed);
     }
 
 

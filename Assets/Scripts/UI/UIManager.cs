@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using static GameGlobals;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+using Sirenix.OdinInspector;
 
 public class UIManager : SingletonMono<UIManager>
 {
@@ -16,11 +16,12 @@ public class UIManager : SingletonMono<UIManager>
     public MotionTransition titleMotion;
     private CameraMotion _cameraMotion;
     private BackgroundController _background;
-    private Coroutine startGameCoroutine = null;
+    private Coroutine currentTransitionCoroutine = null;
     public float bgAppearingTime = 1.5f;
     public float titleFillTime = 3f;
     public float bgSpeedTime = 3f;
     public float printTime = 2;
+    public float endPrintTime = 2;
 
     [Header("In game")]
     public GameObject inGameUI;
@@ -67,14 +68,14 @@ public class UIManager : SingletonMono<UIManager>
 
     public void StartGameTransition()
     {
-        if(startGameCoroutine == null)
+        if(currentTransitionCoroutine == null)
         {
-            startGameCoroutine = StartCoroutine(StartTransitionsCoroutine());
+            currentTransitionCoroutine = StartCoroutine(StartGameTransitionCoroutine());
         }
     }
 
     //Transicion completa de inicio de la partida
-    private IEnumerator StartTransitionsCoroutine()
+    private IEnumerator StartGameTransitionCoroutine()
     {
         //Rellenar titulo
         titleFiller.StartCompleteFill(titleFillTime);
@@ -95,12 +96,37 @@ public class UIManager : SingletonMono<UIManager>
 
         //TODO: aparicion ui in game
         SetMainMenuShow(false);
+        currentTransitionCoroutine = null;
     }
 
     public void EndGameTransition()
     {
-        //TODO:
-        startGameCoroutine = null;
+        if (currentTransitionCoroutine == null)
+        {
+            currentTransitionCoroutine = StartCoroutine(EndGameTransitionCoroutine());
+        }
+    }
+
+    private IEnumerator EndGameTransitionCoroutine()
+    {
+        inGameUI.SetActive(false);
+        gameOverScreen.SetActive(true);
+        
+        yield return new WaitForSeconds(3);
+
+        gameOverScreen.SetActive(false);
+        _cameraMotion.EndPrinting(endPrintTime);
+        _background.StartStopping(bgSpeedTime);
+        SetMainMenuShow(true);
+        titleFiller.StartCompleteDrain(bgAppearingTime);
+        titleMotion.GoToStartPoint(bgAppearingTime);
+
+        yield return new WaitForSeconds(1);
+
+        _background.Hide(bgAppearingTime);
+
+        yield return new WaitForSeconds(bgAppearingTime);
+        currentTransitionCoroutine = null;
     }
 
     #endregion
@@ -131,12 +157,14 @@ public class UIManager : SingletonMono<UIManager>
     }
 
     //Mostrar pantalla de derrota
+    [Button]
     public void Lose(InkColorIndex color, int score)
     {
-        gameOverScreen.SetActive(true);
         gameOverText.text = "Out of\n" + color;
         gameOverText.color = InkColors[color];
         scoreEndText.text = "Score: " + score;
+
+        EndGameTransition();
     }
 
     #endregion

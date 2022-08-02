@@ -5,19 +5,21 @@ using Sirenix.OdinInspector;
 using static GameGlobals;
 
 
-public class MotionTransition : MonoBehaviour
+public class MotionTransition : SerializedMonoBehaviour
 {
     public List<Transform> points = new List<Transform>();
 
 
-    public void GoToStartPoint(float time, CurveType curve = CurveType.Smoothed)
+    [Button]
+    public void GoToStartPoint(float time = 1, CurveType curve = CurveType.Smoothed)
     {
         StartCoroutine(ParamTransitionOverTime((posX) =>
         { transform.position = new Vector3(posX, transform.position.y, transform.position.z); },
         transform.position.x, points[0].position.x, time, curve));
     }
 
-    public void GoToEndPoint(float time, CurveType curve = CurveType.Smoothed)
+    [Button]
+    public void GoToEndPoint(float time = 1, CurveType curve = CurveType.Smoothed)
     {
         StartCoroutine(ParamTransitionOverTime((posX) =>
         { transform.position = new Vector3(posX, transform.position.y, transform.position.z); },
@@ -57,6 +59,7 @@ public class MotionTransition : MonoBehaviour
                 child.transform.localPosition = Vector3.zero;
                 child.transform.localRotation = Quaternion.identity;
                 child.transform.localScale = Vector3.one;
+                child.transform.parent = transform.parent;
                 points.Add(child.transform);
 
 #if UNITY_EDITOR

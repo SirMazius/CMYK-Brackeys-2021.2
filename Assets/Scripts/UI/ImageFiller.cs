@@ -25,6 +25,11 @@ public class ImageFiller : MonoBehaviour
         FillTransition(time, inkFillingRange.x, inkFillingRange.y);
     }
 
+    public void StartCompleteDrain(float time)
+    {
+        FillTransition(time, inkFillingRange.y, inkFillingRange.x);
+    }
+
     public void FillTransition(float time, float origin, float desired)
     {
         filledTitle.enabled = true;

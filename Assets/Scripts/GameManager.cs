@@ -150,15 +150,15 @@ public class GameManager : SerializedMonoBehaviour
     }
 
     //Finaliza el juego mostrando resultados y opciones
-    public void EndGame(InkColorIndex color)
+    public async void EndGame(InkColorIndex color)
     {
         if(IsInGame)
         {
+            _currentState = GameState.ENDGAME;
+            //Animacion final
+            await UIManager.self.Lose(color, score);
+            //TODO: mostrar opciones reinicio, volver a menus, highscores
             _currentState = GameState.MENU;
-            Debug.Log("YOU LOSE, final score: " + score);
-            UIManager.self.Lose(color, score);
-
-            //TODO: Animacion final y mostrar opciones reinicio, volver a menus, highscores
         }
     }
 
@@ -289,10 +289,7 @@ public class GameManager : SerializedMonoBehaviour
     public void AddColorCount(InkColorIndex color)
     {
         if ((int)color >= 0 && (int)color < 3)
-        {
             UIManager.self.UpdatePrimary(color, ++primariesCount[(int)color]);
-            //Debug.Log("Add " + color);
-        }
     }
 
     public void RemoveColorCount(InkColorIndex color)
@@ -300,11 +297,8 @@ public class GameManager : SerializedMonoBehaviour
         if ((int)color >= 0 && (int)color < 3)
         {
             if (--primariesCount[(int)color] <= 0)
-            { 
                 EndGame(color);
-            }
             UIManager.self.UpdatePrimary(color, primariesCount[(int)color]);
-            //Debug.Log("Remove " + color);
         }
     }
 

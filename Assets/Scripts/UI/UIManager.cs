@@ -94,13 +94,13 @@ public class UIManager : SingletonMono<UIManager>
 
     //Mostrar pantalla de derrota
     [Button]
-    public void Lose(InkColorIndex color, int score)
+    public async Task Lose(InkColorIndex color, int score)
     {
         gameOverText.text = "Out of\n" + color;
         gameOverText.color = InkColors[color];
         scoreEndText.text = "Score: " + score;
 
-        TransitionsController.self.EndGameTransition();
+        await TransitionsController.self.EndGameTransition();
     }
 
     #endregion

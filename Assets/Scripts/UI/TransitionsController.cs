@@ -56,15 +56,15 @@ public class TransitionsController : SingletonMono<TransitionsController>
 
     public async Task EndGameTransition()
     {
-        //inGameUI.SetActive(false);
-        //gameOverScreen.SetActive(true);
+        UIManager.self.inGameUI.SetActive(false);
+        UIManager.self.gameOverScreen.SetActive(true);
 
         await (Task.Delay(3f.ToMillis()));
 
-        //gameOverScreen.SetActive(false);
+        UIManager.self.gameOverScreen.SetActive(false);
+        UIManager.self.SetMainMenuShow(true);
         _cameraMotion.EndPrinting(endPrintTime);
         _background.StartStopping(bgSpeedTime);
-        //SetMainMenuShow(true);
         titleFiller.StartCompleteDrain(bgAppearingTime);
         titleMotion.GoToStartPoint(bgAppearingTime);
 

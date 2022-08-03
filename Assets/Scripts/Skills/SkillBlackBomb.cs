@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static GameGlobals;
 using System.Linq;
+using DG.Tweening;
 
 //Habilidad de eliminar un color selectivamente en una zona amplia
 public class SkillBlackBomb : Skill
@@ -22,5 +23,7 @@ public class SkillBlackBomb : Skill
             if (m.MoninkerColor == InkColorIndex.BLACK)
                 GameManager.self.DeactivateMoninker(m);
         }
+
+        CameraMotion.self.ShakeCamera();
     }
 }

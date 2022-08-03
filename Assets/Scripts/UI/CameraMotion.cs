@@ -4,6 +4,8 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Events;
 using System.Threading.Tasks;
+using DG.Tweening;
+
 
 public class CameraMotion : SingletonMono<CameraMotion>
 {
@@ -34,6 +36,8 @@ public class CameraMotion : SingletonMono<CameraMotion>
     [Header("GIZMOS")]
     public Transform gizmoUp;
     public Transform gizmoDown;
+
+    private Tween _shakeTween = null;
 
 
     // Start is called before the first frame update
@@ -84,15 +88,15 @@ public class CameraMotion : SingletonMono<CameraMotion>
 
         //Calculamos la distancia a mover en cada paso de impresion
         float stepDist = Mathf.Abs(_beginingCameraPos.z - _inGameCameraPos.z) / printSteps;
-        float stepTime = time/printSteps * moveTimePercentage;
-        float speed = stepDist/stepTime;
-        float waitTime = time/printSteps * (1 - moveTimePercentage);
+        float stepTime = time / printSteps * moveTimePercentage;
+        float speed = stepDist / stepTime;
+        float waitTime = time / printSteps * (1 - moveTimePercentage);
 
         //Para cada "trompicon" de la impresora...
         for (int i = 0; i < printSteps; i++)
         {
             //Movemos poco a poco rapidamente el folio (la camara en realidad)
-            for(float acum = 0; acum < stepDist; )
+            for (float acum = 0; acum < stepDist;)
             {
                 await Task.Yield();
 
@@ -138,5 +142,15 @@ public class CameraMotion : SingletonMono<CameraMotion>
             vec.z += incr;
             _cam.position = vec;
         }
+    }
+
+    [Button]
+    public void ShakeCamera(float duration = 0.6f, float strenght = 0.8f, int vibrato = 20, bool fade = true)
+    {
+        //Evitamos offsets no deseados de la camara al solapar vibraciones
+        if(_shakeTween != null && _shakeTween.IsPlaying())
+            _shakeTween.Rewind();
+
+        _shakeTween = Camera.main.DOShakePosition(duration, strenght, vibrato, 90, fade);
     }
 }

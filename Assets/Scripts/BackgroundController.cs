@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+
 
 public class BackgroundController : SingletonMono<BackgroundController>
 {
@@ -29,9 +31,12 @@ public class BackgroundController : SingletonMono<BackgroundController>
     }
 
     //Aparicion de fondo progresiva
-    public void Show(float opacityIncrTime)
+    public Tween Show(float opacityIncrTime)
     {
-        OpacityTransition(opacityIncrTime, 1, 0);
+        Color col = rend.material.color;
+        col.a = 0;
+        return rend.material.DOFade(1, opacityIncrTime).ChangeStartValue(col);
+        //OpacityTransition(opacityIncrTime, 1, 0);
     }
 
     //Desaparicion de fondo progresiva
@@ -40,9 +45,10 @@ public class BackgroundController : SingletonMono<BackgroundController>
         OpacityTransition(opacityIncrTime, 0, 1);
     }
 
-    public void StartMoving(float speedIncrTime)
+    public Tween StartMoving(float speedIncrTime)
     {
-        SpeedTransition(speedIncrTime, normalSpeed, 0);
+        return DOVirtual.Float(0, normalSpeed, speedIncrTime, (speed) => { _currentSpeed = speed; });
+        //SpeedTransition(speedIncrTime, normalSpeed, 0);
     }
 
     public void StartStopping(float speedIncrTime)

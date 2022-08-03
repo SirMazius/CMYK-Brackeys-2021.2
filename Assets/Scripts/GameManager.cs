@@ -64,9 +64,6 @@ public class GameManager : SerializedMonoBehaviour
             self = this;
         else
             Destroy(gameObject);
-
-        //Comenzar juego como tal al terminar la transicion de inicio
-        CameraMotion.OnPrintFinished.AddListener(StartGame);
     }
 
     private void Start()
@@ -137,8 +134,8 @@ public class GameManager : SerializedMonoBehaviour
     public void StartGame()
     {
         _currentState = GameState.GAME;
-        UIManager.self.StartGameUI();
         PaintSpawner.self.StartSpawn();
+        UIManager.self.StartGameUI();
     }
 
     public void Pause()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Events;
+using System.Threading.Tasks;
 
 public class CameraMotion : SingletonMono<CameraMotion>
 {
@@ -12,8 +13,6 @@ public class CameraMotion : SingletonMono<CameraMotion>
         IN_GAME,
         ENDING
     }
-
-    public static UnityEvent OnPrintFinished = new UnityEvent();
 
     private Transform _cam;
     private float _folioHeight;
@@ -78,18 +77,10 @@ public class CameraMotion : SingletonMono<CameraMotion>
         }
     }
 
-    [Button]
-    public void StartPrinting(float time)
-    {
-        StartCoroutine(StartPrintAnimation(time));
-    }
-
-    private IEnumerator StartPrintAnimation(float time)
+    public async Task StartPrinting(float time)
     {
         //Ponemos cámara en posición inicial
         _cam.position = _beginingCameraPos;
-
-        yield return new WaitForSeconds(1);
 
         //Calculamos la distancia a mover en cada paso de impresion
         float stepDist = Mathf.Abs(_beginingCameraPos.z - _inGameCameraPos.z) / printSteps;
@@ -103,7 +94,7 @@ public class CameraMotion : SingletonMono<CameraMotion>
             //Movemos poco a poco rapidamente el folio (la camara en realidad)
             for(float acum = 0; acum < stepDist; )
             {
-                yield return new WaitForEndOfFrame();
+                await Task.Yield();
 
                 float incr = speed * Time.deltaTime;
                 acum += incr;
@@ -118,11 +109,8 @@ public class CameraMotion : SingletonMono<CameraMotion>
             }
 
             //Y hacemos una pausa
-            yield return new WaitForSecondsRealtime(waitTime);
+            await Task.Delay(waitTime.ToMillis());
         }
-
-        //TODO: evento de empezar partida
-        OnPrintFinished.Invoke();
     }
 
     [Button]

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using static GameGlobals;
-
+using DG.Tweening;
 
 public class MotionTransition : SerializedMonoBehaviour
 {
@@ -19,11 +19,13 @@ public class MotionTransition : SerializedMonoBehaviour
     }
 
     [Button]
-    public void GoToEndPoint(float time = 1, CurveType curve = CurveType.Smoothed)
+    public Tween GoToEndPoint(float time = 1, CurveType curve = CurveType.Smoothed)
     {
-        StartCoroutine(ParamTransitionOverTime((posX) =>
-        { transform.position = new Vector3(posX, transform.position.y, transform.position.z); },
-        transform.position.x, points[1].position.x, time, curve));
+        return transform.DOMoveX(points[1].position.x, time).SetEase(Ease.InOutCubic);
+
+        //StartCoroutine(ParamTransitionOverTime((posX) =>
+        //{ transform.position = new Vector3(posX, transform.position.y, transform.position.z); },
+        //transform.position.x, points[1].position.x, time, curve));
     }
 
     [Button("Update Points")]

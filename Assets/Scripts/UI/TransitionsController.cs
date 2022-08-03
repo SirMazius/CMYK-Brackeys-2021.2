@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
-
+using static GameGlobals;
+using DG.Tweening;
 
 public class TransitionsController : SingletonMono<TransitionsController>
 {
-    private Coroutine currentTransitionCoroutine = null;
     private Task currentTask = null;
 
     [Header ("Transitionables")]
@@ -31,55 +31,35 @@ public class TransitionsController : SingletonMono<TransitionsController>
         _background = BackgroundController.self;
     }
 
-
-    public async Task StartGame()
-    {
-        await StartGameTask();
-    }
-
     //Transicion completa de inicio de la partida
-    private async Task StartGameTask()
+    public async Task StartGameTransition()
     {
+        List<Task> transitions = new List<Task>();
+
         //Rellenar titulo
-        titleFiller.StartCompleteFill(titleFillTime);
-        //yield return new WaitForSeconds(1);
-        await Task.Delay(1000);
+        transitions.Add(titleFiller.StartCompleteFill(titleFillTime).AsyncWaitForCompletion());
+        await Task.Delay(1f.ToMillis());
 
         //Mostrar fondo poco a poco acelerando su movimiento
-        _background.Show(bgAppearingTime);
-        _background.StartMoving(bgSpeedTime);
+        transitions.Add(_background.Show(bgAppearingTime).AsyncWaitForCompletion());
+        _ =(_background.StartMoving(bgSpeedTime).AsyncWaitForCompletion());
         //Mover titulo al centro
-        titleMotion.GoToEndPoint(bgAppearingTime);
-
-        await Task.Delay((int)((bgAppearingTime - 1) *1000));
-        //yield return new WaitForSeconds(bgAppearingTime - 1);
+        transitions.Add(titleMotion.GoToEndPoint(bgAppearingTime).AsyncWaitForCompletion());
+        await Task.WhenAll(transitions);
 
         //Efecto de imprimir para mostrar pagina
-        _cameraMotion.StartPrinting(printTime);
+        await _cameraMotion.StartPrinting(printTime);
 
-        await Task.Delay((int)(printTime*1000));
-        //yield return new WaitForSeconds(printTime);
-
-        //TODO: aparicion ui in game
-        //SetMainMenuShow(false);
-        currentTransitionCoroutine = null;
+        UIManager.self.SetMainMenuShow(false);
+        GameManager.self.StartGame();
     }
 
-
-    public async void EndGame()
-    {
-        if (currentTransitionCoroutine == null)
-        {
-            currentTransitionCoroutine = StartCoroutine(EndGameTransitionCoroutine());
-        }
-    }
-
-    private IEnumerator EndGameTransitionCoroutine()
+    public async Task EndGameTransition()
     {
         //inGameUI.SetActive(false);
         //gameOverScreen.SetActive(true);
 
-        yield return new WaitForSeconds(3);
+        await (Task.Delay(3f.ToMillis()));
 
         //gameOverScreen.SetActive(false);
         _cameraMotion.EndPrinting(endPrintTime);
@@ -88,11 +68,10 @@ public class TransitionsController : SingletonMono<TransitionsController>
         titleFiller.StartCompleteDrain(bgAppearingTime);
         titleMotion.GoToStartPoint(bgAppearingTime);
 
-        yield return new WaitForSeconds(1);
+        await (Task.Delay(1f.ToMillis()));
 
         _background.Hide(bgAppearingTime);
 
-        yield return new WaitForSeconds(bgAppearingTime);
-        currentTransitionCoroutine = null;
+        await (Task.Delay(bgAppearingTime.ToMillis()));
     }
 }

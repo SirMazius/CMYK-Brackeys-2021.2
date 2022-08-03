@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -241,5 +242,14 @@ public static class GameGlobals
         }
     }
 
+    /// <summary>
+    /// Metodo de extensión que devuelve convierete un float de segundos a un int de milisegundos
+    /// </summary>
+    /// <param name="secs"></param>
+    /// <returns></returns>
+    public static int ToMillis(this float secs)
+    {
+        return (int)(secs * 1000);
+    }
     #endregion
 }

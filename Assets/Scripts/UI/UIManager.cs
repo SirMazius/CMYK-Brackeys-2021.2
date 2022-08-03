@@ -7,11 +7,14 @@ using static GameGlobals;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Sirenix.OdinInspector;
+using System.Threading.Tasks;
 
 public class UIManager : SingletonMono<UIManager>
 {
     [Header("Main menu")]
     public GameObject mainMenuUI;
+    private Task _startingTransition = null;
+
     
     [Header("In game")]
     public GameObject inGameUI;
@@ -36,6 +39,19 @@ public class UIManager : SingletonMono<UIManager>
 
 
     #region MAIN MENU
+
+    //Funcion a asignar por editor que evita multiples llamadas
+    public void StartButtonPressed()
+    {
+        if (_startingTransition == null || _startingTransition.IsCompleted)
+            _startingTransition = StartButtonPressedAsync();
+    }
+
+    private async Task StartButtonPressedAsync()
+    {
+        await TransitionsController.self.StartGameTransition();
+        GameManager.self.StartGame();
+    }
 
     public void SetMainMenuShow(bool show)
     {

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,9 +21,11 @@ public class ImageFiller : MonoBehaviour
         filledTitle.material.SetFloat(_fillingShaderParam, inkFillingRange.x);
     }
 
-    public void StartCompleteFill(float time)
+    public Tween StartCompleteFill(float time)
     {
-        FillTransition(time, inkFillingRange.x, inkFillingRange.y);
+        return filledTitle.material.DOFloat(inkFillingRange.y, _fillingShaderParam, time)
+            .ChangeStartValue(inkFillingRange.x)
+            .SetEase(Ease.InOutQuad);
     }
 
     public void StartCompleteDrain(float time)

@@ -95,6 +95,9 @@ public class CameraMotion : SingletonMono<CameraMotion>
         //Para cada "trompicon" de la impresora...
         for (int i = 0; i < printSteps; i++)
         {
+            //Sonido linea imprimida
+            AudioManager.self.PlayOverriding(SoundId.Printer_Line);
+
             //Movemos poco a poco rapidamente el folio (la camara en realidad)
             for (float acum = 0; acum < stepDist;)
             {

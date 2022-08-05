@@ -251,5 +251,16 @@ public static class GameGlobals
     {
         return (int)(secs * 1000);
     }
+
+    public static string ToEnumFormat(this string str)
+    {
+        return str.Trim(' ').Replace(' ', '_');
+    }
+
+    public static string FromEnumFormat(this string str)
+    {
+        return str.Replace('_', ' ');
+    }
+
     #endregion
 }

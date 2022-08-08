@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-
+using System.Threading.Tasks;
 
 [System.Serializable]
 public class Sound
@@ -45,4 +45,17 @@ public class Sound
 
     [HideInInspector]
     public float originalPitch;
+
+    [HideInInspector]
+    public bool playable = true;
+
+    public async Task StartPlayingOffset(float secs)
+    {
+        if (!playable)
+            return;
+
+        playable = false;
+        await Task.Delay(secs.ToMillis());
+        playable = true;
+    }
 }

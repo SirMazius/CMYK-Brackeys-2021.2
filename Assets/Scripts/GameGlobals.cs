@@ -262,5 +262,16 @@ public static class GameGlobals
         return str.Replace('_', ' ');
     }
 
+    public static void CopyFrom(this AudioSource destination, AudioSource original)
+    {
+        destination.clip = original.clip;
+        destination.volume = original.volume;
+        destination.pitch = original.pitch;
+        destination.loop = original.loop;
+        destination.playOnAwake = false;
+        destination.spatialBlend = 0; //Sonidos 2D
+        destination.outputAudioMixerGroup = original.outputAudioMixerGroup;
+    }
+
     #endregion
 }

@@ -176,6 +176,7 @@ public class GameManager : SerializedMonoBehaviour
             m.gameObject.SetActive(true);
             m.transform.position = pos;
             m.MoninkerColor = color;
+            AudioManager.self.PlayAdditively(SoundId.New_Moninker);
             AddScore();
         }
         else
@@ -254,7 +255,7 @@ public class GameManager : SerializedMonoBehaviour
                 {
                     MoninkerController m = cellMoninkers[i];
                     float currDist = Vector3.Distance(m.transform.position, center);
-                    if (currDist < maxDist && !(m.currState is MoninkerDraggingState))
+                    if (currDist < maxDist || m.currState is MoninkerDraggingState)
                         moninkers.Add(m);
                 }
             }

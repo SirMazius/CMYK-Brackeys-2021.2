@@ -171,7 +171,6 @@ public class GrabberController : MonoBehaviour
     #endregion
 
 
-
     #region ATRAER MONINKERS
 
     //Mover los moninkers cercanos con una fuerza inversamente proporcional a la distancia
@@ -190,7 +189,8 @@ public class GrabberController : MonoBehaviour
             float forceMag = ParabolicDecrease(distance, attractRadius, attractForce); //(1 - Mathf.InverseLerp(0, attractRadius, distance)) * attractForce;
             
             //Evitamos que se pase al otro lado del punto
-            Vector3 moveIncrement = distVec.normalized * Mathf.Clamp(forceMag * Time.deltaTime, 0, distance);
+            //Vector3 moveIncrement = distVec.normalized * Mathf.Clamp(forceMag * Time.deltaTime, 0, distance);
+            Vector3 moveIncrement = distVec.normalized * forceMag * Time.deltaTime;
             Debug.DrawRay(m.transform.position, distVec.normalized * forceMag * 0.1f, Color.red);
             m.transform.position += moveIncrement;
         }

@@ -49,7 +49,7 @@ public class UIManager : SingletonMono<UIManager>
 
     private async Task StartButtonPressedAsync()
     {
-        await TransitionsController.self.StartGameTransition();
+        //await TransitionsController.self.StartGameTransition();
         GameManager.self.StartGame();
     }
 

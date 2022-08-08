@@ -26,6 +26,9 @@ public class AudioManager : SingletonMono<AudioManager>
     public float musicVolume = 1;
 
 
+    public float paintPartSpeedSound = 5;
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -38,6 +41,7 @@ public class AudioManager : SingletonMono<AudioManager>
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+            s.source.playOnAwake = false;
             s.source.spatialBlend = 0; //Sonidos 2D
             s.source.outputAudioMixerGroup = (s.mixer == Sound.MixerType.SFX) ? sfxMixer : musicMixer;
             s.originalPitch = s.pitch; 
@@ -90,20 +94,56 @@ public class AudioManager : SingletonMono<AudioManager>
         return s;
     }
 
-    private void CustomPlay(Sound sound, bool additively)
+    public Sound PlayAdditivelyWithOffset(SoundId name, float offset)
     {
+        Sound s = sounds.Find(sound => sound.name.ToEnumFormat() == name.ToString());
+        if(CustomPlay(s, true))
+            _ = s.StartPlayingOffset(offset);
+
+        return s;
+    }
+
+    public Sound PlayInNewSource(SoundId name, out AudioSource source)
+    {
+        Sound sound = sounds.Find(sound => sound.name.ToEnumFormat() == name.ToString());
+
+        source = new GameObject("Source aux ("+sound.name+")").AddComponent<AudioSource>();
+        source.CopyFrom(sound.source);
+
         //Variacion de pitch cada vez que se llama para evitar monotonia
-        if (sound.pitchRandMaxOffset>0)
+        if (sound.pitchRandMaxOffset > 0)
         {
             float variation = UnityEngine.Random.Range(-sound.pitchRandMaxOffset, sound.pitchRandMaxOffset);
-            sound.source.pitch = sound.originalPitch + variation;
+            source.pitch = sound.originalPitch + variation;
         }
 
-        //Reproducimos parando o no el sonido que se esta reproduciendo
-        if (additively)
-            sound.source.PlayOneShot(sound.clip);
-        else
-            sound.source.Play();
+        source.PlayOneShot(sound.clip);
+
+        return sound;
+    }
+
+
+    private bool CustomPlay(Sound sound, bool additively)
+    {
+        if(sound.playable)
+        {
+            //Variacion de pitch cada vez que se llama para evitar monotonia
+            if (sound.pitchRandMaxOffset>0)
+            {
+                float variation = UnityEngine.Random.Range(-sound.pitchRandMaxOffset, sound.pitchRandMaxOffset);
+                sound.source.pitch = sound.originalPitch + variation;
+            }
+
+            //Reproducimos parando o no el sonido que se esta reproduciendo
+            if (additively)
+                sound.source.PlayOneShot(sound.clip);
+            else
+                sound.source.Play();
+
+            return true;
+        }
+
+        return false;
     }
 
     public void Stop(string name)

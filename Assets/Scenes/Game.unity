@@ -329,7 +329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: ExchangeQuantity
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: serializationData.Prefab
@@ -341,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"ExchangeQuantity","value":{"$id":0,"$type":"System.Int32, mscorlib",10}'
+      value: '"path":"ExchangeQuantity","value":{"$id":0,"$type":"System.Int32, mscorlib",25}'
       objectReference: {fileID: 0}
     - target: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[1]
@@ -760,9 +760,9 @@ GameObject:
   m_Component:
   - component: {fileID: 297257175}
   - component: {fileID: 297257174}
+  - component: {fileID: 297257179}
   - component: {fileID: 297257177}
   - component: {fileID: 297257178}
-  - component: {fileID: 297257179}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -884,15 +884,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afaf73078eb514840b333c6ca2d3ee8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabbing: 0
-  grabbedMoninkers: []
-  grabbedsColor: -1
-  grabRadius: 0.5
-  attractRadius: 4
-  attractForce: 3
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   OnGrabbedsChange:
     m_PersistentCalls:
       m_Calls: []
+  grabbedMoninkers: []
+  grabbedsColor: -1
+  grabRadius: 0.4
+  grabDelay: 0.07
+  maxComboPitchIncrement: 0.5
+  maxComboMoninkers: 50
+  attractRadius: 4
+  normalAttractForce: 3
+  sameColorAttractForce: 6
+  comboMaxDelay: 1.5
 --- !u!1 &302243674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,7 +1551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: ExchangeQuantity
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: serializationData.Prefab
@@ -1546,7 +1559,11 @@ PrefabInstance:
       objectReference: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
     - target: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[0]
+      value: '"path":"ExchangeQuantity","value":{"$id":0,"$type":"System.Int32, mscorlib",10}'
       objectReference: {fileID: 0}
     - target: {fileID: 975673980366208499, guid: 6867c5574b21ba340aa87a7c91b2e11e, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
@@ -4712,6 +4729,36 @@ MonoBehaviour:
     pitch: 1
     mixer: 0
     loop: 1
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    _clip: {fileID: 8300000, guid: 988a12a028194b34bb877d2c27f5555e, type: 3}
+    name: Combo grab
+    volume: 0.6
+    pitch: 0.55
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    _clip: {fileID: 8300000, guid: 89f425bc166dcd44888057abc701e11b, type: 3}
+    name: Shockwave
+    volume: 0.6
+    pitch: 1.2
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    _clip: {fileID: 8300000, guid: b9823f1bd108ce849ae33cb1c401df3a, type: 3}
+    name: Combo break
+    volume: 0.6
+    pitch: 1
+    mixer: 0
+    loop: 0
     pitchRandMaxOffset: 0
     originalPitch: 0
     playable: 1

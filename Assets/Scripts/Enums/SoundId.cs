@@ -5,4 +5,7 @@ public enum SoundId
 	Paint_drop_hit,
 	Paint_explosion,
 	Whistle,
+	Combo_grab,
+	Shockwave,
+	Combo_break,
 }

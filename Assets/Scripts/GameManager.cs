@@ -176,7 +176,10 @@ public class GameManager : SerializedMonoBehaviour
             m.gameObject.SetActive(true);
             m.transform.position = pos;
             m.MoninkerColor = color;
-            AudioManager.self.PlayAdditively(SoundId.New_Moninker);
+            if(_currentState == GameState.GAME)
+            {
+                AudioManager.self.PlayAdditively(SoundId.New_Moninker);
+            }
             AddScore();
         }
         else

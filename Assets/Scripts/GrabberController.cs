@@ -1,37 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using static GameGlobals;
+using DG.Tweening;
 
-public class GrabberController : MonoBehaviour
+
+public class GrabberController : SingletonMono<GrabberController>
 {
-    public static GrabberController self;
+    private bool _grabbing = false;
+    private bool _grabAvailable = true;
+    private bool _inCombo = false;
+    [HideInInspector]
+    public UnityEvent<int> OnGrabbedsChange = new UnityEvent<int>();
     
-    public bool grabbing = false;
-
-    [Header("Atracción moninkers")]
+    [Header("Grabbeds")]
     public List<MoninkerController> grabbedMoninkers;
     public InkColorIndex grabbedsColor = InkColorIndex.NONE;
     public float grabRadius = 0.5f;
+    public float grabDelay = 0.1f;
+    public float maxComboPitchIncrement = 0.5f;
+    public int maxComboMoninkers = 40;
+    private Coroutine _delayCoroutine = null; 
+
+    [Header("Atracción moninkers")]
     public float attractRadius = 10;
-    public float attractForce = 0.01f;
-    private bool inCombo = false;
+    public float normalAttractForce = 3f;
+    public float sameColorAttractForce = 5f;
+    public float comboMaxDelay = 1.5f;
+
+    private Vector3 _lastCursorPos = new Vector3();
+
+
     //TODO: ¿offset de tiempo entre grabbed moninkers?/¿attraction force disminuye con el tiempo?
-
-    public UnityEvent<int> OnGrabbedsChange = new UnityEvent<int>();
-
-
-
-    void Awake()
-    {
-        //Singleton
-        if (self == null)
-            self = this;
-        else
-            Destroy(gameObject);
-    }
 
     void Update()
     {
@@ -39,13 +42,15 @@ public class GrabberController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !InputModule.OveredUIElement)
             StartGrabMoninkers(GameGlobals.Cursor);
         //Si se esta agarrando o atrayendo moninkers controlamos el drag y el drop
-        else if(grabbing)
+        else if(_grabbing)
         {
             if (Input.GetMouseButton(0))
                 WhileGrabbingMoninkers(GameGlobals.Cursor);
             else if (Input.GetMouseButtonUp(0))
                 EndGrabMoninkers();
         }
+
+        _lastCursorPos = GameGlobals.Cursor;
     }
 
 
@@ -56,7 +61,8 @@ public class GrabberController : MonoBehaviour
     {
         grabbedMoninkers.Clear();
         OnGrabbedsChange.Invoke(0);
-        grabbing = true;
+        _grabbing = true;
+        _grabAvailable = true;
     }
 
     //Al mantener y arrastrar se atraen moninkers hasta agarrarlos, pudiendo desplazarlos completamente
@@ -79,30 +85,31 @@ public class GrabberController : MonoBehaviour
             if (nearest && nearest.MoninkerColor != InkColorIndex.NONE)
             {
                 grabbedsColor = nearest.MoninkerColor;
-                inCombo = !TryGrabIfNear(point, attracteds);
+                _inCombo = !TryGrabIfNear(point, attracteds);
             }
         }
         //Hay moninkers agarrados
         else
         {
             //Si sigue en combo se intentan agarrar más cercanos cortando combo cuando se acerque otro color
-            if (inCombo)
+            if (_inCombo)
             {
                 attracteds = AttractMoninkers(point);
-                inCombo = !TryGrabIfNear(point, attracteds);
+                _inCombo = !TryGrabIfNear(point, attracteds);
             }
 
             //Desplazar agarrados
             for (int i = 0; i < grabbedMoninkers.Count; i++)
                 grabbedMoninkers[i].transform.position = point + grabbedMoninkers[i].grabOffset;
+                //grabbedMoninkers[i].transform.position += (point - _lastCursorPos);
         }
     }
 
     //Soltar monigotes y pasar a wander
     public void EndGrabMoninkers()
     {
-        grabbing = false;
-        inCombo = false;
+        _grabbing = false;
+        _inCombo = false;
 
         //Exchanger sobre el que esta el cursor en este momento
         //TODO: Controlar on hover enter y exit de exchangers
@@ -125,7 +132,10 @@ public class GrabberController : MonoBehaviour
             m.currState.StartWander();
             //TODO: Mejorar como se sueltan(contemplar fuera de mapa y tal)
         }
+        
         grabbedMoninkers.Clear();
+        grabbedsColor = InkColorIndex.NONE;
+
         OnGrabbedsChange.Invoke(0);
     }
 
@@ -134,25 +144,35 @@ public class GrabberController : MonoBehaviour
     {
         bool breakCombo = false;
 
-        foreach(MoninkerController m in moninkers)
+        if(_grabAvailable)
         {
-            if(Vector3.Distance(m.transform.position, point) < grabRadius)
+            foreach(MoninkerController m in moninkers)
             {
-                //Comenzar a coger, seleccionando el color que se va a agarrar
-                if(moninkers.Count == 0)
+                if(Vector3.Distance(m.transform.position, point) < grabRadius && !m.grabbed)
                 {
-                    grabbedsColor = m.MoninkerColor;
-                    inCombo = true;
-                }
+                    //Comenzar a coger, seleccionando el color que se va a agarrar
+                    if(moninkers.Count == 0)
+                    {
+                        grabbedsColor = m.MoninkerColor;
+                        _inCombo = true;
+                    }
 
-                //Añadir a cogidos si es del mismo color
-                if (m.MoninkerColor == grabbedsColor)
-                    GrabMoninker(m, point);
-                //Si es de otro color, corta el combo para la siguiente iteracion de update
-                else
-                    breakCombo = true;
+                    //Añadir a cogidos si es del mismo color
+                    if (m.MoninkerColor == grabbedsColor)
+                    {
+                        GrabMoninker(m, point);
+                        break;
+                    }
+                    //Si es de otro color, corta el combo para la siguiente iteracion de update
+                    else
+                    {
+                        AudioManager.self.PlayAdditively(SoundId.Combo_break);
+                        breakCombo = true;
+                    }
+                }
             }
         }
+
         return breakCombo;
     }
 
@@ -160,9 +180,18 @@ public class GrabberController : MonoBehaviour
     private void GrabMoninker(MoninkerController moninker, Vector3 point)
     {
         grabbedMoninkers.Add(moninker);
+
         moninker.grabOffset = moninker.transform.position - point;
         moninker.currState.StartDragging();
         moninker.grabbed = true;
+
+        AudioSource source;
+        Sound sound = AudioManager.self.PlayInNewSource(SoundId.Combo_grab,out source);
+        source.pitch = DOVirtual.EasedValue(sound.originalPitch, sound.originalPitch + maxComboPitchIncrement, Mathf.Clamp01(grabbedMoninkers.Count / (float)maxComboMoninkers), Ease.OutSine);
+
+        if (_delayCoroutine != null)
+            StopCoroutine(_delayCoroutine);
+        _delayCoroutine = StartCoroutine(DelayGrab(grabDelay));
 
         //Avisar a exchangers del numero actual de cogidos
         OnGrabbedsChange.Invoke(grabbedMoninkers.Count);
@@ -186,7 +215,8 @@ public class GrabberController : MonoBehaviour
             float distance = distVec.magnitude;
 
             //Aplicamos un desplazamiento continuo proporcionalmente inverso a la distancia
-            float forceMag = ParabolicDecrease(distance, attractRadius, attractForce); //(1 - Mathf.InverseLerp(0, attractRadius, distance)) * attractForce;
+            float attraction = (m.MoninkerColor == grabbedsColor) ? sameColorAttractForce : normalAttractForce;
+            float forceMag = ParabolicDecrease(distance, attractRadius, attraction);
             
             //Evitamos que se pase al otro lado del punto
             //Vector3 moveIncrement = distVec.normalized * Mathf.Clamp(forceMag * Time.deltaTime, 0, distance);
@@ -222,7 +252,6 @@ public class GrabberController : MonoBehaviour
     #endregion
 
 
-
     #region METODOS AUXILIARES
 
     //Comprueba si hay moninkers agarrados sobre un exchanger
@@ -232,8 +261,6 @@ public class GrabberController : MonoBehaviour
         if(grabbedMoninkers.Count > 0 && UIElementCursor.CurrentHovered)
         {
             //Comprobacion de estar sobre un exchanger
-            //exchanger = InputModule.OveredUIElement.GetComponentInParent<SkillExchanger>();
-            //TODO:fix
             exchanger = UIElementCursor.CurrentHovered.GetComponentInParent<SkillExchanger>();
             if(exchanger)
                 return true;
@@ -258,6 +285,13 @@ public class GrabberController : MonoBehaviour
         }
 
         OnGrabbedsChange.Invoke(grabbedMoninkers.Count);
+    }
+
+    private IEnumerator DelayGrab(float time)
+    {
+        _grabAvailable = false;
+        yield return new WaitForSecondsRealtime(time);
+        _grabAvailable = true;
     }
 
     #endregion

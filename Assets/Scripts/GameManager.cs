@@ -156,7 +156,7 @@ public class GameManager : SerializedMonoBehaviour
         {
             _currentState = GameState.ENDGAME;
             //Animacion final
-            await UIManager.self.Lose(color, score);
+            await UIManager.self.LoseUI(color, score);
             //TODO: mostrar opciones reinicio, volver a menus, highscores
             _currentState = GameState.MENU;
         }

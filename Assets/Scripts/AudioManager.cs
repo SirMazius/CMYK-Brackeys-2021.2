@@ -48,6 +48,7 @@ public class AudioManager : SingletonMono<AudioManager>
         }
     }
 
+#if UNITY_EDITOR
     [ExecuteAlways]
     public void OnValidate()
     {
@@ -72,6 +73,7 @@ public class AudioManager : SingletonMono<AudioManager>
 
         EnumGenerator.GenerateEnum(SOUND_ENUM_NAME, values);
     }
+#endif
 
 
     #region METODOS SONIDOS
@@ -157,6 +159,7 @@ public class AudioManager : SingletonMono<AudioManager>
 
     #region MIXER
 
+#if UNITY_EDITOR
     public void UpdateMixerValues()
     {
         //Pasamos el parametro al rango en dB que comprenda de 0 a 1
@@ -164,6 +167,7 @@ public class AudioManager : SingletonMono<AudioManager>
         SetVolume(MUSIC_VOLUME_KEY, musicVolume);
         EditorUtility.SetDirty(this);
     }
+#endif
 
     /// <summary>
     /// Cambiar el sonido con un valor de 0 a 1 (pasandolo a decibelios exponencialemente)

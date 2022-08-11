@@ -11,7 +11,9 @@ using DG.Tweening;
 public class GrabberController : SingletonMono<GrabberController>
 {
     private bool _grabbing = false;
+    [SerializeField]
     private bool _grabAvailable = true;
+    [SerializeField]
     private bool _inCombo = false;
     [HideInInspector]
     public UnityEvent<int> OnGrabbedsChange = new UnityEvent<int>();
@@ -24,12 +26,14 @@ public class GrabberController : SingletonMono<GrabberController>
     public float maxComboPitchIncrement = 0.5f;
     public int maxComboMoninkers = 40;
     private Coroutine _delayCoroutine = null; 
+    private Coroutine _comboTimerCoroutine = null;
 
     [Header("Atracción moninkers")]
     public float attractRadius = 10;
     public float normalAttractForce = 3f;
     public float sameColorAttractForce = 5f;
     public float comboMaxDelay = 1.5f;
+    public float maxGrabbedsPerFrame = 5;
 
     private Vector3 _lastCursorPos = new Vector3();
 
@@ -85,7 +89,7 @@ public class GrabberController : SingletonMono<GrabberController>
             if (nearest && nearest.MoninkerColor != InkColorIndex.NONE)
             {
                 grabbedsColor = nearest.MoninkerColor;
-                _inCombo = !TryGrabIfNear(point, attracteds);
+                TryGrabIfNear(point, attracteds);
             }
         }
         //Hay moninkers agarrados
@@ -95,7 +99,7 @@ public class GrabberController : SingletonMono<GrabberController>
             if (_inCombo)
             {
                 attracteds = AttractMoninkers(point);
-                _inCombo = !TryGrabIfNear(point, attracteds);
+                TryGrabIfNear(point, attracteds);
             }
 
             //Desplazar agarrados
@@ -135,45 +139,77 @@ public class GrabberController : SingletonMono<GrabberController>
         
         grabbedMoninkers.Clear();
         grabbedsColor = InkColorIndex.NONE;
+        UIManager.self.UpdateComboCount(0);
 
         OnGrabbedsChange.Invoke(0);
     }
 
-    //Coger moninkers en radio de grab del mismo color o cortar combo si son de otro
-    private bool TryGrabIfNear(Vector3 point, List<MoninkerController> moninkers)
+    //Coger moninkers en radio de grab del mismo color. Devuelve los moninkers del color adecuado
+    private int TryGrabIfNear(Vector3 point, List<MoninkerController> moninkers)
     {
-        bool breakCombo = false;
+        int sameColorMoninkers = 0;
+        int frameGrabbeds = 0;
 
         if(_grabAvailable)
         {
             foreach(MoninkerController m in moninkers)
             {
-                if(Vector3.Distance(m.transform.position, point) < grabRadius && !m.grabbed)
+                //Esta en el radio de grab, se puede agarrar
+                if (!m.grabbed && Vector3.Distance(m.transform.position, point) < grabRadius)
                 {
-                    //Comenzar a coger, seleccionando el color que se va a agarrar
-                    if(moninkers.Count == 0)
+                    //Si es del mismo color o no hay color predefinido
+                    if (grabbedsColor == InkColorIndex.NONE || m.MoninkerColor == grabbedsColor)
                     {
-                        grabbedsColor = m.MoninkerColor;
-                        _inCombo = true;
-                    }
+                        sameColorMoninkers++;
 
-                    //Añadir a cogidos si es del mismo color
-                    if (m.MoninkerColor == grabbedsColor)
-                    {
-                        GrabMoninker(m, point);
-                        break;
-                    }
-                    //Si es de otro color, corta el combo para la siguiente iteracion de update
-                    else
-                    {
-                        AudioManager.self.PlayAdditively(SoundId.Combo_break);
-                        breakCombo = true;
+                        //En este frame todavia no se ha alcanzado el maximo de agarrados
+                        if(frameGrabbeds < maxGrabbedsPerFrame)
+                        {
+                            //Comenzar a agarrar, seleccionando el color que se va a agarrar
+                            if(grabbedMoninkers.Count == 0)
+                            {
+                                grabbedsColor = m.MoninkerColor;
+                                _inCombo = true;
+                            }
+
+                            GrabMoninker(m, point);
+
+                            frameGrabbeds++;
+                        }
                     }
                 }
+
+            }
+
+            if(frameGrabbeds>0)
+            {
+                //Reproducir sonido y Delays de despues de agarrar en este frame
+                FinishGrabThisFrame();
             }
         }
 
-        return breakCombo;
+        return sameColorMoninkers;
+    }
+
+    private void FinishGrabThisFrame()
+    {
+        //Delay entre grabs
+        if (_delayCoroutine != null)
+            StopCoroutine(_delayCoroutine);
+        _delayCoroutine = StartCoroutine(DelayGrab(grabDelay));
+
+        //Tiempo sin coger moninkers corta el combo
+        if (_comboTimerCoroutine != null)
+            StopCoroutine(_comboTimerCoroutine);
+        _comboTimerCoroutine = StartCoroutine(ComboBreakTimer(comboMaxDelay));
+
+        //Sonido agarre al final del frame con un pitch variable según los grabbeds
+        AudioSource source;
+        Sound sound = AudioManager.self.PlayInNewSource(SoundId.Combo_grab, out source);
+        source.pitch = DOVirtual.EasedValue(sound.originalPitch, sound.originalPitch + maxComboPitchIncrement, Mathf.Clamp01(grabbedMoninkers.Count / (float)maxComboMoninkers), Ease.OutSine);
+
+        //Actualizar UI
+        UIManager.self.UpdateComboCount(grabbedMoninkers.Count, grabbedsColor);
     }
 
     //Pasar a cogido un moninker anotando su offset y cambiando a estado dragging
@@ -185,16 +221,18 @@ public class GrabberController : SingletonMono<GrabberController>
         moninker.currState.StartDragging();
         moninker.grabbed = true;
 
-        AudioSource source;
-        Sound sound = AudioManager.self.PlayInNewSource(SoundId.Combo_grab,out source);
-        source.pitch = DOVirtual.EasedValue(sound.originalPitch, sound.originalPitch + maxComboPitchIncrement, Mathf.Clamp01(grabbedMoninkers.Count / (float)maxComboMoninkers), Ease.OutSine);
-
-        if (_delayCoroutine != null)
-            StopCoroutine(_delayCoroutine);
-        _delayCoroutine = StartCoroutine(DelayGrab(grabDelay));
-
         //Avisar a exchangers del numero actual de cogidos
         OnGrabbedsChange.Invoke(grabbedMoninkers.Count);
+    }
+
+    private void ComboBreak()
+    {
+        if(_inCombo)
+        {
+            _inCombo = false;
+            UIManager.self.comboText.color = InkColors[InkColorIndex.NONE];
+            AudioManager.self.PlayAdditively(SoundId.Combo_break);
+        }
     }
 
     #endregion
@@ -292,6 +330,13 @@ public class GrabberController : SingletonMono<GrabberController>
         _grabAvailable = false;
         yield return new WaitForSecondsRealtime(time);
         _grabAvailable = true;
+    }
+
+
+    private IEnumerator ComboBreakTimer(float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        ComboBreak();
     }
 
     #endregion

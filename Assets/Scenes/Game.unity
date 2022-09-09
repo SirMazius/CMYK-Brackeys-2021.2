@@ -1718,7 +1718,7 @@ MonoBehaviour:
   _inGameCameraPos: {x: 0, y: 13.661968, z: -13.569178}
   _endingCameraPos: {x: 0, y: 13.661968, z: 3.4340773}
   beginEndOffsetPos: 3
-  printSteps: 15
+  printSteps: 10
   moveTimePercentage: 0.15
   state: 0
   gizmoUp: {fileID: 1036718378}
@@ -4742,7 +4742,7 @@ MonoBehaviour:
   bgAppearingTime: 1.5
   titleFillTime: 3
   bgSpeedTime: 3
-  printTime: 5
+  printTime: 3
   endPrintTime: 2
 --- !u!1 &1525205161
 GameObject:
@@ -5476,7 +5476,7 @@ GameObject:
   - component: {fileID: 1921117850}
   - component: {fileID: 1921117849}
   m_Layer: 0
-  m_Name: Global Volume
+  m_Name: PostProcessing Global Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

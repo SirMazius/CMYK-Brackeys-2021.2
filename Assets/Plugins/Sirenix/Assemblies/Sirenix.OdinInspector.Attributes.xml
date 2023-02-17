@@ -352,11 +352,6 @@
             <seealso cref="T:Sirenix.OdinInspector.InlineButtonAttribute"/>
             <seealso cref="T:Sirenix.OdinInspector.ButtonGroupAttribute"/>
         </member>
-        <member name="F:Sirenix.OdinInspector.ButtonAttribute.ButtonHeight">
-            <summary>
-            Gets the height of the button. If it's zero or below then use default.
-            </summary>
-        </member>
         <member name="F:Sirenix.OdinInspector.ButtonAttribute.Name">
             <summary>
             Use this to override the label on the button.
@@ -381,6 +376,32 @@
         <member name="F:Sirenix.OdinInspector.ButtonAttribute.DirtyOnClick">
             <summary>
             Whether the containing object or scene (if there is one) should be marked dirty when the button is clicked. True by default. Note that if this is false, undo for any changes caused by the button click is also disabled, as registering undo events also causes dirtying.
+            </summary>
+        </member>
+        <member name="P:Sirenix.OdinInspector.ButtonAttribute.ButtonHeight">
+            <summary>
+            Gets the height of the button. If it's zero or below then use default.
+            </summary>
+        </member>
+        <member name="P:Sirenix.OdinInspector.ButtonAttribute.Icon">
+            <summary>
+            The icon to be displayed inside the button.
+            </summary>
+        </member>
+        <member name="P:Sirenix.OdinInspector.ButtonAttribute.IconAlignment">
+            <summary>
+            The alignment of the icon that is displayed inside the button.
+            </summary>
+        </member>
+        <member name="P:Sirenix.OdinInspector.ButtonAttribute.ButtonAlignment">
+            <summary>
+            The alignment of the button represented by a range from 0 to 1 where 0 is the left edge of the available space and 1 is the right edge.
+            ButtonAlignment only has an effect when Stretch is set to false.
+            </summary>
+        </member>
+        <member name="P:Sirenix.OdinInspector.ButtonAttribute.Stretch">
+            <summary>
+            Whether the button should stretch to fill all of the available space. Default value is true.
             </summary>
         </member>
         <member name="P:Sirenix.OdinInspector.ButtonAttribute.DrawResult">
@@ -468,6 +489,26 @@
             <param name="buttonSize">Size of the button in pixels.</param>
             <param name="parameterBtnStyle">Button style for methods with parameters.</param>
         </member>
+        <member name="M:Sirenix.OdinInspector.ButtonAttribute.#ctor(Sirenix.OdinInspector.SdfIconType,Sirenix.OdinInspector.IconAlignment)">
+            <summary>
+            Creates a button in the inspector with a custom icon.
+            </summary>
+            <param name="icon">The icon to be displayed inside the button.</param>
+            <param name="iconAlignment">The alignment of the icon that is displayed inside the button.</param>
+        </member>
+        <member name="M:Sirenix.OdinInspector.ButtonAttribute.#ctor(Sirenix.OdinInspector.SdfIconType)">
+            <summary>
+            Creates a button in the inspector with a custom icon.
+            </summary>
+            <param name="icon">The icon to be displayed inside the button.</param>
+        </member>
+        <member name="M:Sirenix.OdinInspector.ButtonAttribute.#ctor(Sirenix.OdinInspector.SdfIconType,System.String)">
+            <summary>
+            Creates a button in the inspector with a custom icon.
+            </summary>
+            <param name="icon">The icon to be displayed inside the button.</param>
+            <param name="name">Custom name for the button.</param>
+        </member>
         <member name="T:Sirenix.OdinInspector.ButtonGroupAttribute">
              <summary>
              <para>ButtonGroup is used on any instance function, and adds buttons to the inspector organized into horizontal groups.</para>
@@ -527,6 +568,26 @@
              <seealso cref="T:Sirenix.OdinInspector.TabGroupAttribute"/>
              <seealso cref="T:Sirenix.OdinInspector.ToggleGroupAttribute"/>
         </member>
+        <member name="F:Sirenix.OdinInspector.ButtonGroupAttribute.ButtonHeight">
+            <summary>
+            Gets the height of the button. If it's zero or below then use default.
+            </summary>
+        </member>
+        <member name="P:Sirenix.OdinInspector.ButtonGroupAttribute.IconAlignment">
+            <summary>
+            The alignment of the icon that is displayed inside the button.
+            </summary>
+        </member>
+        <member name="P:Sirenix.OdinInspector.ButtonGroupAttribute.ButtonAlignment">
+            <summary>
+            The alignment of the button represented by a range from 0 to 1 where 0 is the left edge of the available space and 1 is the right edge.
+            </summary>
+        </member>
+        <member name="P:Sirenix.OdinInspector.ButtonGroupAttribute.Stretch">
+            <summary>
+            Whether the button should stretch to fill all of the available space. Default value is true.
+            </summary>
+        </member>
         <member name="M:Sirenix.OdinInspector.ButtonGroupAttribute.#ctor(System.String,System.Single)">
             <summary>
             Organizes the button into the specified button group.
@@ -568,7 +629,7 @@
             <para>Use this to allow the user to choose from a set of predefined color options.</para>
             </summary>
             <remarks>
-            <para>See and edit the color palettes in Tools > Odin Inspector > Drawers > Color Palettes.</para>
+            <para>See and edit the color palettes in Tools > Odin > Inspector > Preferences > Drawers > Color Palettes.</para>
             <note type="note">The color property is not tied to the color palette, and can be edited. Therefore the color will also not update if the ColorPalette is edited.</note>
             </remarks>
             <example>
@@ -906,6 +967,11 @@
             <param name="condition">A resolved string that defines the condition to check the value of, such as a member name or an expression.</param>
             <param name="optionalValue">Value to check against.</param>
         </member>
+        <member name="T:Sirenix.OdinInspector.DisableInAttribute">
+            <summary>
+            Disables a member based on which type of a prefab and instance it is in. 
+            </summary>
+        </member>
         <member name="T:Sirenix.OdinInspector.DisableInEditorModeAttribute">
             <summary>
             <para>DisableInEditorMode is used on any property, and disables the property when not in play mode.</para>
@@ -971,39 +1037,14 @@
             Disables a property if it is drawn from a prefab asset or a prefab instance.
             </summary>
         </member>
-        <member name="F:Sirenix.OdinInspector.DisallowPrefabModificationsAttribute.ErrorMessage">
+        <member name="T:Sirenix.OdinInspector.DisallowModificationsInAttribute">
             <summary>
-            The message of the info box.
+            DisallowModificationsIn disables / grays out members, preventing modifications from being made and enables validation,
+            providing error messages in case a modification was made prior to introducing the attribute.
             </summary>
-        </member>
-        <member name="F:Sirenix.OdinInspector.DisallowPrefabModificationsAttribute.MessageType">
-            <summary>
-            The type of the info box.
-            </summary>
-        </member>
-        <member name="M:Sirenix.OdinInspector.DisallowPrefabModificationsAttribute.#ctor">
-            <summary>
-            Adds an error box to the inspector, if the property is missing.
-            </summary>
-        </member>
-        <member name="M:Sirenix.OdinInspector.DisallowPrefabModificationsAttribute.#ctor(System.String,Sirenix.OdinInspector.InfoMessageType)">
-            <summary>
-            Adds an info box to the inspector, if the property is missing.
-            </summary>
-            <param name="errorMessage">The message to display in the error box.</param>
-            <param name="messageType">The type of info box to draw.</param>
-        </member>
-        <member name="M:Sirenix.OdinInspector.DisallowPrefabModificationsAttribute.#ctor(System.String)">
-            <summary>
-            Adds an error box to the inspector, if the property is missing.
-            </summary>
-            <param name="errorMessage">The message to display in the error box.</param>
-        </member>
-        <member name="M:Sirenix.OdinInspector.DisallowPrefabModificationsAttribute.#ctor(Sirenix.OdinInspector.InfoMessageType)">
-            <summary>
-            Adds an info box to the inspector, if the property is missing.
-            </summary>
-            <param name="messageType">The type of info box to draw.</param>
+            <seealso cref="T:Sirenix.OdinInspector.DisableInAttribute"/>
+            <seealso cref="T:Sirenix.OdinInspector.HideInAttribute"/>
+            <seealso cref="T:Sirenix.OdinInspector.RequiredAttribute"/>
         </member>
         <member name="T:Sirenix.OdinInspector.DisplayAsStringAttribute">
              <summary>
@@ -1175,6 +1216,11 @@
             </summary>
             <param name="condition">A resolved string that defines the condition to check the value of, such as a member name or an expression.</param>
             <param name="optionalValue">Value to check against.</param>
+        </member>
+        <member name="T:Sirenix.OdinInspector.EnableInAttribute">
+            <summary>
+            Enables a member based on which type of a prefab and instance it is. 
+            </summary>
         </member>
         <member name="T:Sirenix.OdinInspector.EnumPagingAttribute">
             <summary>
@@ -1650,6 +1696,11 @@
             </summary>
             <param name="other">Another ShowIfGroup attribute.</param>
         </member>
+        <member name="T:Sirenix.OdinInspector.HideInAttribute">
+            <summary>
+            Hides a member based on which type of a prefab and instance it is in. 
+            </summary>
+        </member>
         <member name="T:Sirenix.OdinInspector.HideInEditorModeAttribute">
             <summary>
             <para>HideInEditorMode is used on any property, and hides the property when not in play mode.</para>
@@ -2080,6 +2131,16 @@
             When <c>true</c> the InfoBox will ignore the GUI.enable flag and always draw as enabled.
             </summary>
         </member>
+        <member name="P:Sirenix.OdinInspector.InfoBoxAttribute.Icon">
+            <summary>
+            The icon to be displayed next to the message.
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinInspector.InfoBoxAttribute.IconColor">
+            <summary>
+            The color of the icon.
+            </summary>
+        </member>
         <member name="M:Sirenix.OdinInspector.InfoBoxAttribute.#ctor(System.String,Sirenix.OdinInspector.InfoMessageType,System.String)">
             <summary>
             Displays an info box above the property.
@@ -2095,36 +2156,44 @@
             <param name="message">The message for the message box. Supports referencing a member string field, property or method by using $.</param>
             <param name="visibleIfMemberName">Name of member bool to show or hide the message box.</param>
         </member>
-        <member name="T:Sirenix.OdinInspector.InlineButtonAttribute">
+        <member name="M:Sirenix.OdinInspector.InfoBoxAttribute.#ctor(System.String,Sirenix.OdinInspector.SdfIconType,System.String)">
             <summary>
-            <para>The inline button adds a button to the end of a property.</para>
+            Displays an info box above the property.
             </summary>
-            <remarks>
-            <note type="note">Due to a bug, multiple inline buttons are currently not supported.</note>
-            </remarks>
-            <example>
-            <para>The following examples demonstrates how InlineButton can be used.</para>
-            <code>
-            public class MyComponent : MonoBehaviour
-            {
-            	// Adds a button to the end of the A property.
-            	[InlineButton("MyFunction")]
-            	public int A;
-            	
-            	// This is example demonstrates how you can change the label of the button.
-            	// InlineButton also supports refering to string members with $.
-            	[InlineButton("MyFunction", "Button")]
-            	public int B;
-            	
-            	private void MyFunction()
+            <param name="message">The message for the message box. Supports referencing a member string field, property or method by using $.</param>
+            <param name="icon">The icon to be displayed next to the message.</param>
+            <param name="visibleIfMemberName">Name of member bool to show or hide the message box.</param>
+        </member>
+        <member name="T:Sirenix.OdinInspector.InlineButtonAttribute">
+             <summary>
+             <para>The inline button adds a button to the end of a property.</para>
+             </summary>
+             <remarks>
+             <note type="note">Due to a bug, multiple inline buttons are currently not supported.</note>
+             </remarks>
+             <example>
+             <para>The following examples demonstrates how InlineButton can be used.</para>
+             <code>
+            	public class MyComponent : MonoBehaviour
             	{
-            		// ...
+            		// Adds a button to the end of the A property.
+            		[InlineButton("MyFunction")]
+            		public int A;
+            
+            		// This is example demonstrates how you can change the label of the button.
+            		// InlineButton also supports refering to string members with $.
+            		[InlineButton("MyFunction", "Button")]
+            		public int B;
+            
+             	private void MyFunction()
+            		{
+            			// ...
+            		}
             	}
-            }
-            </code>
-            </example>
-            <seealso cref="T:Sirenix.OdinInspector.ButtonAttribute"/>
-            <seealso cref="T:Sirenix.OdinInspector.ButtonGroupAttribute"/>
+             </code>
+             </example>
+             <seealso cref="T:Sirenix.OdinInspector.ButtonAttribute"/>
+             <seealso cref="T:Sirenix.OdinInspector.ButtonGroupAttribute"/>
         </member>
         <member name="P:Sirenix.OdinInspector.InlineButtonAttribute.MemberMethod">
             <summary>
@@ -2151,6 +2220,14 @@
             Draws a button to the right of the property.
             </summary>
             <param name="action">A resolved string that defines the action to perform when the button is clicked, such as an expression or method invocation.</param>
+            <param name="label">Optional label of the button.</param>
+        </member>
+        <member name="M:Sirenix.OdinInspector.InlineButtonAttribute.#ctor(System.String,Sirenix.OdinInspector.SdfIconType,System.String)">
+            <summary>
+            Draws a button to the right of the property.
+            </summary>
+            <param name="action">A resolved string that defines the action to perform when the button is clicked, such as an expression or method invocation.</param>
+            <param name="icon">The icon to be shown inside the button.</param>
             <param name="label">Optional label of the button.</param>
         </member>
         <member name="T:Sirenix.OdinInspector.InlineEditorAttribute">
@@ -2336,8 +2413,18 @@
         <member name="F:Sirenix.OdinInspector.LabelTextAttribute.NicifyText">
             <summary>
             Whether the label text should be nicified before it is displayed, IE, "m_someField" becomes "Some Field".
-            If the label text is resolved via a member reference, an expression, or the like, then the evaluated result 
+            If the label text is resolved via a member reference, an expression, or the like, then the evaluated result
             of that member reference or expression will be nicified.
+            </summary>
+        </member>
+        <member name="P:Sirenix.OdinInspector.LabelTextAttribute.Icon">
+            <summary>
+            The icon to be displayed.
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinInspector.LabelTextAttribute.IconColor">
+            <summary>
+            The color of the icon.
             </summary>
         </member>
         <member name="M:Sirenix.OdinInspector.LabelTextAttribute.#ctor(System.String)">
@@ -2352,6 +2439,21 @@
             </summary>
             <param name="text">The new text of the label.</param>
             <param name="nicifyText">Whether to nicify the label text.</param>
+        </member>
+        <member name="M:Sirenix.OdinInspector.LabelTextAttribute.#ctor(System.String,Sirenix.OdinInspector.SdfIconType)">
+            <summary>
+            Give a property a custom label with a custom icon.
+            </summary>
+            <param name="text">The new text of the label.</param>
+            <param name="icon">The icon to be displayed.</param>
+        </member>
+        <member name="M:Sirenix.OdinInspector.LabelTextAttribute.#ctor(System.String,System.Boolean,Sirenix.OdinInspector.SdfIconType)">
+            <summary>
+            Give a property a custom label with a custom icon.
+            </summary>
+            <param name="text">The new text of the label.</param>
+            <param name="nicifyText">Whether to nicify the label text.</param>
+            <param name="icon">The icon to be displayed.</param>
         </member>
         <member name="T:Sirenix.OdinInspector.LabelWidthAttribute">
             <summary>
@@ -3114,10 +3216,10 @@
         </member>
         <member name="T:Sirenix.OdinInspector.OptionalAttribute">
             <summary>
-            <para>
-                Overrides the Reference Required by Default rule to allow for null values.
-                Has no effect if the rule is disabled.
-            </para>
+            Overrides the 'Reference Required by Default' rule to allow for null values.
+            Has no effect if the rule is disabled.
+            
+            This attribute does not do anything unless you have Odin Validator and the 'Reference Required by Default' rule is enabled.
             </summary>
         </member>
         <member name="T:Sirenix.OdinInspector.PreviewFieldAttribute">
@@ -3862,6 +3964,11 @@
             </summary>
             <param name="messageType">The type of info box to draw.</param>
         </member>
+        <member name="T:Sirenix.OdinInspector.RequiredInAttribute">
+            <summary>
+            Makes a member required based on which type of a prefab and instance it is in. 
+            </summary>
+        </member>
         <member name="F:Sirenix.OdinInspector.RequiredInPrefabAssetsAttribute.ErrorMessage">
             <summary>
             The message of the info box.
@@ -4202,6 +4309,11 @@
             </summary>
             <param name="other">Another ShowIfGroup attribute.</param>
         </member>
+        <member name="T:Sirenix.OdinInspector.ShowInAttribute">
+            <summary>
+            Shows a member based on which type of a prefab and instance it is in. 
+            </summary>
+        </member>
         <member name="T:Sirenix.OdinInspector.ShowInInlineEditorsAttribute">
             <summary>
             Only shows a property if it is drawn within an <see cref="T:Sirenix.OdinInspector.InlineEditorAttribute"/>.
@@ -4298,12 +4410,31 @@
             If <c>true</c> the suffix label will be drawn on top of the property, instead of after.
             </summary>
         </member>
+        <member name="P:Sirenix.OdinInspector.SuffixLabelAttribute.Icon">
+            <summary>
+            The icon to be displayed.
+            </summary>
+        </member>
         <member name="M:Sirenix.OdinInspector.SuffixLabelAttribute.#ctor(System.String,System.Boolean)">
             <summary>
             Draws a label at the end of the property.
             </summary>
             <param name="label">The text of the label.</param>
             <param name="overlay">If <c>true</c> the suffix label will be drawn on top of the property, instead of after.</param>
+        </member>
+        <member name="M:Sirenix.OdinInspector.SuffixLabelAttribute.#ctor(System.String,Sirenix.OdinInspector.SdfIconType,System.Boolean)">
+            <summary>
+            Draws a label at the end of the property.
+            </summary>
+            <param name="label">The text of the label.</param>
+            <param name="icon">The icon to be displayed.</param>
+            <param name="overlay">If <c>true</c> the suffix label will be drawn on top of the property, instead of after.</param>
+        </member>
+        <member name="M:Sirenix.OdinInspector.SuffixLabelAttribute.#ctor(Sirenix.OdinInspector.SdfIconType)">
+            <summary>
+            Draws a label at the end of the property.
+            </summary>
+            <param name="icon">The icon to be displayed.</param>
         </member>
         <member name="T:Sirenix.OdinInspector.SuppressInvalidAttributeErrorAttribute">
              <summary>
@@ -5321,6 +5452,11 @@
             Whether values selected by the value dropdown should be copies of the original or references (in the case of reference types). Defaults to true.
             </summary>
         </member>
+        <member name="F:Sirenix.OdinInspector.ValueDropdownAttribute.OnlyChangeValueOnConfirm">
+            <summary>
+            If this is set to true, the actual property value will *only* be changed *once*, when the selection in the dropdown is fully confirmed.
+            </summary>
+        </member>
         <member name="M:Sirenix.OdinInspector.ValueDropdownAttribute.#ctor(System.String)">
             <summary>
             Creates a dropdown menu for a property.
@@ -5587,7 +5723,7 @@
             <summary>
             Draws each dictionary item in a box with the key in the header and the value inside the box.
             Whether or not the box is expanded or collapsed by default, is determined by the
-            "Expand Foldout By Default" setting found in the preferences window "Tools > Odin Inspector > Preferences > Drawers > Settings".
+            "Expand Foldout By Default" setting found in the preferences window "Tools > Odin > Inspector > Preferences > Drawers > Settings".
             </summary>
         </member>
         <member name="F:Sirenix.OdinInspector.DictionaryDisplayOptions.CollapsedFoldout">
@@ -5760,6 +5896,61 @@
         <member name="F:Sirenix.OdinInspector.ObjectFieldAlignment.Right">
             <summary>
             Right aligned.
+            </summary>
+        </member>
+        <member name="T:Sirenix.OdinInspector.PrefabKind">
+            <summary>
+            The prefab kind returned by <see cref="!:Sirenix.OdinInspector.Editor.OdinPrefabUtility.GetPrefabKind"/> 
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinInspector.PrefabKind.None">
+            <summary>
+            None. 
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinInspector.PrefabKind.InstanceInScene">
+            <summary>
+            Instances of prefabs in scenes.
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinInspector.PrefabKind.InstanceInPrefab">
+            <summary>
+            Instances of prefabs nested inside other prefabs.
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinInspector.PrefabKind.Regular">
+            <summary>
+            Regular prefab assets.
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinInspector.PrefabKind.Variant">
+            <summary>
+            Prefab variant assets.
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinInspector.PrefabKind.NonPrefabInstance">
+            <summary>
+            Non-prefab component or gameobject instances in scenes.
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinInspector.PrefabKind.PrefabInstance">
+            <summary>
+            Instances of regular prefabs, and prefab variants in scenes or nested in other prefabs.
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinInspector.PrefabKind.PrefabAsset">
+            <summary>
+            Prefab assets and prefab variant assets.
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinInspector.PrefabKind.PrefabInstanceAndNonPrefabInstance">
+            <summary>
+            Prefab Instances, as well as non-prefab instances.
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinInspector.PrefabKind.All">
+            <summary>
+            All kinds
             </summary>
         </member>
         <member name="T:Sirenix.OdinInspector.SearchFilterOptions">

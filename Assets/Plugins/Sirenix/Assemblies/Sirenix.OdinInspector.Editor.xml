@@ -5493,6 +5493,51 @@
             Draws the property with GUILayout support. This method is called by DrawPropertyImplementation if the GUICallType is set to GUILayout, which is the default.
             </summary>
         </member>
+        <member name="T:Sirenix.OdinInspector.Editor.Drawers.Vector2IntMinMaxAttributeDrawer">
+            <summary>
+            Draws Vector2Int properties marked with <see cref="T:Sirenix.OdinInspector.MinMaxSliderAttribute"/>.
+            </summary>
+        </member>
+        <member name="M:Sirenix.OdinInspector.Editor.Drawers.Vector2IntMinMaxAttributeDrawer.Initialize">
+            <summary>
+            Initializes the drawer by resolving any optional references to members for min/max value.
+            </summary>
+        </member>
+        <member name="M:Sirenix.OdinInspector.Editor.Drawers.Vector2IntMinMaxAttributeDrawer.DrawPropertyLayout(UnityEngine.GUIContent)">
+            <summary>
+            Draws the property.
+            </summary>
+        </member>
+        <member name="T:Sirenix.OdinInspector.Editor.Drawers.Vector2IntDrawer">
+            <summary>
+            Vector2Int proprety drawer.
+            </summary>
+        </member>
+        <member name="M:Sirenix.OdinInspector.Editor.Drawers.Vector2IntDrawer.DrawPropertyLayout(UnityEngine.GUIContent)">
+            <summary>
+            Draws the property.
+            </summary>
+        </member>
+        <member name="M:Sirenix.OdinInspector.Editor.Drawers.Vector2IntDrawer.PopulateGenericMenu(Sirenix.OdinInspector.Editor.InspectorProperty,UnityEditor.GenericMenu)">
+            <summary>
+            Populates the generic menu for the property.
+            </summary>
+        </member>
+        <member name="T:Sirenix.OdinInspector.Editor.Drawers.Vector3IntDrawer">
+            <summary>
+            Vector3Int property drawer.
+            </summary>
+        </member>
+        <member name="M:Sirenix.OdinInspector.Editor.Drawers.Vector3IntDrawer.DrawPropertyLayout(UnityEngine.GUIContent)">
+            <summary>
+            Draws the property.
+            </summary>
+        </member>
+        <member name="M:Sirenix.OdinInspector.Editor.Drawers.Vector3IntDrawer.PopulateGenericMenu(Sirenix.OdinInspector.Editor.InspectorProperty,UnityEditor.GenericMenu)">
+            <summary>
+            Populates the generic menu for the property.
+            </summary>
+        </member>
         <member name="T:Sirenix.OdinInspector.Editor.Drawers.BoxGroupAttributeDrawer">
             <summary>
             Draws all properties grouped together with the <see cref="T:Sirenix.OdinInspector.BoxGroupAttribute"/>
@@ -6755,16 +6800,6 @@
             <summary>
             Gets a persistent value that will survive past multiple Unity Editor Application sessions. 
             The value is stored in the PersistentContextCache, which has a customizable max cache size.
-            </summary>
-        </member>
-        <member name="T:Sirenix.OdinInspector.Editor.OdinEditor">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.OdinInspector.Editor.OdinEditor.Tree">
-            <summary>
-            Not yet documented.
             </summary>
         </member>
         <member name="M:Sirenix.OdinInspector.Editor.OdinEditor.DrawDefaultInspector">
@@ -8321,6 +8356,11 @@
             </summary>
         </member>
         <member name="M:Sirenix.OdinInspector.Editor.OdinEditorWindow.CreateOdinEditorWindowInstanceForObject(System.Object)">
+            <summary>
+            Creates an editor window instance for the specified object, without opening the window.
+            </summary>
+        </member>
+        <member name="M:Sirenix.OdinInspector.Editor.OdinEditorWindow.CreateOdinEditorWindowInstanceForObject(System.Object,System.Boolean)">
             <summary>
             Creates an editor window instance for the specified object, without opening the window.
             </summary>
@@ -9917,7 +9957,17 @@
             Draws dropwdown field, that creates and binds the selector to the dropdown field.
             </summary>
         </member>
+        <member name="M:Sirenix.OdinInspector.Editor.OdinSelector`1.DrawSelectorDropdown(UnityEngine.Rect,System.String,System.Func{UnityEngine.Rect,Sirenix.OdinInspector.Editor.OdinSelector{`0}},System.Boolean,UnityEngine.GUIStyle)">
+            <summary>
+            Draws dropwdown field, that creates and binds the selector to the dropdown field.
+            </summary>
+        </member>
         <member name="M:Sirenix.OdinInspector.Editor.OdinSelector`1.DrawSelectorDropdown(UnityEngine.Rect,UnityEngine.GUIContent,System.Func{UnityEngine.Rect,Sirenix.OdinInspector.Editor.OdinSelector{`0}},UnityEngine.GUIStyle)">
+            <summary>
+            Draws dropwdown field, that creates and binds the selector to the dropdown field.
+            </summary>
+        </member>
+        <member name="M:Sirenix.OdinInspector.Editor.OdinSelector`1.DrawSelectorDropdown(UnityEngine.Rect,UnityEngine.GUIContent,System.Func{UnityEngine.Rect,Sirenix.OdinInspector.Editor.OdinSelector{`0}},System.Boolean,UnityEngine.GUIStyle)">
             <summary>
             Draws dropwdown field, that creates and binds the selector to the dropdown field.
             </summary>
@@ -9927,7 +9977,17 @@
             Draws dropwdown field, that creates and binds the selector to the dropdown field.
             </summary>
         </member>
+        <member name="M:Sirenix.OdinInspector.Editor.OdinSelector`1.DrawSelectorDropdown(UnityEngine.GUIContent,System.String,System.Func{UnityEngine.Rect,Sirenix.OdinInspector.Editor.OdinSelector{`0}},System.Boolean,UnityEngine.GUIStyle,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Draws dropwdown field, that creates and binds the selector to the dropdown field.
+            </summary>
+        </member>
         <member name="M:Sirenix.OdinInspector.Editor.OdinSelector`1.DrawSelectorDropdown(UnityEngine.GUIContent,UnityEngine.GUIContent,System.Func{UnityEngine.Rect,Sirenix.OdinInspector.Editor.OdinSelector{`0}},UnityEngine.GUIStyle,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Draws dropwdown field, that creates and binds the selector to the dropdown field.
+            </summary>
+        </member>
+        <member name="M:Sirenix.OdinInspector.Editor.OdinSelector`1.DrawSelectorDropdown(UnityEngine.GUIContent,UnityEngine.GUIContent,System.Func{UnityEngine.Rect,Sirenix.OdinInspector.Editor.OdinSelector{`0}},System.Boolean,UnityEngine.GUIStyle,UnityEngine.GUILayoutOption[])">
             <summary>
             Draws dropwdown field, that creates and binds the selector to the dropdown field.
             </summary>
@@ -10398,6 +10458,11 @@
             </summary>
             <seealso cref="!:RegisterValidationRuleAttribute"/>
         </member>
+        <member name="T:Sirenix.OdinInspector.Editor.Validation.ValidationSetup">
+            <summary>
+            Use <see cref="M:Sirenix.OdinInspector.Editor.Validation.Validator.InitializeResult(Sirenix.OdinInspector.Editor.Validation.ValidationResult@)"/> to initialize an empty <see cref="T:Sirenix.OdinInspector.Editor.Validation.ValidationResult"/>. 
+            </summary>
+        </member>
         <member name="T:Sirenix.OdinInspector.Editor.ValueResolvers.RegisterDefaultValueResolverCreatorAttribute">
             <summary>
             This attribute can be placed on an assembly to register a value resolver creator that should be queried when a value resolver is being created.
@@ -10715,31 +10780,9 @@
             Builds the selection tree.
             </summary>
         </member>
-        <member name="T:Sirenix.OdinInspector.Editor.OdinGettingStartedWindow">
+        <member name="P:Sirenix.OdinInspector.Editor.GettingStarted.GettingStartedWindow.OdinBg">
             <summary>
-            The Odin Getting Started Window
-            </summary>
-            <seealso cref="T:Sirenix.OdinInspector.Editor.OdinEditorWindow" />
-        </member>
-        <member name="M:Sirenix.OdinInspector.Editor.OdinGettingStartedWindow.ShowWindow">
-            <summary>
-            Shows the window.
-            </summary>
-        </member>
-        <member name="M:Sirenix.OdinInspector.Editor.OdinGettingStartedWindow.Initialize">
-            <summary>
-            Initialize get called by OnEnable and by OnGUI after assembly reloads
-            which often happens when you recompile or enter and exit play mode.
-            </summary>
-        </member>
-        <member name="P:Sirenix.OdinInspector.Editor.OdinGettingStartedWindow.UseScrollView">
-            <summary>
-            Gets a value indicating whether the window should draw a scroll view.
-            </summary>
-        </member>
-        <member name="M:Sirenix.OdinInspector.Editor.OdinGettingStartedWindow.OnGUI">
-            <summary>
-            Draws the Odin Editor Window.
+            Gets a texture of an odin bg symbol.
             </summary>
         </member>
         <member name="T:Sirenix.OdinInspector.Editor.OdinInspectorAboutWindow">
@@ -10749,7 +10792,7 @@
         </member>
         <member name="T:Sirenix.OdinInspector.Editor.StaticInspectorWindow">
             <summary>
-            Access the StaticInspectorWindow from Tools > Odin Inspector > Static Inspector.
+            Access the StaticInspectorWindow from Tools > Odin > Inspector > Static Inspector.
             </summary>
         </member>
         <member name="T:Sirenix.OdinInspector.Editor.StaticInspectorWindow.AccessModifierFlags">
@@ -10880,6 +10923,11 @@
         <member name="M:Sirenix.Serialization.AOTGenerationConfig.GenerateDLL">
             <summary>
             Generates an AOT DLL, using the current configuration of the AOTGenerationConfig instance.
+            </summary>
+        </member>
+        <member name="T:Sirenix.Utilities.EnsureOdinInspectorDefine">
+            <summary>
+            Defines the ODIN_INSPECTOR symbol.
             </summary>
         </member>
         <member name="T:Sirenix.Utilities.Editor.SerializationDebuggerWindow">

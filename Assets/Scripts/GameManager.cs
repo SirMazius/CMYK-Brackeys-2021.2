@@ -26,35 +26,57 @@ public class GameManager : SerializedMonoBehaviour
     [Header("Prefabs")]
     public GameObject moninkerPrefab;
     public GameObject paintShotPrefab, eraserPrefab;
+    public GameObject SkillPrefab;
 
-    [Header("Enviroment")]
+    [Header("Entorno")]
     public Transform floor;
     public BoxCollider floorColl;
 
-    [Header("Pooling moninkers")]
-    public static Queue<MoninkerController> moninkersPool;
+    [Header("Progresión y dificultad")]
+    public float secsUntilHardest = 180;
+    [HideInEditorMode]
+    public float currGameTime;
+
+    [Header("Moninkers y celdas")]
+    public List<Transform> cyanInitPos;
+    public List<Transform> magentaInitPos, yellowInitPos;
+
+    [FoldoutGroup("Speed", GroupName = "Velocidades IA", Expanded = true)]
+    public float wanderSpeed = 1, pursueSpeed = 2f, blackSpeed = 3f;
+
+    [FoldoutGroup("Heat", GroupName = "Celo IA", Expanded = true)]
+    public float minHeatTime = 4;
+    [FoldoutGroup("Heat")]
+    public float maxHeatTime = 12, blackHeatTime = 3;
+
+    [FoldoutGroup("Wander", GroupName ="Merodear IA", Expanded = true)]
+    public float wanderTargetMinDist = 0.3f, wanderTargetMaxDist = 1f;
+    [FoldoutGroup("Wander")]
+    [FoldoutGroup("Wander")][Range(0, 1)]
+    [Tooltip("Valor random que altera la probabilidad de hacer esperas durante wander")]
+    public float wanderWaitProbability = 0.7f;
+    [FoldoutGroup("Wander")]
+    public float wanderWaitMinTime = 0.1f, wanderWaitMaxTime = 0.5f;
+    [FoldoutGroup("Wander")]
+    public float wanderMaxReachTime = 2;
+
+    [Header("Grid y pooling")]
+    public Vector3 gridCorner;
+    [HorizontalGroup("Dimensiones Grid", LabelWidth = 50)]
+    public int gridX = 15, gridZ = 15;
+    private float distX, distZ;
+    [HideInInspector]
+    public List<MoninkerController>[,] gridLists;
     public int poolSize = 1000;
     public int maxFrameSpawn = 2;
     public int currFrameSpawn = 0;
-
-    [Header("Moninkers y celdas")]
-    public Vector3 gridCorner;
-    public int gridX = 15, gridZ = 15;
-    public float distX, distZ;
-    [HideInInspector]
-    public List<MoninkerController>[,] gridLists;
-    public List<Transform> cyanInitPos, magentaInitPos, yellowInitPos;
+    public static Queue<MoninkerController> moninkersPool;
 
     [Header("Puntuacion")]
+    [HideInEditorMode]
     public int[] primariesCount = {0,0,0};
+    [HideInEditorMode]
     public int score = 0;
-
-    [Header("Juego y dificultad")]
-    public float currGameTime;
-    public float secsUntilHardest = 180;
-
-    [Header("Skills")]
-    public GameObject SkillPrefab;
 
 
     private void Awake()

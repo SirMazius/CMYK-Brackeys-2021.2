@@ -28,9 +28,9 @@ public class MoninkerPursueState : MoninkerState
                 controller.agent.destination = controller.currTarget.position;
                 //Cambiamos la velocidad a más rapido para perseguir
                 if(controller.MoninkerColor == InkColorIndex.BLACK)
-                    controller.agent.speed = blackSpeed;
+                    controller.agent.speed = GameManager.self.blackSpeed;
                 else
-                    controller.agent.speed = pursueSpeed;
+                    controller.agent.speed = GameManager.self.pursueSpeed;
             }
 
         }

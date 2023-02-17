@@ -16,7 +16,7 @@ public class MoninkerWanderState : MoninkerState
     {
         controller = contr;
         //El tiempo hasta el siguiente celo
-        nextHeatTime = Random.Range(minHeatTime,maxHeatTime);
+        nextHeatTime = Random.Range(GameManager.self.minHeatTime, GameManager.self.maxHeatTime);
     }
     
     public void UpdateState()
@@ -36,7 +36,7 @@ public class MoninkerWanderState : MoninkerState
             Quaternion.AngleAxis(Random.Range(0,360), Vector3.up) * Vector3.forward;
             direction.Normalize();
             //Lejania pseudoaleatoria del siguiente punto
-            direction *= Random.Range(wanderTargetMinDist, wanderTargetMaxDist);
+            direction *= Random.Range(GameManager.self.wanderTargetMinDist, GameManager.self.wanderTargetMaxDist);
             Vector3 point = direction + controller.agent.transform.position;
             point.y = controller.transform.position.y;
 
@@ -44,16 +44,16 @@ public class MoninkerWanderState : MoninkerState
                 if (!controller.agent.SetDestination(controller.agent.transform.position - direction))
                     controller.agent.destination = Vector3.zero;
 
-            currTargetTime = wanderMaxReachTime;
+            currTargetTime = GameManager.self.wanderMaxReachTime;
 
             //Cambiamos la velocidad a más lento para caminar
-            controller.agent.speed = wanderSpeed;
+            controller.agent.speed = GameManager.self.wanderSpeed;
 
             //¿Hacemos una parada aleatoria al llegar a este punto?
-            if (Random.Range(0f, 1f) > wanderWaitProbability)
+            if (Random.Range(0f, 1f) > GameManager.self.wanderWaitProbability)
             {
                 //Parada de tiempo aleatorio
-                remainingWait = Random.Range(wanderWaitMinTime, wanderWaitMaxTime);
+                remainingWait = Random.Range(GameManager.self.wanderWaitMinTime, GameManager.self.wanderWaitMaxTime);
             }
         }
 
@@ -70,17 +70,17 @@ public class MoninkerWanderState : MoninkerState
         }
 
         //Actualizamos contador tiempo cooldown de celo
-        if(!controller.heat)
+        if(!controller.Heat)
         {
             currHeatTime += Time.deltaTime;
             if(currHeatTime > nextHeatTime)
             {
-                controller.heat = true;
+                controller.Heat = true;
             }
         }
 
         //Al entrar en celo buscar moninker más cercano de la lista
-        if(controller.heat)
+        if(controller.Heat)
         {
             //MoninkerController nearest = null;
             //float minDist = 100000;
@@ -134,9 +134,9 @@ public class MoninkerWanderState : MoninkerState
         if(controller.currTarget != null)
         {
             controller.agent.isStopped = false;
-            controller.heat = false;
+            controller.Heat = false;
             currHeatTime = 0;
-            nextHeatTime = Random.Range(minHeatTime, maxHeatTime);
+            nextHeatTime = Random.Range(GameManager.self.minHeatTime, GameManager.self.maxHeatTime);
             controller.currState = controller.pursueState;
         }
     }

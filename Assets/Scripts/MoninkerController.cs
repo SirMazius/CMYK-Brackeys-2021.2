@@ -59,16 +59,19 @@ public class MoninkerController : MonoBehaviour
     //Parametros de movimiento y tiempos de IA
     [Header("IA")][SerializeField]
     public Transform currTarget;
-    public static float wanderSpeed = 1, pursueSpeed = 2f, blackSpeed = 3f;
-    public static float wanderTargetMinDist = 0.3f, wanderTargetMaxDist = 1f;
-    [Range(0, 1)]
-    public static float wanderWaitProbability = 0.7f; //Valor random que altera la probabilidad de hacer esperas durante wander
-    public static float wanderWaitMinTime = 0.1f, wanderWaitMaxTime = 0.5f;
-    public static float wanderMaxReachTime = 2;
-    public static float minHeatTime = 4, maxHeatTime = 12, blackHeatTime = 3;
+    
 
     public Vector3 grabOffset = new Vector3();
-    public bool heat = false;
+    private bool _heat = false;
+    public bool Heat
+    {
+        get => _heat;
+        set {
+            _heat = value;
+            heatIndicator.SetActive(Heat);
+        }
+    }
+    public GameObject heatIndicator;
 
     //Colliders moninkers
     public static float normalCollRadius = 0.2f;

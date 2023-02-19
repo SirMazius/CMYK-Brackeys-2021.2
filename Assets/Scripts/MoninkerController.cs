@@ -10,8 +10,11 @@ public class MoninkerController : MonoBehaviour
     public SphereCollider coll;
     public SphereCollider triggerDetector;
     public Rigidbody2D rb;
-    public SpriteRenderer[] sprites;
+    public SpriteRenderer[] spriteRenderers;
     public GameObject spritesParent;
+
+    public ParticleSystem spawnParticles;
+    public ParticleSystemRenderer spawnParticlesRend;
 
     //Apariencia
     [Header("Appearance")]
@@ -30,9 +33,9 @@ public class MoninkerController : MonoBehaviour
 
                 _moninkerColor = value;
                 GameManager.self.AddColorCount(value);
-                foreach (SpriteRenderer s in sprites)
+                foreach (SpriteRenderer s in spriteRenderers)
                 {
-                    s.material.SetColor("TintColor", InkColors[MoninkerColor]);
+                    s.material.SetColor("TintColor", UIManager.self.InkColors[MoninkerColor]);
                 }
 
                 //Si es negro cambiamos sus caracteristicas
@@ -44,6 +47,11 @@ public class MoninkerController : MonoBehaviour
                         currState.StartWander();
                         wanderState.currHeatTime = 0;
                     }
+                    spriteRenderers[0].sprite = UIManager.self.EvilMoninkerSprite;
+                }
+                else
+                {
+                    spriteRenderers[0].sprite = UIManager.self.MoninkerIdleSprite;
                 }
             }
             //Borrar
@@ -68,7 +76,9 @@ public class MoninkerController : MonoBehaviour
         get => _heat;
         set {
             _heat = value;
-            heatIndicator.SetActive(Heat);
+            if(_heat && MoninkerColor != InkColorIndex.BLACK)
+                spriteRenderers[0].sprite = UIManager.self.MoninkerHeatSprite;
+            //heatIndicator.SetActive(Heat);
         }
     }
     public GameObject heatIndicator;
@@ -93,7 +103,7 @@ public class MoninkerController : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        sprites = GetComponentsInChildren<SpriteRenderer>();
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         coll = GetComponentInChildren<SphereCollider>(true);
     }
 
@@ -101,9 +111,9 @@ public class MoninkerController : MonoBehaviour
     void Start()
     {
         //Preparar sprite
-        foreach(SpriteRenderer s in sprites)
+        foreach(SpriteRenderer s in spriteRenderers)
         {
-            s.material.SetColor("TintColor", InkColors[MoninkerColor]);
+            s.material.SetColor("TintColor", UIManager.self.InkColors[MoninkerColor]);
         }
 
         //Inicializar maquina de estados

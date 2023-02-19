@@ -1,0 +1,15 @@
+Multiple layers for the "default" skin have the same name:
+Grupo
+Rename or use the [path:name] or [ignore] tag for these layers.
+---
+Multiple layers for the "default" skin have the same name:
+Grupo
+Rename or use the [path:name] or [ignore] tag for these layers.
+---
+Multiple layers for the "default" skin have the same name:
+Grupo
+Rename or use the [path:name] or [ignore] tag for these layers.
+---
+Multiple layers for the "default" skin have the same name:
+Grupo
+Rename or use the [path:name] or [ignore] tag for these layers.

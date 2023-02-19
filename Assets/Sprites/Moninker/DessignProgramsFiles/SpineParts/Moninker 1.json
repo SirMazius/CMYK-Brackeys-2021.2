@@ -1,0 +1,40 @@
+{ "skeleton": { "images": "C:/Users/Jose Manuel/Documents/Proyectos/Brackeys Game Jam 2021.2/CMYK/Assets/Sprites/Moninker/SpineParts/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "Body", "bone": "root", "attachment": "Body" },
+	{ "name": "L_Leg", "bone": "root", "attachment": "L_Leg" },
+	{ "name": "R_Leg", "bone": "root", "attachment": "R_Leg" },
+	{ "name": "L_Arm", "bone": "root", "attachment": "L_Arm" },
+	{ "name": "R_Arm", "bone": "root", "attachment": "R_Arm" },
+	{ "name": "Happy_face", "bone": "root", "attachment": "Happy_face" },
+	{ "name": "Bored_Face", "bone": "root", "attachment": "Bored_Face" }
+],
+"skins": {
+	"default": {
+		"Body": {
+			"Body": { "x": 733.5, "y": -668.5, "width": 1173, "height": 957 }
+		},
+		"L_Leg": {
+			"L_Leg": { "x": 385.5, "y": -1037.5, "width": 463, "height": 493 }
+		},
+		"R_Leg": {
+			"R_Leg": { "x": 1081.5, "y": -1037.5, "width": 463, "height": 493 }
+		},
+		"L_Arm": {
+			"L_Arm": { "x": 168.5, "y": -993.5, "width": 339, "height": 239 }
+		},
+		"R_Arm": {
+			"R_Arm": { "x": 1305.5, "y": -993.5, "width": 339, "height": 239 }
+		},
+		"Happy_face": {
+			"Happy_face": { "x": 733.5, "y": -710, "width": 953, "height": 526 }
+		},
+		"Bored_Face": {
+			"Bored_Face": { "x": 733.5, "y": -724, "width": 953, "height": 406 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

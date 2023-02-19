@@ -46,7 +46,10 @@ public class PaintShotController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         explosionArea.enabled = false;
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.5f);
+        explosionArea.enabled = false;
+
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 
@@ -82,7 +85,7 @@ public class PaintShotController : MonoBehaviour
     public void SetPaintColor(InkColorIndex _colorIndex)
     {
         colorIndex = _colorIndex;
-        color = InkColors[colorIndex];
+        color = UIManager.self.InkColors[colorIndex];
 
         dropController.SetColor(color);
         color.a = 0.7f;

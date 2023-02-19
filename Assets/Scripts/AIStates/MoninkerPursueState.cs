@@ -60,12 +60,16 @@ public class MoninkerPursueState : MoninkerState
 
     public void StartDragging()
     {
-        controller.currState = controller.draggingState;
-        controller.currTarget = null;
-        controller.agent.isStopped = true;
-        controller.agent.ResetPath();
-        controller.coll.enabled = false;
-        controller.agent.radius = grabbedCollRadius;
+        if (controller.MoninkerColor != InkColorIndex.BLACK)
+        {
+            controller.currState = controller.draggingState;
+            controller.currTarget = null;
+            controller.agent.isStopped = true;
+            controller.agent.ResetPath();
+            controller.coll.enabled = false;
+            controller.agent.radius = grabbedCollRadius;
+            controller.spriteRenderers[0].sprite = UIManager.self.MoninkerIdleSprite;
+        }
     }
 
     public void StartWander()
@@ -74,6 +78,10 @@ public class MoninkerPursueState : MoninkerState
         controller.currState = controller.wanderState;
         controller.agent.ResetPath();
         controller.agent.radius = normalCollRadius;
+        if (controller.MoninkerColor != InkColorIndex.BLACK)
+        {
+            controller.spriteRenderers[0].sprite = UIManager.self.MoninkerIdleSprite;
+        }
     }
 
     public void OnTriggerEnter(Collider coll)

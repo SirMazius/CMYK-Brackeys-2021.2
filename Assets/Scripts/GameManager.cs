@@ -5,6 +5,8 @@ using static GameGlobals;
 
 public class GameManager : SerializedMonoBehaviour
 {
+    #region VARIABLES
+
     public enum GameState
     {
         MENU,
@@ -15,9 +17,10 @@ public class GameManager : SerializedMonoBehaviour
 
     public static GameManager self = null;
 
-    [Header("Game variables")]
+    [Header("Game variables")][SerializeField]
     private GameState _currentState = GameState.MENU;
 
+    [SerializeField]
     public bool IsInGame
     {
         get => (_currentState == GameState.GAME);
@@ -27,6 +30,7 @@ public class GameManager : SerializedMonoBehaviour
     public GameObject moninkerPrefab;
     public GameObject paintShotPrefab, eraserPrefab;
     public GameObject SkillPrefab;
+    public GameObject MoninkerSpawnParticles;
 
     [Header("Entorno")]
     public Transform floor;
@@ -77,6 +81,8 @@ public class GameManager : SerializedMonoBehaviour
     public int[] primariesCount = {0,0,0};
     [HideInEditorMode]
     public int score = 0;
+
+    #endregion
 
 
     private void Awake()
@@ -202,6 +208,11 @@ public class GameManager : SerializedMonoBehaviour
             {
                 AudioManager.self.PlayAdditively(SoundId.New_Moninker);
             }
+
+            //Instanciamos al hacer spawn
+            m.spawnParticles.Play();
+            m.spawnParticlesRend.material.color = UIManager.self.InkColors[m.MoninkerColor];
+
             AddScore();
         }
         else
@@ -280,7 +291,7 @@ public class GameManager : SerializedMonoBehaviour
                 {
                     MoninkerController m = cellMoninkers[i];
                     float currDist = Vector3.Distance(m.transform.position, center);
-                    if (currDist < maxDist || m.currState is MoninkerDraggingState)
+                    if (m.MoninkerColor!=InkColorIndex.BLACK && (currDist < maxDist || m.currState is MoninkerDraggingState))
                         moninkers.Add(m);
                 }
             }

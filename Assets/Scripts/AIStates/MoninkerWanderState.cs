@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static MoninkerController;
+using static GameGlobals;
 
 public class MoninkerWanderState : MoninkerState
 {
@@ -16,6 +17,7 @@ public class MoninkerWanderState : MoninkerState
     {
         controller = contr;
         //El tiempo hasta el siguiente celo
+
         nextHeatTime = Random.Range(GameManager.self.minHeatTime, GameManager.self.maxHeatTime);
     }
     
@@ -73,7 +75,9 @@ public class MoninkerWanderState : MoninkerState
         if(!controller.Heat)
         {
             currHeatTime += Time.deltaTime;
-            if(currHeatTime > nextHeatTime)
+
+            //El tiempo de celo es mucho menor cuando es negro
+            if(currHeatTime > ((controller.MoninkerColor == InkColorIndex.BLACK)? GameManager.self.blackHeatTime: nextHeatTime))
             {
                 controller.Heat = true;
             }
@@ -149,12 +153,16 @@ public class MoninkerWanderState : MoninkerState
     }
     public void StartDragging()
     {
-        controller.currState = controller.draggingState;
-        controller.currTarget = null;
-        controller.agent.isStopped = true;
-        controller.agent.ResetPath();
-        controller.coll.enabled = false;
-        controller.agent.radius = grabbedCollRadius;
+        if(controller.MoninkerColor!=InkColorIndex.BLACK)
+        {
+            controller.currState = controller.draggingState;
+            controller.currTarget = null;
+            controller.agent.isStopped = true;
+            controller.agent.ResetPath();
+            controller.coll.enabled = false;
+            controller.agent.radius = grabbedCollRadius;
+            controller.spriteRenderers[0].sprite = UIManager.self.MoninkerIdleSprite;
+        }
     }
 
     public void OnTriggerEnter(Collider coll) { }

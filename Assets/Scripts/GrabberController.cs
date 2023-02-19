@@ -230,7 +230,7 @@ public class GrabberController : SingletonMono<GrabberController>
         if(_inCombo)
         {
             _inCombo = false;
-            UIManager.self.comboText.color = InkColors[InkColorIndex.NONE];
+            UIManager.self.comboText.color = UIManager.self.InkColors[InkColorIndex.NONE];
             AudioManager.self.PlayAdditively(SoundId.Combo_break);
         }
     }
@@ -276,8 +276,7 @@ public class GrabberController : SingletonMono<GrabberController>
         {
             MoninkerController m = moninkers[i];
             float currDist = Vector3.Distance(m.transform.position, point);
-            //TODO: ¿Evitar coger negros?
-            if (currDist < nearestDist)
+            if (currDist < nearestDist && m.MoninkerColor != InkColorIndex.BLACK)
             {
                 nearestDist = currDist;
                 nearest = m;

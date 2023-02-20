@@ -161,7 +161,7 @@ public class MoninkerWanderState : MoninkerState
             controller.agent.ResetPath();
             controller.coll.enabled = false;
             controller.agent.radius = grabbedCollRadius;
-            controller.spriteRenderers[0].sprite = UIManager.self.MoninkerIdleSprite;
+            controller.mainSpriteRender.sprite = UIManager.self.MoninkerIdleSprite;
         }
     }
 

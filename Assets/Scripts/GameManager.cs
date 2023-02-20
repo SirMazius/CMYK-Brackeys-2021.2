@@ -52,6 +52,8 @@ public class GameManager : SerializedMonoBehaviour
     public float minHeatTime = 4;
     [FoldoutGroup("Heat")]
     public float maxHeatTime = 12, blackHeatTime = 3;
+    [FoldoutGroup("Heat")]
+    public float reproduceTime = 1;
 
     [FoldoutGroup("Wander", GroupName ="Merodear IA", Expanded = true)]
     public float wanderTargetMinDist = 0.3f, wanderTargetMaxDist = 1f;

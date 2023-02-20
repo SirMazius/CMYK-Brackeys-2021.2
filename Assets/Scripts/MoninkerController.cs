@@ -10,7 +10,8 @@ public class MoninkerController : MonoBehaviour
     public SphereCollider coll;
     public SphereCollider triggerDetector;
     public Rigidbody2D rb;
-    public SpriteRenderer[] spriteRenderers;
+    public SpriteRenderer mainSpriteRender;
+    public SpriteRenderer contourSpriteRender;
     public GameObject spritesParent;
 
     public ParticleSystem spawnParticles;
@@ -33,10 +34,8 @@ public class MoninkerController : MonoBehaviour
 
                 _moninkerColor = value;
                 GameManager.self.AddColorCount(value);
-                foreach (SpriteRenderer s in spriteRenderers)
-                {
-                    s.material.SetColor("TintColor", UIManager.self.InkColors[MoninkerColor]);
-                }
+
+                mainSpriteRender.material.SetColor("TintColor", UIManager.self.InkColors[MoninkerColor]);
 
                 //Si es negro cambiamos sus caracteristicas
                 if (MoninkerColor == InkColorIndex.BLACK)
@@ -47,11 +46,11 @@ public class MoninkerController : MonoBehaviour
                         currState.StartWander();
                         wanderState.currHeatTime = 0;
                     }
-                    spriteRenderers[0].sprite = UIManager.self.EvilMoninkerSprite;
+                    mainSpriteRender.sprite = UIManager.self.EvilMoninkerSprite;
                 }
                 else
                 {
-                    spriteRenderers[0].sprite = UIManager.self.MoninkerIdleSprite;
+                    mainSpriteRender.sprite = UIManager.self.MoninkerIdleSprite;
                 }
             }
             //Borrar
@@ -67,7 +66,8 @@ public class MoninkerController : MonoBehaviour
     //Parametros de movimiento y tiempos de IA
     [Header("IA")][SerializeField]
     public Transform currTarget;
-    
+    [HideInInspector]
+    public bool reproducing = false;
 
     public Vector3 grabOffset = new Vector3();
     private bool _heat = false;
@@ -77,7 +77,7 @@ public class MoninkerController : MonoBehaviour
         set {
             _heat = value;
             if(_heat && MoninkerColor != InkColorIndex.BLACK)
-                spriteRenderers[0].sprite = UIManager.self.MoninkerHeatSprite;
+                mainSpriteRender.sprite = UIManager.self.MoninkerHeatSprite;
             //heatIndicator.SetActive(Heat);
         }
     }
@@ -103,18 +103,13 @@ public class MoninkerController : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         coll = GetComponentInChildren<SphereCollider>(true);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //Preparar sprite
-        foreach(SpriteRenderer s in spriteRenderers)
-        {
-            s.material.SetColor("TintColor", UIManager.self.InkColors[MoninkerColor]);
-        }
+        mainSpriteRender.material.SetColor("TintColor", UIManager.self.InkColors[MoninkerColor]);
 
         //Inicializar maquina de estados
         wanderState = new MoninkerWanderState(this);
@@ -157,12 +152,54 @@ public class MoninkerController : MonoBehaviour
         {
             MoninkerColor = InkColorIndex.BLACK;
             other.MoninkerColor = InkColorIndex.BLACK;
+            EndReproduction();
+            other.EndReproduction();
         }
         //Si son colores normales, crean un nuevo hijo entre medias de los dos
         else
-        {
-            Vector3 pos = (other.transform.position - transform.position)/2f + transform.position;
-            GameManager.self.ActivateMoninker(pos, childColor);
+            StartCoroutine(ReproduceCoroutine(other, childColor));
+    }
+
+    public IEnumerator ReproduceCoroutine(MoninkerController other, InkColorIndex childColor)
+    {
+        //Pasar ambos moninkers a modo pursue y reproduccion
+        reproducing = true;
+        other.reproducing = true;
+        other.currTarget = transform;
+        other.currState.StartPursue();
+
+        //Mostrar contorno del color del hijo
+        float time = 0;
+        Color fillColor = Color.white;
+        contourSpriteRender.enabled = true;
+        other.contourSpriteRender.enabled = true;
+        contourSpriteRender.material.SetColor("ContourColor", UIManager.self.InkColors[childColor]);
+        other.contourSpriteRender.material.SetColor("ContourColor", UIManager.self.InkColors[childColor]);
+
+        //Hacer blanco progresivamente
+        do{
+            time += Time.deltaTime;
+            fillColor.a = Mathf.Clamp01(time/GameManager.self.reproduceTime);
+            contourSpriteRender.material.SetColor("FillColor", fillColor);
+            other.contourSpriteRender.material.SetColor("FillColor", fillColor);
+            yield return new WaitForEndOfFrame();
         }
+        while (time < GameManager.self.reproduceTime);
+
+        //Instanciar nuevo moninker despues de transicion
+        Vector3 pos = (other.transform.position - transform.position) / 2f + transform.position;
+        GameManager.self.ActivateMoninker(pos, childColor);
+        GameManager.self.currFrameSpawn++;
+
+        EndReproduction();
+        other.EndReproduction();
+    }
+
+    public void EndReproduction()
+    {
+        reproducing = false;
+        contourSpriteRender.enabled = false;
+        currState.StartWander();
+        wanderState.currHeatTime = 0;
     }
 }

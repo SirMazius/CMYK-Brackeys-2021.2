@@ -8,6 +8,8 @@ public class MoninkerPursueState : MoninkerState
 {
     MoninkerController controller;
 
+    private bool reproducing = false;
+
     public MoninkerPursueState(MoninkerController contr)
     {
         controller = contr;
@@ -42,16 +44,19 @@ public class MoninkerPursueState : MoninkerState
     //Instanciar un nuevo monigote y resetear padres
     public void Reproduce(MoninkerController other)
     {
-        //Instanciar hijo combinando colores
-        controller.ReproduceWith(other);
-        GameManager.self.currFrameSpawn++;
+        if(!controller.reproducing)
+        {
+            //Instanciar hijo combinando colores
+            controller.ReproduceWith(other);
+            //GameManager.self.currFrameSpawn++;
 
-        //Pasar de nuevo a wander y reiniciar celo
-        StartWander();
-        other.currState.StartWander();
-        controller.wanderState.currHeatTime = 0;
-        other.wanderState.currHeatTime = 0;
-        //Debug.Log("Ha habido FOLLE");
+            ////Pasar de nuevo a wander y reiniciar celo
+            //StartWander();
+            //other.currState.StartWander();
+            //controller.wanderState.currHeatTime = 0;
+            //other.wanderState.currHeatTime = 0;
+            //Debug.Log("Ha habido FOLLE");
+        }
     }
 
     public void Impact() { }
@@ -68,7 +73,7 @@ public class MoninkerPursueState : MoninkerState
             controller.agent.ResetPath();
             controller.coll.enabled = false;
             controller.agent.radius = grabbedCollRadius;
-            controller.spriteRenderers[0].sprite = UIManager.self.MoninkerIdleSprite;
+            controller.mainSpriteRender.sprite = UIManager.self.MoninkerIdleSprite;
         }
     }
 
@@ -80,7 +85,7 @@ public class MoninkerPursueState : MoninkerState
         controller.agent.radius = normalCollRadius;
         if (controller.MoninkerColor != InkColorIndex.BLACK)
         {
-            controller.spriteRenderers[0].sprite = UIManager.self.MoninkerIdleSprite;
+            controller.mainSpriteRender.sprite = UIManager.self.MoninkerIdleSprite;
         }
     }
 

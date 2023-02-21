@@ -36,9 +36,8 @@ public class GrabberController : SingletonMono<GrabberController>
     public float maxGrabbedsPerFrame = 5;
 
     private Vector3 _lastCursorPos = new Vector3();
+    private Vector3 _firstGrabbedPos;
 
-
-    //TODO: ¿offset de tiempo entre grabbed moninkers?/¿attraction force disminuye con el tiempo?
 
     void Update()
     {
@@ -116,7 +115,6 @@ public class GrabberController : SingletonMono<GrabberController>
         _inCombo = false;
 
         //Exchanger sobre el que esta el cursor en este momento
-        //TODO: Controlar on hover enter y exit de exchangers
         SkillExchanger OveredExchanger = null;
 
         //Se puede canjear moninkers por habilidades
@@ -133,8 +131,11 @@ public class GrabberController : SingletonMono<GrabberController>
         for (int i = 0; i < grabbedMoninkers.Count; i++)
         {
             MoninkerController m = grabbedMoninkers[i];
+            //Si se sueltan los moninkers fuera del mapa los dejamos en la posicion del primer grab
+            if(CursorHoveredGO != GameManager.self.floor.gameObject)
+                m.transform.position = _firstGrabbedPos + m.grabOffset;
+
             m.currState.StartWander();
-            //TODO: Mejorar como se sueltan(contemplar fuera de mapa y tal)
         }
         
         grabbedMoninkers.Clear();
@@ -220,6 +221,9 @@ public class GrabberController : SingletonMono<GrabberController>
         moninker.grabOffset = moninker.transform.position - point;
         moninker.currState.StartDragging();
         moninker.grabbed = true;
+
+        //Almacenar posicion inicial del primer moninker cogido en caso de soltar fuera del mapa
+        _firstGrabbedPos = moninker.transform.position;
 
         //Avisar a exchangers del numero actual de cogidos
         OnGrabbedsChange.Invoke(grabbedMoninkers.Count);

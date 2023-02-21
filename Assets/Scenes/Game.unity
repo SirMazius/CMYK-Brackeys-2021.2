@@ -3135,7 +3135,7 @@ GameObject:
   - component: {fileID: 910816916}
   - component: {fileID: 910816915}
   - component: {fileID: 910816914}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: FolioShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3165,7 +3165,7 @@ BoxCollider:
   m_GameObject: {fileID: 910816912}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 10, y: 0.1, z: 10}
   m_Center: {x: 0, y: -0.05, z: 0}
@@ -7598,7 +7598,7 @@ GameObject:
   - component: {fileID: 2039847452}
   - component: {fileID: 2039847451}
   - component: {fileID: 2039847450}
-  m_Layer: 6
+  m_Layer: 4
   m_Name: FloorCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7637,7 +7637,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 22209fd636eae1f4f8bf489c3725a413, type: 2}
+  - {fileID: 2100000, guid: 27f6939a7d32fd642b4f6c47e41b4d0f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7675,7 +7675,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2039847449}
   m_LocalRotation: {x: 0.0000014454124, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.7712685, y: 1.0871016, z: 0.3691774}
+  m_LocalPosition: {x: -0.7712685, y: 0.75, z: 0.37}
   m_LocalScale: {x: 7.3257375, y: 6.4402084, z: 6.44021}
   m_Children: []
   m_Father: {fileID: 2017423007}

@@ -57,6 +57,8 @@ public static class GameGlobals
     public static string tagMoninker = "Moninker";
 
     public static Vector3 Cursor { get => GetCursor3DPoint(); }
+    public static GameObject CursorHoveredGO = null;
+
 
     public enum CurveType
     {
@@ -95,9 +97,15 @@ public static class GameGlobals
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 6))
+        {
+            CursorHoveredGO = hit.collider.gameObject;
             return hit.point + Vector3.up * 0.0001f;
+        }
         else
+        {
+            CursorHoveredGO = null;
             return Vector3.positiveInfinity;
+        }
     }
 
     //Devuelve el resultado de mezclar dos colores de moninkers

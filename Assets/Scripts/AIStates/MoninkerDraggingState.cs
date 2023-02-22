@@ -41,6 +41,8 @@ public class MoninkerDraggingState : MoninkerState
         controller.agent.isStopped = false;
         controller.agent.radius = normalCollRadius;
         controller.grabbed = false;
+        //Reseteamos HeatTime
+        controller.wanderState.currHeatTime = 0;
     }
 
     public void UpdateState()

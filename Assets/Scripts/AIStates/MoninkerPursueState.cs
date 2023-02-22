@@ -73,7 +73,7 @@ public class MoninkerPursueState : MoninkerState
             controller.agent.ResetPath();
             controller.coll.enabled = false;
             controller.agent.radius = grabbedCollRadius;
-            controller.mainSpriteRender.sprite = UIManager.self.MoninkerIdleSprite;
+            controller.EndReproduction();
         }
     }
 

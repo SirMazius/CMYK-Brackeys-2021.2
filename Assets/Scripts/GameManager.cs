@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
@@ -212,8 +213,16 @@ public class GameManager : SerializedMonoBehaviour
             }
 
             //Instanciamos al hacer spawn
-            m.spawnParticles.Play();
-            m.spawnParticlesRend.material.color = UIManager.self.InkColors[m.MoninkerColor];
+            if (m.MoninkerColor != InkColorIndex.BLACK)
+            {
+                m.spawnParticles.Play();
+                m.spawnParticlesRend.material.color = UIManager.self.InkColors[m.MoninkerColor];
+            }
+            else
+            {
+                //m.blackWave.transform.DOScale(0.5f, 1f).ChangeStartValue(Vector3.zero).SetEase(Ease.OutCirc);
+                //m.blackWave.DOColor(new Color(0,0,0,0), 1f).ChangeStartValue(new Color(0, 0, 0, 1)).SetEase(Ease.OutCirc); ;
+            }
 
             AddScore();
         }

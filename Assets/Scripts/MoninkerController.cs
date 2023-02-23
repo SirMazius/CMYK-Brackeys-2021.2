@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using static GameGlobals;
+using Sirenix.OdinInspector;
+using DG.Tweening;
 
-
-public class MoninkerController : MonoBehaviour
+public class MoninkerController : SerializedMonoBehaviour
 {
     public NavMeshAgent agent;
     public SphereCollider coll;
@@ -21,7 +22,7 @@ public class MoninkerController : MonoBehaviour
     //Apariencia
     [Header("Appearance")]
     private InkColorIndex _moninkerColor = InkColorIndex.NONE;
-    [SerializeField]
+    //[SerializeField]
     public InkColorIndex MoninkerColor
     {
         get => _moninkerColor;
@@ -35,11 +36,14 @@ public class MoninkerController : MonoBehaviour
                 _moninkerColor = value;
                 GameManager.self.AddColorCount(value);
 
+                mainSpriteRender.sprite = UIManager.self.MoninkerIdleSprite;
                 mainSpriteRender.material.SetColor("TintColor", UIManager.self.InkColors[MoninkerColor]);
 
                 //Reseteamos tiempo de heat al teñir
                 if(wanderState!=null)
                     wanderState.currHeatTime = 0;
+                
+                Heat = false;
 
                 //Si es negro cambiamos sus caracteristicas
                 if (MoninkerColor == InkColorIndex.BLACK)
@@ -51,6 +55,9 @@ public class MoninkerController : MonoBehaviour
                         wanderState.currHeatTime = 0;
                     }
                     mainSpriteRender.sprite = UIManager.self.EvilMoninkerSprite;
+
+                    blackWave.transform.DOScale(0.35f, 1.2f).ChangeStartValue(Vector3.zero).SetEase(Ease.OutCirc);
+                    blackWave.DOColor(new Color(0, 0, 0, 0), 1.2f).ChangeStartValue(new Color(0, 0, 0, 1)).SetEase(Ease.OutCirc);
                 }
                 else
                 {
@@ -69,17 +76,18 @@ public class MoninkerController : MonoBehaviour
 
     //Parametros de movimiento y tiempos de IA
     [Header("IA")][SerializeField]
-    public Transform currTarget;
-    [HideInInspector]
+    public MoninkerController currTarget;
+    [HideInPlayMode]
     public bool reproducing = false;
     public Vector3 grabOffset = new Vector3();
     //Maquina de estados
-    [HideInInspector]
+    [SerializeField]
     public MoninkerState currState;
     [HideInInspector]
     public MoninkerWanderState wanderState;
     [HideInInspector]
     public MoninkerPursueState pursueState;
+    [HideInInspector]
     public MoninkerDraggingState draggingState;
     public bool grabbed = false;
     //Colliders moninkers
@@ -97,9 +105,12 @@ public class MoninkerController : MonoBehaviour
             _heat = value;
             if(_heat && MoninkerColor != InkColorIndex.BLACK)
                 mainSpriteRender.sprite = UIManager.self.MoninkerHeatSprite;
-            //heatIndicator.SetActive(Heat);
         }
     }
+
+    [Header("Effects")]
+    public SpriteRenderer blackWave;
+
 
 
     private void Awake()
@@ -128,7 +139,8 @@ public class MoninkerController : MonoBehaviour
         pos.x = transform.position.x;
         spritesParent.transform.LookAt(pos, Camera.main.transform.up);
 
-        if(!grabbed && !reproducing)
+        //Negros no se tienen que detectar, se excluyen de las celdas
+        if(!grabbed)
         {
             //Detectar la casilla de la grid en la que se coloca
             Vector2Int newCell = GameManager.self.GetCell(transform.position);
@@ -146,41 +158,29 @@ public class MoninkerController : MonoBehaviour
     //Crea un hijo con el color mezclado de los dos monigotes (o contyagia si es negro)
     public void ReproduceWith(MoninkerController other)
     {
-        InkColorIndex childColor = MixColors(MoninkerColor, other.MoninkerColor);
-
-        //Si uno es negro no se reproduce, sino que contagia al otro
-        if(childColor == InkColorIndex.BLACK)
+        if(ReproductionCoroutine == null)
         {
-            MoninkerColor = InkColorIndex.BLACK;
-            other.MoninkerColor = InkColorIndex.BLACK;
-            EndReproduction();
-            other.EndReproduction();
-        }
-        //Si son colores normales, crean un nuevo hijo entre medias de los dos
-        else
-        {
-            if (ReproductionCoroutine != null)
-                StopCoroutine(ReproductionCoroutine);
-
+            InkColorIndex childColor = MixColors(MoninkerColor, other.MoninkerColor);
             ReproductionCoroutine = StartCoroutine(ReproduceCoroutine(other, childColor));
+            other.ReproductionCoroutine = ReproductionCoroutine;
         }
     }
 
     public IEnumerator ReproduceCoroutine(MoninkerController other, InkColorIndex childColor)
     {
-        ReproductionCompanion = other;
-
-        //Pasar ambos moninkers a modo pursue y reproduccion
         reproducing = true;
         other.reproducing = true;
-        other.currTarget = transform;
-        other.currState.StartPursue();
+
+        ReproductionCompanion = other;
+        other.ReproductionCompanion = this;
+        other.currTarget = this;
+
+        contourSpriteRender.enabled = true;
+        other.contourSpriteRender.enabled = true;
 
         //Mostrar contorno del color del hijo
         float time = 0;
         Color fillColor = Color.white;
-        contourSpriteRender.enabled = true;
-        other.contourSpriteRender.enabled = true;
         contourSpriteRender.material.SetColor("ContourColor", UIManager.self.InkColors[childColor]);
         other.contourSpriteRender.material.SetColor("ContourColor", UIManager.self.InkColors[childColor]);
 
@@ -188,7 +188,6 @@ public class MoninkerController : MonoBehaviour
         do{
             if (!reproducing)
             {
-                contourSpriteRender.enabled = false;
                 EndReproduction();
                 yield break;
             }
@@ -215,14 +214,17 @@ public class MoninkerController : MonoBehaviour
         reproducing = false;
         Heat = false;
         contourSpriteRender.enabled = false;
+        currTarget = null;
         wanderState.currHeatTime = 0;
         mainSpriteRender.sprite = UIManager.self.MoninkerIdleSprite;
+        ReproductionCoroutine = null;
 
         //Cortamos reproduccion del compañero tambien (evitando bucle infinito)
         if (ReproductionCompanion)
         {
             ReproductionCompanion.ReproductionCompanion = null;
             ReproductionCompanion.EndReproduction();
+            ReproductionCompanion = null;
         }
     }
 }

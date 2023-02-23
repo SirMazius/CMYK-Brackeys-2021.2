@@ -82,9 +82,8 @@ public class MoninkerWanderState : MoninkerState
                 controller.Heat = true;
             }
         }
-
         //Al entrar en celo buscar moninker más cercano de la lista
-        if(controller.Heat)
+        else
         {
             //MoninkerController nearest = null;
             //float minDist = 100000;
@@ -120,10 +119,15 @@ public class MoninkerWanderState : MoninkerState
                 {
                     foreach(MoninkerController m in GameManager.self.gridLists[c.x, c.y])
                     {
-                        if(m != controller)
+                        if(m != controller && !m.reproducing && m.currState is MoninkerWanderState && m.MoninkerColor != InkColorIndex.BLACK && (controller.MoninkerColor == InkColorIndex.BLACK || m.Heat))
                         {
-                            controller.currTarget = m.transform;
+                            controller.currTarget = m;
                             StartPursue();
+                            if (controller.MoninkerColor != InkColorIndex.BLACK)
+                            {
+                                m.currTarget = controller;
+                                m.currState.StartPursue();
+                            }
                             return;
                         }
                     }
@@ -151,6 +155,7 @@ public class MoninkerWanderState : MoninkerState
         currHeatTime = 0;
         controller.agent.radius = normalCollRadius;
     }
+
     public void StartDragging()
     {
         if(controller.MoninkerColor!=InkColorIndex.BLACK)
@@ -168,15 +173,7 @@ public class MoninkerWanderState : MoninkerState
     public void OnTriggerEnter(Collider coll) { }
 
     //Si ha pasado cierto tiempo desde que se reprodujo y hay algun monigote cerca, se dirige hacia el
-    public void OnTriggerStay(Collider coll)
-    {
-        //if(coll.CompareTag(Globals.tagMoninker) 
-        //    && (currHeatTime > nextHeatTime || (controller.color == Globals.InkColorIndex.BLACK && currHeatTime > blackHeatTime)))
-        //{
-        //    controller.currTarget = coll.gameObject.transform;
-        //    StartPursue();
-        //}
-    }
+    public void OnTriggerStay(Collider coll) { }
 
     public void OnTriggerExit(Collider coll) { }
 }

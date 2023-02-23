@@ -18,16 +18,23 @@ public class MoninkerPursueState : MoninkerState
     //Se dirige a su objetivo
     public void UpdateState()
     {
-        if (controller.currTarget != null && GameManager.self.currFrameSpawn< GameManager.self.maxFrameSpawn)
+        if (controller.currTarget != null && controller.currTarget.MoninkerColor != InkColorIndex.BLACK)
         {
-            if(Vector3.Distance(controller.transform.position, controller.currTarget.transform.position) < controller.agent.radius * 2f)
+            if((Vector3.Distance(controller.transform.position, controller.currTarget.transform.position) < controller.agent.radius*2f) && !reproducing
+                && (GameManager.self.currFrameSpawn < GameManager.self.maxFrameSpawn || controller.MoninkerColor == InkColorIndex.BLACK))
             {
-                //Instanciar un nuevo monigote y resetear padres
-                Reproduce(controller.currTarget.GetComponent<MoninkerController>());
+                MoninkerController other = controller.currTarget;
+
+                //Negros tiñen al otro de negro
+                if (controller.MoninkerColor == InkColorIndex.BLACK)
+                    other.MoninkerColor = InkColorIndex.BLACK;
+                //Normales instancian un hijo
+                else
+                    controller.ReproduceWith(other);
             }
             else
             {
-                controller.agent.destination = controller.currTarget.position;
+                controller.agent.destination = controller.currTarget.transform.position;
                 //Cambiamos la velocidad a más rapido para perseguir
                 if(controller.MoninkerColor == InkColorIndex.BLACK)
                     controller.agent.speed = GameManager.self.blackSpeed;
@@ -39,24 +46,6 @@ public class MoninkerPursueState : MoninkerState
         //En cualquier otro caso volvemos a wander
         else
             StartWander();
-    }
-
-    //Instanciar un nuevo monigote y resetear padres
-    public void Reproduce(MoninkerController other)
-    {
-        if(!controller.reproducing)
-        {
-            //Instanciar hijo combinando colores
-            controller.ReproduceWith(other);
-            //GameManager.self.currFrameSpawn++;
-
-            ////Pasar de nuevo a wander y reiniciar celo
-            //StartWander();
-            //other.currState.StartWander();
-            //controller.wanderState.currHeatTime = 0;
-            //other.wanderState.currHeatTime = 0;
-            //Debug.Log("Ha habido FOLLE");
-        }
     }
 
     public void Impact() { }

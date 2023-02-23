@@ -1046,7 +1046,7 @@ MonoBehaviour:
   minHeatTime: 5
   maxHeatTime: 25
   blackHeatTime: 0.5
-  reproduceTime: 0.7
+  reproduceTime: 1
   wanderTargetMinDist: 0.3
   wanderTargetMaxDist: 1
   wanderWaitProbability: 0.7

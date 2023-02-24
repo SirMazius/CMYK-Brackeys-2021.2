@@ -33,8 +33,17 @@ public class MoninkerController : SerializedMonoBehaviour
             {
                 if(_moninkerColor != InkColorIndex.NONE)
                     GameManager.self.RemoveColorCount(_moninkerColor);
+
+                //Ponemos particulas negras al contagiar unos a otros
+                if(_moninkerColor != InkColorIndex.BLACK && value == InkColorIndex.BLACK)
+                {
+                    spawnParticles.Play();
+                    spawnParticlesRend.material.color = UIManager.self.InkColors[InkColorIndex.BLACK];
+                }
+
                 _moninkerColor = value;
                 GameManager.self.AddColorCount(value);
+
 
                 mainSpriteRender.sprite = UIManager.self.MoninkerIdleSprite;
                 mainSpriteRender.material.SetColor("TintColor", UIManager.self.InkColors[MoninkerColor]);
@@ -55,9 +64,6 @@ public class MoninkerController : SerializedMonoBehaviour
                         wanderState.currHeatTime = 0;
                     }
                     mainSpriteRender.sprite = UIManager.self.EvilMoninkerSprite;
-
-                    blackWave.transform.DOScale(0.35f, 1.2f).ChangeStartValue(Vector3.zero).SetEase(Ease.OutCirc);
-                    blackWave.DOColor(new Color(0, 0, 0, 0), 1.2f).ChangeStartValue(new Color(0, 0, 0, 1)).SetEase(Ease.OutCirc);
                 }
                 else
                 {
@@ -109,8 +115,8 @@ public class MoninkerController : SerializedMonoBehaviour
     }
 
     [Header("Effects")]
-    public SpriteRenderer blackWave;
-
+    public SpriteRenderer blackWaveRenderer;
+    private Sequence blackWaveTween;
 
 
     private void Awake()
@@ -226,5 +232,17 @@ public class MoninkerController : SerializedMonoBehaviour
             ReproductionCompanion.EndReproduction();
             ReproductionCompanion = null;
         }
+    }
+
+    public void DoBlackWave()
+    {
+        if (blackWaveTween != null && blackWaveTween.IsPlaying())
+            blackWaveTween.Kill();
+
+        blackWaveTween = DOTween.Sequence();
+
+        blackWaveTween
+            .Append(blackWaveRenderer.transform.DOScale(UIManager.self.BlackWaveMaxScale, UIManager.self.BlackWaveDuration + 0.1f).ChangeStartValue(Vector3.zero).SetEase(Ease.OutCirc))
+            .Insert(0, blackWaveRenderer.DOColor(new Color(0, 0, 0, 0), UIManager.self.BlackWaveDuration-0.1f).ChangeStartValue(new Color(0, 0, 0, 1)).SetEase(Ease.OutCirc));
     }
 }

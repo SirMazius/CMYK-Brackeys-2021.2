@@ -35,6 +35,8 @@ public class UIManager : SingletonMono<UIManager>
     public float ComboHideTweenDuration = 0.4f;
     public Vector3 ComboTweenScale = new Vector3(-0.2f, 0.4f, 0);
     public float ComboTweenShake = 10f;
+    public float BlackWaveDuration = 1.2f;
+    public float BlackWaveMaxScale = 0.5f;
 
     [Header("Moninker Sprites")]
     public Sprite MoninkerIdleSprite;

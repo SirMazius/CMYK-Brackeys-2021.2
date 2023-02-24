@@ -232,7 +232,7 @@ MonoBehaviour:
   grabOffset: {x: 0, y: 0, z: 0}
   grabbed: 0
   ReproductionCompanion: {fileID: 0}
-  blackWave: {fileID: 7137983544501451392}
+  blackWaveRenderer: {fileID: 7137983544501451392}
 --- !u!195 &5354327601688366275
 NavMeshAgent:
   m_ObjectHideFlags: 0

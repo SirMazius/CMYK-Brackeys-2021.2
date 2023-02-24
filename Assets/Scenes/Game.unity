@@ -5980,6 +5980,8 @@ MonoBehaviour:
   ComboHideTweenDuration: 0.3
   ComboTweenScale: {x: -0.2, y: 0.4, z: 0}
   ComboTweenShake: 10
+  BlackWaveDuration: 0.5
+  BlackWaveMaxScale: 0.4
   MoninkerIdleSprite: {fileID: 21300000, guid: 9810cf1f711db054e9ed18727e177c61, type: 3}
   MoninkerHeatSprite: {fileID: 21300000, guid: 2efef9773df69e949b197aa4f0c44566, type: 3}
   EvilMoninkerSprite: {fileID: 21300000, guid: 92ec8a28838a78d499332e67e0c1b134, type: 3}

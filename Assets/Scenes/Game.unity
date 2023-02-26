@@ -995,6 +995,7 @@ MonoBehaviour:
       Entry: 6
       Data: 
   _currentState: 0
+  currGameTime: 0
   moninkerPrefab: {fileID: 5354327601688366284, guid: 40d32c24862c69e4dbf6565746c4588d, type: 3}
   paintShotPrefab: {fileID: 3561863081966820995, guid: 5a2b7e47305fb4a43a475ed23c72ff4c, type: 3}
   eraserPrefab: {fileID: 5065130615346141601, guid: 8a1a83e9d1931c444ae6e2dbbd45c246, type: 3}
@@ -1002,8 +1003,6 @@ MonoBehaviour:
   MoninkerSpawnParticles: {fileID: 0}
   floor: {fileID: 657980654}
   floorColl: {fileID: 657980651}
-  secsUntilHardest: 180
-  currGameTime: 0
   cyanInitPos:
   - {fileID: 279248757}
   - {fileID: 658335188}
@@ -1096,7 +1095,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: ProgressionRanges
+    - Name: progressionRanges
       Entry: 7
       Data: 0|System.Collections.Generic.List`1[[ProgressionTimeRange, Assembly-CSharp]],
         mscorlib
@@ -1738,10 +1737,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 4
+      Data: 3.5
     - Name: 
       Entry: 4
-      Data: 3.5
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -1893,69 +1892,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: paintDifficulty
-      Entry: 7
-      Data: 39|System.Single[,], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 15
-    - Name: ranks
-      Entry: 1
-      Data: 5|3
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0.85
-    - Name: 
-      Entry: 4
-      Data: 0.15
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0.7
-    - Name: 
-      Entry: 4
-      Data: 0.3
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0.55
-    - Name: 
-      Entry: 4
-      Data: 0.4
-    - Name: 
-      Entry: 4
-      Data: 0.05
-    - Name: 
-      Entry: 4
-      Data: 0.35
-    - Name: 
-      Entry: 4
-      Data: 0.5
-    - Name: 
-      Entry: 4
-      Data: 0.15
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
   paintShotPrefab: {fileID: 3561863081966820995, guid: 5a2b7e47305fb4a43a475ed23c72ff4c, type: 3}
-  maxPaintOffset: 5
-  minPaintOffset: 0.5
+  endProgressionTime: 0
 --- !u!114 &297257178
 MonoBehaviour:
   m_ObjectHideFlags: 0

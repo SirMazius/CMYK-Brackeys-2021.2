@@ -20,12 +20,13 @@ public class GameManager : SerializedMonoBehaviour
 
     [Header("Game variables")][SerializeField]
     private GameState _currentState = GameState.MENU;
-
     [SerializeField]
     public bool IsInGame
     {
         get => (_currentState == GameState.GAME);
     }
+    [HideInEditorMode]
+    public float currGameTime;
 
     [Header("Prefabs")]
     public GameObject moninkerPrefab;
@@ -36,11 +37,6 @@ public class GameManager : SerializedMonoBehaviour
     [Header("Entorno")]
     public Transform floor;
     public BoxCollider floorColl;
-
-    [Header("Progresión y dificultad")]
-    public float secsUntilHardest = 180;
-    [HideInEditorMode]
-    public float currGameTime;
 
     [Header("Moninkers y celdas")]
     public List<Transform> cyanInitPos;

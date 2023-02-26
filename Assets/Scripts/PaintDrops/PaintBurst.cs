@@ -34,4 +34,10 @@ public class PaintBurst
     [HorizontalGroup]
     public int dropsNumber = 1;
     //public List<InkColorIndex> colors = new List<InkColorIndex>();
+
+    //Devuelve la probabilidad de que salga esta oleada en cierto punto del rango de tiempo de la progresion
+    public float GetCurrentOdd(float proportion)
+    {
+        return Mathf.Lerp(startOdds, endOdds, proportion);
+    }
 }

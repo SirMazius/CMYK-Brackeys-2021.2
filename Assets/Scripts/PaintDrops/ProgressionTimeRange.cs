@@ -14,6 +14,23 @@ public class ProgressionTimeRange
     [Space][HorizontalGroup("duration")]
     public float duration = 60;
 
+    public float endTime
+    {
+        get => startTime + duration;
+    }
+    //Duración sin contar el tiempo del ultimo disparo (para evitar que en el inicio y fin de los rangos se superpongan lanzamientos)
+    public float realDuration 
+    { 
+        get => duration - spawnCooldownRange.y; 
+    }
+
+    //Tiempo en el que se lanzara el ultimo proyectil del rango
+    public float realEndTime
+    {
+        get => startTime + realDuration;
+    }
+
+
     [Tooltip("Cooldown que tiene al inicio y final del rango de tiempo")]
     public Vector2 spawnCooldownRange = new Vector2(5, 5);
 

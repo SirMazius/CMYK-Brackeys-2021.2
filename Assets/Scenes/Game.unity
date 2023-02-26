@@ -1087,6 +1087,872 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c798ec4cfdf67e42b836da956dd3aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: ProgressionRanges
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[ProgressionTimeRange, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 7
+      Data: 1|ProgressionTimeRange, Assembly-CSharp
+    - Name: Name
+      Entry: 1
+      Data: CMY
+    - Name: startTime
+      Entry: 4
+      Data: 0
+    - Name: duration
+      Entry: 4
+      Data: 60
+    - Name: spawnCooldownRange
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 5
+    - Name: 
+      Entry: 4
+      Data: 4.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: paintBursts
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[PaintBurst, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 3|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 1
+    - Name: endOdds
+      Entry: 4
+      Data: 0.95
+    - Name: colors
+      Entry: 3
+      Data: 0
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0
+    - Name: endOdds
+      Entry: 4
+      Data: 0.05
+    - Name: colors
+      Entry: 3
+      Data: 0
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|ProgressionTimeRange, Assembly-CSharp
+    - Name: Name
+      Entry: 1
+      Data: CMYRGB
+    - Name: startTime
+      Entry: 4
+      Data: 60
+    - Name: duration
+      Entry: 4
+      Data: 60
+    - Name: spawnCooldownRange
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 4.5
+    - Name: 
+      Entry: 4
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: paintBursts
+      Entry: 7
+      Data: 6|System.Collections.Generic.List`1[[PaintBurst, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 7|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.95
+    - Name: endOdds
+      Entry: 4
+      Data: 0
+    - Name: colors
+      Entry: 3
+      Data: 0
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 8|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0
+    - Name: endOdds
+      Entry: 4
+      Data: 0.9
+    - Name: colors
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.05
+    - Name: endOdds
+      Entry: 4
+      Data: 0
+    - Name: colors
+      Entry: 3
+      Data: 0
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 10|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0
+    - Name: endOdds
+      Entry: 4
+      Data: 0.1
+    - Name: colors
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|ProgressionTimeRange, Assembly-CSharp
+    - Name: Name
+      Entry: 1
+      Data: RGB
+    - Name: startTime
+      Entry: 4
+      Data: 120
+    - Name: duration
+      Entry: 4
+      Data: 60
+    - Name: spawnCooldownRange
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: paintBursts
+      Entry: 7
+      Data: 12|System.Collections.Generic.List`1[[PaintBurst, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 13|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.9
+    - Name: endOdds
+      Entry: 4
+      Data: 0.7
+    - Name: colors
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 14|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.1
+    - Name: endOdds
+      Entry: 4
+      Data: 0.15
+    - Name: colors
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 15|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0
+    - Name: endOdds
+      Entry: 4
+      Data: 0.15
+    - Name: colors
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 16|ProgressionTimeRange, Assembly-CSharp
+    - Name: Name
+      Entry: 1
+      Data: RGBK
+    - Name: startTime
+      Entry: 4
+      Data: 180
+    - Name: duration
+      Entry: 4
+      Data: 60
+    - Name: spawnCooldownRange
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: paintBursts
+      Entry: 7
+      Data: 17|System.Collections.Generic.List`1[[PaintBurst, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 7
+      Data: 18|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.7
+    - Name: endOdds
+      Entry: 4
+      Data: 0
+    - Name: colors
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 19|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.15
+    - Name: endOdds
+      Entry: 4
+      Data: 0
+    - Name: colors
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 20|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.15
+    - Name: endOdds
+      Entry: 4
+      Data: 0
+    - Name: colors
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 21|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0
+    - Name: endOdds
+      Entry: 4
+      Data: 0.8
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 22|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0
+    - Name: endOdds
+      Entry: 4
+      Data: 0.15
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 23|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0
+    - Name: endOdds
+      Entry: 4
+      Data: 0.05
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 24|ProgressionTimeRange, Assembly-CSharp
+    - Name: Name
+      Entry: 1
+      Data: K
+    - Name: startTime
+      Entry: 4
+      Data: 240
+    - Name: duration
+      Entry: 4
+      Data: 60
+    - Name: spawnCooldownRange
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 3.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: paintBursts
+      Entry: 7
+      Data: 25|System.Collections.Generic.List`1[[PaintBurst, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 26|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.8
+    - Name: endOdds
+      Entry: 4
+      Data: 0.1
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 27|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.2
+    - Name: endOdds
+      Entry: 4
+      Data: 0.5
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 28|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0
+    - Name: endOdds
+      Entry: 4
+      Data: 0.15
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 29|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0
+    - Name: endOdds
+      Entry: 4
+      Data: 0.2
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 30|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0
+    - Name: endOdds
+      Entry: 4
+      Data: 0.05
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 31|ProgressionTimeRange, Assembly-CSharp
+    - Name: Name
+      Entry: 1
+      Data: K Final
+    - Name: startTime
+      Entry: 4
+      Data: 300
+    - Name: duration
+      Entry: 4
+      Data: 120
+    - Name: spawnCooldownRange
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 3.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: paintBursts
+      Entry: 7
+      Data: 32|System.Collections.Generic.List`1[[PaintBurst, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 7
+      Data: 33|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.1
+    - Name: endOdds
+      Entry: 4
+      Data: 0
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 34|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.5
+    - Name: endOdds
+      Entry: 4
+      Data: 0
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 35|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.15
+    - Name: endOdds
+      Entry: 4
+      Data: 0.3
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: dropsNumber
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 36|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.2
+    - Name: endOdds
+      Entry: 4
+      Data: 0.2
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 37|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0.05
+    - Name: endOdds
+      Entry: 4
+      Data: 0.25
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: dropsNumber
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 38|PaintBurst, Assembly-CSharp
+    - Name: startOdds
+      Entry: 4
+      Data: 0
+    - Name: endOdds
+      Entry: 4
+      Data: 0.25
+    - Name: colors
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: dropsNumber
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: paintDifficulty
+      Entry: 7
+      Data: 39|System.Single[,], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 15
+    - Name: ranks
+      Entry: 1
+      Data: 5|3
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.85
+    - Name: 
+      Entry: 4
+      Data: 0.15
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.7
+    - Name: 
+      Entry: 4
+      Data: 0.3
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.55
+    - Name: 
+      Entry: 4
+      Data: 0.4
+    - Name: 
+      Entry: 4
+      Data: 0.05
+    - Name: 
+      Entry: 4
+      Data: 0.35
+    - Name: 
+      Entry: 4
+      Data: 0.5
+    - Name: 
+      Entry: 4
+      Data: 0.15
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   paintShotPrefab: {fileID: 3561863081966820995, guid: 5a2b7e47305fb4a43a475ed23c72ff4c, type: 3}
   maxPaintOffset: 5
   minPaintOffset: 0.5

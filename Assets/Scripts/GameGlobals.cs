@@ -47,6 +47,13 @@ public static class GameGlobals
         BETTER
     }
 
+    public enum PaintDropSize
+    {
+        Small,
+        Medium,
+        Large
+    }
+
     public static Dictionary<ExchangerType, int> ExchangeQuantities = new Dictionary<ExchangerType, int>()
     {
         {ExchangerType.SIMPLE, 10},
@@ -59,6 +66,8 @@ public static class GameGlobals
     public static Vector3 Cursor { get => GetCursor3DPoint(); }
     public static GameObject CursorHoveredGO = null;
 
+    public static List<InkColorIndex> CMY = new List<InkColorIndex> { InkColorIndex.CYAN, InkColorIndex.MAGENTA, InkColorIndex.YELLOW };
+    public static List<InkColorIndex> RGB = new List<InkColorIndex> { InkColorIndex.RED, InkColorIndex.GREEN, InkColorIndex.BLUE };
 
     public enum CurveType
     {

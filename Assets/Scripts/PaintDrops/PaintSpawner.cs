@@ -5,12 +5,17 @@ using static GameGlobals;
 using Sirenix.OdinInspector;
 
 
-public class PaintSpawner : MonoBehaviour
+public class PaintSpawner : SerializedMonoBehaviour
 {
     public static PaintSpawner self;
     public GameObject paintShotPrefab;
 
+    [HideReferenceObjectPicker]
+    public List<ProgressionTimeRange> ProgressionRanges = new List<ProgressionTimeRange>();
+
+
     //Matriz de dificultad de la pintura creada
+    [HideInInspector]
     public float[,] paintDifficulty = // [niveles] [props(primario,secundario,negro)]
     {
         {1, 0, 0},

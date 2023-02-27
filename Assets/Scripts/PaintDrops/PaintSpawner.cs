@@ -202,7 +202,6 @@ public class PaintSpawner : SerializedMonoBehaviour
 
         //Color varia en funcion de la dificultad (mas secundarios y negros conforme avanza el tiempo)
         shotController.SetPaintColor(burst.color);
-        //TODO: cambiar tamaño
 
         return shotController;
     }

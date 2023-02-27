@@ -1003,6 +1003,7 @@ MonoBehaviour:
   MoninkerSpawnParticles: {fileID: 0}
   floor: {fileID: 657980654}
   floorColl: {fileID: 657980651}
+  floorLimits: {x: 0, y: 0, z: 0}
   cyanInitPos:
   - {fileID: 279248757}
   - {fileID: 658335188}
@@ -1140,7 +1141,7 @@ MonoBehaviour:
       Data: 1
     - Name: endOdds
       Entry: 4
-      Data: 0.95
+      Data: 0.9
     - Name: colors
       Entry: 3
       Data: 0
@@ -1161,7 +1162,7 @@ MonoBehaviour:
       Data: 0
     - Name: endOdds
       Entry: 4
-      Data: 0.05
+      Data: 0.1
     - Name: colors
       Entry: 3
       Data: 0
@@ -1892,7 +1893,2269 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  paintShotPrefab: {fileID: 3561863081966820995, guid: 5a2b7e47305fb4a43a475ed23c72ff4c, type: 3}
+    - Name: bursts
+      Entry: 7
+      Data: 39|System.Collections.Generic.List`1[[PaintSpawner+BurstAndDelay, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 107
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 5
+    - Name: color
+      Entry: 3
+      Data: 0
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.95833349
+    - Name: color
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.917014
+    - Name: color
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.87603855
+    - Name: color
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.83540535
+    - Name: color
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.79511
+    - Name: color
+      Entry: 3
+      Data: 1
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.755151
+    - Name: color
+      Entry: 3
+      Data: 1
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.71552467
+    - Name: color
+      Entry: 3
+      Data: 0
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.67622852
+    - Name: color
+      Entry: 3
+      Data: 0
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.63726
+    - Name: color
+      Entry: 3
+      Data: 0
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.598616
+    - Name: color
+      Entry: 3
+      Data: 0
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.560294
+    - Name: color
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.5
+    - Name: color
+      Entry: 3
+      Data: 1
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.4625
+    - Name: color
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.42531252
+    - Name: color
+      Entry: 3
+      Data: 0
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.388435
+    - Name: color
+      Entry: 3
+      Data: 0
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.351865
+    - Name: color
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.315599
+    - Name: color
+      Entry: 3
+      Data: 1
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.279636
+    - Name: color
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.2439723
+    - Name: color
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.208606
+    - Name: color
+      Entry: 3
+      Data: 3
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.173534
+    - Name: color
+      Entry: 3
+      Data: 3
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.13875437
+    - Name: color
+      Entry: 3
+      Data: 2
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.10426474
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.07006264
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4.03614569
+    - Name: color
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 3
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 3
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 3
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 3
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 3
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 3
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 3
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 4
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 3
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 3
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 5
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 4
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.9666667
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.93361115
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.900831
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.868324
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.836088
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.80412054
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.77241969
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.74098277
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.70980787
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.67889285
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.64823532
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.61783361
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.58768487
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.55778742
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.5
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.48541665
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.470894
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.456432
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.44203019
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.42768836
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.41340637
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.399184
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.38502073
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.37091637
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.356871
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 3
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.34288383
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.32895517
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.31508446
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.30127168
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.28751636
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.27381849
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.26017761
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.24659348
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.233066
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.219595
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.20617986
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 3
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.19282079
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 3
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.17951751
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.1662693
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.15307665
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.13993883
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.12685585
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.11382723
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.100853
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.08793259
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.07506633
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.06225348
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 1
+    - Name: drops
+      Entry: 3
+      Data: 2
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.04949427
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 3
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.036788
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 2
+    - Name: drops
+      Entry: 3
+      Data: 1
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: PaintSpawner+BurstAndDelay, Assembly-CSharp
+    - Name: delay
+      Entry: 4
+      Data: 3.02413464
+    - Name: color
+      Entry: 3
+      Data: 6
+    - Name: size
+      Entry: 3
+      Data: 0
+    - Name: drops
+      Entry: 3
+      Data: 3
+    - Name: range
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  paintShotPrefabS: {fileID: 3561863081966820995, guid: 5a2b7e47305fb4a43a475ed23c72ff4c, type: 3}
+  paintShotPrefabM: {fileID: 3233972003747178509, guid: d6998d9c9651cfe4b8438ab5e7c4e067, type: 3}
+  paintShotPrefabL: {fileID: 902771659289890384, guid: 027cdfb36148fec4c82987ea0a69a86a, type: 3}
   endProgressionTime: 0
 --- !u!114 &297257178
 MonoBehaviour:

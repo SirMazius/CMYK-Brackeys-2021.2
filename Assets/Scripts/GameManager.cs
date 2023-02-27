@@ -37,6 +37,8 @@ public class GameManager : SerializedMonoBehaviour
     [Header("Entorno")]
     public Transform floor;
     public BoxCollider floorColl;
+    [HideInInspector]
+    public Vector3 floorLimits;
 
     [Header("Moninkers y celdas")]
     public List<Transform> cyanInitPos;
@@ -97,6 +99,7 @@ public class GameManager : SerializedMonoBehaviour
     {
         ShowMenu();
         PrepareGame();
+        floorLimits = floorColl.bounds.extents;
     }
 
     private void Update()

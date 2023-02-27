@@ -1,47 +1,44 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static GameGlobals;
-using Sirenix.OdinInspector;
 
 
 public class PaintSpawner : SerializedMonoBehaviour
 {
-    public struct BurstAndTime
+    [HideReferenceObjectPicker]
+    public struct BurstAndDelay
     {
-        public PaintBurst burst;
-        public float time;
+        [HorizontalGroup][HideLabel]
+        public float delay;
+        [HorizontalGroup][HideLabel]
+        public InkColorIndex color;
+        [HorizontalGroup][HideLabel]
+        public PaintDropSize size;
+        [HorizontalGroup][HideLabel]
+        public int drops;
+        [HideInInspector]
+        public ProgressionTimeRange range;
 
-        public BurstAndTime(PaintBurst burst, float time)
+        public BurstAndDelay(PaintBurst burst, float delay, ProgressionTimeRange range)
         {
-            this.burst = burst;
-            this.time = time;
+            this.delay = delay;
+            color = burst.GetRandomColor();
+            size = burst.size;
+            drops = burst.dropsNumber;
+            this.range = range;
         }
     }
 
     public static PaintSpawner self;
-    public GameObject paintShotPrefab;
+    public GameObject paintShotPrefabS, paintShotPrefabM, paintShotPrefabL;
 
     [HideReferenceObjectPicker]
     public List<ProgressionTimeRange> progressionRanges = new List<ProgressionTimeRange>();
-
     public float endProgressionTime;
-
-    private List<BurstAndTime> bursts = new List<BurstAndTime>();
-
-    //Matriz de dificultad de la pintura creada
-    //public float[,] paintDifficulty = // [niveles] [props(primario,secundario,negro)]
-    //{
-    //    {1, 0, 0},
-    //    {0.85f, 0.15f, 0},
-    //    {0.7f, 0.3f, 0},
-    //    {0.55f, 0.4f, 0.05f},
-    //    {0.35f, 0.5f, 0.15f}
-    //};
-
-    ////Disparos de pintura
-    //public float maxPaintOffset = 5f, minPaintOffset = 0.5f;
-    //private float nextPaintOffset;
+    [SerializeField]
+    private List<BurstAndDelay> bursts = new List<BurstAndDelay>();
 
 
     public void Awake()
@@ -65,11 +62,14 @@ public class PaintSpawner : SerializedMonoBehaviour
 
     
     //Calculamos al inicio todas las oleadas que se van a lazar y en que momento se lanzaran. Durante el juego simpemente se leera esta lista y se espawnearan en el tiempo inidicado
+    [Button][ExecuteAlways]
     public void PrepareSpawnList()
     {
-        //TODO:
+        if (bursts != null)
+            bursts.Clear();
+        bursts = new List<BurstAndDelay>();
 
-        //Para cada rango de tiempo calculamos qué oleadas y cuando se deben lanzar
+        //Para cada rango de tiempo calculamos qué oleadas se lanzan y el tiempo que pasará hasta que se lance cada una respecto la anterior
         foreach (var range in progressionRanges)
         {
             float currCooldown = range.spawnCooldownRange.x;
@@ -81,6 +81,7 @@ public class PaintSpawner : SerializedMonoBehaviour
                 float rangeProportion = currTime/range.duration;
                 float timeStep = Mathf.Lerp(range.spawnCooldownRange.x, range.spawnCooldownRange.y, rangeProportion);
                 float rand = Random.Range(0, 1f);
+                Debug.Log(rand);
 
                 //Recorremos todas las oleadas de ese rango y elegimos la oleada que corresponda al random
                 float i = 0;
@@ -89,9 +90,9 @@ public class PaintSpawner : SerializedMonoBehaviour
                     i += burst.GetCurrentOdd(rangeProportion);
 
                     //Si es esta oleada, se almacena en la lista con su marca del tiempo en el que se lanzará
-                    if (i<rand)
+                    if (i>rand)
                     {
-                        bursts.Add(new BurstAndTime(burst, currTime+range.startTime)); 
+                        bursts.Add(new BurstAndDelay(burst, timeStep, range));//currTime+range.startTime)); 
                         break;
                     }
                 }
@@ -99,43 +100,48 @@ public class PaintSpawner : SerializedMonoBehaviour
                 currTime += timeStep;
             }
         }
-
-        //Ordenamos la lista de oleadas de menos a mas tiempo
-    }
-
-    public void GetRandomBurst(ProgressionTimeRange range, float rangeProportion)
-    {
-
     }
 
 
     public void StartSpawn()
     {
-        //StartCoroutine(SpawnPaint());
+        StartCoroutine(SpawnPaint());
     }
 
     //Generador de una bola de pintura con color aleatorio segun la dificultad progresiva
-    //public IEnumerator SpawnPaint()
-    //{
-    //    while (GameManager.self.IsInGame)
-    //    {
-    //        float currTime = GameManager.self.currGameTime;
-    //        //Proporcion de tiempo hasta el tope de dificultad
-    //        float prop = 1 - Mathf.Min(GameManager.self.currGameTime/endProgressionTime, 1);
+    public IEnumerator SpawnPaint()
+    {
+        foreach(var burst in bursts)
+        {
+            yield return new WaitForSeconds(burst.delay);
 
-    //        //Calculo de tiempo hasta el siguiente lanzamiento
-    //        nextPaintOffset = (maxPaintOffset - minPaintOffset) * prop + minPaintOffset;
+            if (!GameManager.self.IsInGame)
+                yield break;
 
-    //        yield return new WaitForSeconds(nextPaintOffset);
+            //Crear el numero de disparos que indique la oleada
+            for(int i = 0; i<burst.drops; i++)
+            {
+                CreatePaintShot(burst).Drop(false);
+            }
+        }
 
-    //        //Disparo en posicion aleatoria
-    //        Vector3 limits = GameManager.self.floorColl.bounds.extents;
-    //        Vector3 randPos = new Vector3(Random.Range(-limits.x, limits.x), 0.001f, Random.Range(-limits.z, limits.z));
-    //        CreatePaintShot(GetPaintColor(prop), randPos).Drop(false);
-    //    }
+        //while (GameManager.self.IsInGame)
+        //    {
+        //        float currTime = GameManager.self.currGameTime;
+        //        //Proporcion de tiempo hasta el tope de dificultad
+        //        float prop = 1 - Mathf.Min(GameManager.self.currGameTime/endProgressionTime, 1);
 
-    //    yield return null;
-    //}
+        //        //Calculo de tiempo hasta el siguiente lanzamiento
+        //        nextPaintOffset = (maxPaintOffset - minPaintOffset) * prop + minPaintOffset;
+
+        //        yield return new WaitForSeconds(nextPaintOffset);
+
+        //        //Disparo en posicion aleatoria
+        //        Vector3 limits = GameManager.self.floorColl.bounds.extents;
+        //        Vector3 randPos = new Vector3(Random.Range(-limits.x, limits.x), 0.001f, Random.Range(-limits.z, limits.z));
+        //        CreatePaintShot(GetPaintColor(prop), randPos).Drop(false);
+        //    }
+    }
 
     //Metodo para obtener un color aleatorio siguiendo las proporciones de la matriz de dificultad
     //public InkColorIndex GetPaintColor(float prop)
@@ -171,9 +177,39 @@ public class PaintSpawner : SerializedMonoBehaviour
     //}
 
     //Instanciamos un chorro de pintura de un color en una ubicacion concreta
+    public PaintShotController CreatePaintShot(BurstAndDelay burst)
+    {
+        var limits = GameManager.self.floorLimits;
+        Vector3 randPos = new Vector3(Random.Range(-limits.x, limits.x), 0.001f, Random.Range(-limits.z, limits.z));
+
+        GameObject shot;
+        switch (burst.size)
+        {
+            default:
+            case PaintDropSize.Small:
+                shot = Instantiate(paintShotPrefabS);
+                break;
+            case PaintDropSize.Medium:
+                shot = Instantiate(paintShotPrefabM);
+                break;
+            case PaintDropSize.Large:
+                shot = Instantiate(paintShotPrefabL);
+                break;
+        }
+
+        PaintShotController shotController = shot.GetComponent<PaintShotController>();
+        shot.transform.position = randPos;
+
+        //Color varia en funcion de la dificultad (mas secundarios y negros conforme avanza el tiempo)
+        shotController.SetPaintColor(burst.color);
+        //TODO: cambiar tamaño
+
+        return shotController;
+    }
+
     public PaintShotController CreatePaintShot(InkColorIndex color, Vector3 point)
     {
-        GameObject shot = Instantiate(paintShotPrefab);
+        GameObject shot = Instantiate(paintShotPrefabM);
         PaintShotController shotController = shot.GetComponent<PaintShotController>();
         shot.transform.position = point;
 

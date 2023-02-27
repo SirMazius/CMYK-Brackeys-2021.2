@@ -40,4 +40,37 @@ public class PaintBurst
     {
         return Mathf.Lerp(startOdds, endOdds, proportion);
     }
+
+    public InkColorIndex GetRandomColor()
+    {
+        List<InkColorIndex> colorList;
+
+        switch(colors)
+        {
+            default:
+            case ColorPack.CMY:
+                colorList = new List<InkColorIndex>() { InkColorIndex.CYAN, InkColorIndex.MAGENTA, InkColorIndex.YELLOW };
+                break;
+            case ColorPack.CMYRGB:
+                colorList = new List<InkColorIndex>() { InkColorIndex.CYAN, InkColorIndex.MAGENTA, InkColorIndex.YELLOW, InkColorIndex.RED,InkColorIndex.GREEN, InkColorIndex.BLUE};
+                break;
+            case ColorPack.RGB:
+                colorList = new List<InkColorIndex>() { InkColorIndex.RED, InkColorIndex.GREEN, InkColorIndex.BLUE };
+                break;
+            case ColorPack.RGBK:
+                colorList = new List<InkColorIndex>() { InkColorIndex.RED, InkColorIndex.GREEN, InkColorIndex.BLUE, InkColorIndex.BLACK };
+                break;
+            case ColorPack.K:
+                colorList = new List<InkColorIndex>() { InkColorIndex.BLACK };
+                break;
+            case ColorPack.CMYK:
+                colorList = new List<InkColorIndex>() { InkColorIndex.CYAN, InkColorIndex.MAGENTA, InkColorIndex.YELLOW , InkColorIndex.BLACK};
+                break;
+            case ColorPack.ALL:
+                colorList = new List<InkColorIndex>() { InkColorIndex.CYAN, InkColorIndex.MAGENTA, InkColorIndex.YELLOW, InkColorIndex.RED, InkColorIndex.GREEN, InkColorIndex.BLUE, InkColorIndex.BLACK };
+                break;
+        }
+
+        return colorList[Random.Range(0, colorList.Count)];
+    }
 }

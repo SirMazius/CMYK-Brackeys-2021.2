@@ -54,12 +54,17 @@ public class SkillExchanger : SerializedMonoBehaviour
         {
             //Comprueba si se ha alcanzado el tope de skills. Se elimina la mas antigua si es asi
             if(_skills.Count >= SkillsLimit)
-                _skills.Dequeue();
+            {
+                var removed = _skills.Dequeue();
+                _ui.RemoveSkillIcon(removed);
+            }
 
             _skills.Enqueue(skill);
 
             UpdateUI();
             _ui.AddSkillIcon(skill);
+
+            AudioManager.self.PlayAdditively(SoundId.Exchange_skill);
 
             return true;
         }
@@ -80,6 +85,7 @@ public class SkillExchanger : SerializedMonoBehaviour
     //Devuelve la skill conseguida en función del tipo de exchanger y los moninkers cogidos
     public bool TryExchange(int nMoninkers, InkColorIndex grabbedsColor = InkColorIndex.NONE)
     {
+        //TODO: Comprobar que no se ha excedido el numero de habilidades
         if(AreGrabbedsEnough(nMoninkers))
         {
             Skill newSkill;

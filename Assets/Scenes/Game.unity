@@ -7289,8 +7289,8 @@ MonoBehaviour:
   musicMixer: {fileID: -1670278610278655756, guid: baf75e44eeb61e0408e41e337480d286, type: 2}
   sounds:
   - source: {fileID: 0}
-    _clip: {fileID: 8300000, guid: d92298c12471f3e428b7c0aec81b69e6, type: 3}
     name: Printer Line
+    _clip: {fileID: 8300000, guid: d92298c12471f3e428b7c0aec81b69e6, type: 3}
     volume: 0.6
     pitch: 1
     mixer: 0
@@ -7299,8 +7299,8 @@ MonoBehaviour:
     originalPitch: 0
     playable: 1
   - source: {fileID: 0}
-    _clip: {fileID: 8300000, guid: 5a6393b9164abbc40a6e5ff127e84274, type: 3}
     name: New Moninker
+    _clip: {fileID: 8300000, guid: 5a6393b9164abbc40a6e5ff127e84274, type: 3}
     volume: 0.6
     pitch: 1
     mixer: 0
@@ -7309,8 +7309,8 @@ MonoBehaviour:
     originalPitch: 0
     playable: 1
   - source: {fileID: 0}
-    _clip: {fileID: 8300000, guid: 03f076098ddc049498072d90cde48c3a, type: 3}
     name: Paint drop hit
+    _clip: {fileID: 8300000, guid: 03f076098ddc049498072d90cde48c3a, type: 3}
     volume: 0.6
     pitch: 1
     mixer: 0
@@ -7319,8 +7319,8 @@ MonoBehaviour:
     originalPitch: 0
     playable: 1
   - source: {fileID: 0}
-    _clip: {fileID: 8300000, guid: 56c6d9ed0c62c1845a8a3a80f73040f6, type: 3}
     name: Paint explosion
+    _clip: {fileID: 8300000, guid: 56c6d9ed0c62c1845a8a3a80f73040f6, type: 3}
     volume: 0.6
     pitch: 0.85
     mixer: 0
@@ -7329,8 +7329,8 @@ MonoBehaviour:
     originalPitch: 0
     playable: 1
   - source: {fileID: 0}
-    _clip: {fileID: 8300000, guid: ddd1f1e1ccad01942b2fa12ca80e2158, type: 3}
     name: Whistle
+    _clip: {fileID: 8300000, guid: ddd1f1e1ccad01942b2fa12ca80e2158, type: 3}
     volume: 0.6
     pitch: 1
     mixer: 0
@@ -7339,8 +7339,8 @@ MonoBehaviour:
     originalPitch: 0
     playable: 1
   - source: {fileID: 0}
-    _clip: {fileID: 8300000, guid: 988a12a028194b34bb877d2c27f5555e, type: 3}
     name: Combo grab
+    _clip: {fileID: 8300000, guid: 988a12a028194b34bb877d2c27f5555e, type: 3}
     volume: 0.6
     pitch: 0.55
     mixer: 0
@@ -7349,8 +7349,8 @@ MonoBehaviour:
     originalPitch: 0
     playable: 1
   - source: {fileID: 0}
-    _clip: {fileID: 8300000, guid: 89f425bc166dcd44888057abc701e11b, type: 3}
     name: Shockwave
+    _clip: {fileID: 8300000, guid: 89f425bc166dcd44888057abc701e11b, type: 3}
     volume: 0.6
     pitch: 1.2
     mixer: 0
@@ -7359,8 +7359,8 @@ MonoBehaviour:
     originalPitch: 0
     playable: 1
   - source: {fileID: 0}
-    _clip: {fileID: 8300000, guid: b9823f1bd108ce849ae33cb1c401df3a, type: 3}
     name: Combo break
+    _clip: {fileID: 8300000, guid: b9823f1bd108ce849ae33cb1c401df3a, type: 3}
     volume: 0.6
     pitch: 1
     mixer: 0
@@ -7368,8 +7368,158 @@ MonoBehaviour:
     pitchRandMaxOffset: 0
     originalPitch: 0
     playable: 1
+  - source: {fileID: 0}
+    name: First black
+    _clip: {fileID: 8300000, guid: 2648d11aed6f6284ea4e5cdc707dece2, type: 3}
+    volume: 1
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Black contagion
+    _clip: {fileID: 8300000, guid: 88f69da05047a5f4fb11135e68f9b258, type: 3}
+    volume: 0.6
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0.25
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Select launch
+    _clip: {fileID: 8300000, guid: 82800f4437feab745a350d0dce6ff122, type: 3}
+    volume: 0.6
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Cancel launch
+    _clip: {fileID: 8300000, guid: b35011cc6f3c9ca44b77c22a70aa2354, type: 3}
+    volume: 1
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Open drawer
+    _clip: {fileID: 8300000, guid: b773a1ab64232cc41a57627cac019908, type: 3}
+    volume: 1
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Close drawer
+    _clip: {fileID: 8300000, guid: 666deb8c3f0994541a002e5a14ffa0ac, type: 3}
+    volume: 0.6
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Absorbing
+    _clip: {fileID: 8300000, guid: af00d4d0685081a438edd9381aea0fc2, type: 3}
+    volume: 0.5
+    pitch: 1
+    mixer: 0
+    loop: 1
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Exchange skill
+    _clip: {fileID: 8300000, guid: 8ea8480830d5ad34ba9eecab7a089f8b, type: 3}
+    volume: 0.6
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Black bomb
+    _clip: {fileID: 8300000, guid: fa4df4aef8afae14b8b5ba290e10db4f, type: 3}
+    volume: 1
+    pitch: 0.9
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Office ambient
+    _clip: {fileID: 8300000, guid: cf469b0546612bb4da9940abacc78da7, type: 3}
+    volume: 0.6
+    pitch: 1
+    mixer: 1
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Printer Button
+    _clip: {fileID: 8300000, guid: 7578b6fa53029c541925eee8c56b1f7f, type: 3}
+    volume: 0.6
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0.15
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: UI Button
+    _clip: {fileID: 8300000, guid: 637cf0ee6c1dca647a060a8940155245, type: 3}
+    volume: 0.6
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Defeat
+    _clip: {fileID: 8300000, guid: 2fb0c80fab4420040843b66a8c79f1a3, type: 3}
+    volume: 0.6
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Erase
+    _clip: {fileID: 8300000, guid: 97c225b685b8ec34183bb4be08e44f68, type: 3}
+    volume: 0.6
+    pitch: 1.1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0.15
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: Dye
+    _clip: {fileID: 8300000, guid: 52eece78bda39254ba89ff98eac9dae8, type: 3}
+    volume: 0.6
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0.15
+    originalPitch: 0
+    playable: 1
   sfxVolume: 1
-  musicVolume: 1
+  musicVolume: 0.19
   paintPartSpeedSound: 5
 --- !u!4 &1129948856
 Transform:

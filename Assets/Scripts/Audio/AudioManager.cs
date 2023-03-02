@@ -154,6 +154,13 @@ public class AudioManager : SingletonMono<AudioManager>
         s.source.Stop();
     }
 
+    public void Stop(SoundId type)
+    {
+        Sound s = sounds.Find(sound => sound.name.ToEnumFormat() == type.ToString());
+        if(s.source.isPlaying)
+            s.source.Stop();
+    }
+
     #endregion
 
 

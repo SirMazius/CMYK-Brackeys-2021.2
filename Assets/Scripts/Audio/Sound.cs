@@ -16,9 +16,11 @@ public class Sound
     [HideInInspector]
     public AudioSource source;
 
+    [PropertyOrder(-2), HorizontalGroup("clip"), HideLabel]
+    public string name = "";
     [SerializeField][HideInInspector]
     private AudioClip _clip;
-    [SerializeField, PropertyOrder(-1)]
+    [ShowInInspector, PropertyOrder(-1), HorizontalGroup("clip", LabelWidth = 40), HideLabel]
     public AudioClip clip
     {
         get => _clip;
@@ -28,8 +30,6 @@ public class Sound
                 name = _clip.name;
         }
     }
-    [ShowIf("_clip")]
-    public string name = "";
 
     [FoldoutGroup("gr1", GroupName ="Properties", Expanded = false, VisibleIf = "_clip")]
     [Range(0f,1f)]

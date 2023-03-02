@@ -66,6 +66,8 @@ public class GrabberController : SingletonMono<GrabberController>
         OnGrabbedsChange.Invoke(0);
         _grabbing = true;
         _grabAvailable = true;
+        if(GameManager.self.IsInGame)
+            AudioManager.self.PlayOverriding(SoundId.Absorbing);
     }
 
     //Al mantener y arrastrar se atraen moninkers hasta agarrarlos, pudiendo desplazarlos completamente
@@ -141,6 +143,8 @@ public class GrabberController : SingletonMono<GrabberController>
         grabbedMoninkers.Clear();
         grabbedsColor = InkColorIndex.NONE;
         UIManager.self.UpdateComboCount(0);
+
+        AudioManager.self.Stop(SoundId.Absorbing);
 
         OnGrabbedsChange.Invoke(0);
     }
@@ -234,6 +238,7 @@ public class GrabberController : SingletonMono<GrabberController>
         if(_inCombo)
         {
             _inCombo = false;
+            AudioManager.self.Stop(SoundId.Absorbing);
             UIManager.self.comboText.color = UIManager.self.InkColors[InkColorIndex.NONE];
             AudioManager.self.PlayAdditively(SoundId.Combo_break);
         }

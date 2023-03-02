@@ -38,6 +38,7 @@ public class MoninkerController : SerializedMonoBehaviour
                 if(_moninkerColor != InkColorIndex.BLACK && value == InkColorIndex.BLACK)
                 {
                     spawnParticles.Play();
+                    AudioManager.self.PlayAdditively(SoundId.Black_contagion);
                     spawnParticlesRend.material.color = UIManager.self.InkColors[InkColorIndex.BLACK];
                 }
 
@@ -244,5 +245,7 @@ public class MoninkerController : SerializedMonoBehaviour
         blackWaveTween
             .Append(blackWaveRenderer.transform.DOScale(UIManager.self.BlackWaveMaxScale, UIManager.self.BlackWaveDuration + 0.1f).ChangeStartValue(Vector3.zero).SetEase(Ease.OutCirc))
             .Insert(0, blackWaveRenderer.DOColor(new Color(0, 0, 0, 0), UIManager.self.BlackWaveDuration-0.1f).ChangeStartValue(new Color(0, 0, 0, 1)).SetEase(Ease.OutCirc));
+
+        AudioManager.self.PlayAdditively(SoundId.First_black);
     }
 }

@@ -24,6 +24,7 @@ public class SkillBlackBomb : Skill
                 GameManager.self.DeactivateMoninker(m);
         }
 
+        AudioManager.self.PlayAdditively(SoundId.Black_bomb);
         CameraMotion.self.ShakeCamera();
     }
 }

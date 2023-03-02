@@ -79,6 +79,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  ClickSound: 18
   delayBetweenClicks: 0.5
   onPressed:
     m_PersistentCalls:

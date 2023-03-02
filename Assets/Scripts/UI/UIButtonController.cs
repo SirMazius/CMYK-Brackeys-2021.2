@@ -9,6 +9,7 @@ public class UIButtonController : SerializedMonoBehaviour
 {
     private Button _button;
     private Animator _animator;
+    public SoundId ClickSound;
     private const string _pressedKey = "Pressed";
     private bool _interactable
     {
@@ -32,6 +33,9 @@ public class UIButtonController : SerializedMonoBehaviour
 
         if (!_animator)
             _animator = GetComponentInChildren<Animator>(true);
+
+        if(ClickSound >= 0)
+            onPressed.AddListener(()=>AudioManager.self.PlayAdditively(ClickSound));
     }
 
     public void Pressed()

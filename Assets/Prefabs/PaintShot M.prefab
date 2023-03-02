@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3561863081966820994, guid: 5a2b7e47305fb4a43a475ed23c72ff4c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3561863081966820995, guid: 5a2b7e47305fb4a43a475ed23c72ff4c, type: 3}
       propertyPath: m_Name
       value: PaintShot M

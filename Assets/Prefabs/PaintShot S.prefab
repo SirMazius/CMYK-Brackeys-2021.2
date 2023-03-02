@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 3561863081966820998}
   - component: {fileID: 3561863081966820997}
   m_Layer: 0
-  m_Name: PaintShot
+  m_Name: PaintShot S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,7 +247,7 @@ SphereCollider:
   m_GameObject: {fileID: 3561863081966820995}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 3.9929647
   m_Center: {x: 0, y: 0, z: 0}

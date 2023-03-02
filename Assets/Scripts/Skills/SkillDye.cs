@@ -29,6 +29,7 @@ public class SkillDye : Skill
                     break;
                 default:
                     Type = SkillType.DYE_ERASER;
+                    _color = InkColorIndex.NONE;
                     break;
             }
         }
@@ -43,7 +44,10 @@ public class SkillDye : Skill
     public override void Launch()
     {
         if (paintShot)
+        {
+            //paintShot.SetPaintColor(Color);
             paintShot.Drop(true);
+        }
     }
 
     public override void StartGrabbing()

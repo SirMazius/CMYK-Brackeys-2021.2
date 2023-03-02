@@ -26,8 +26,21 @@ public class UISkillExchanger : MonoBehaviour
 
     public void UpdateExchangeBox(bool enough, bool hasSkills)
     {
-        bool aux = (enough);
-        _animator.SetBool("Out", aux);
+        //Sonidos de abrir o cerrar cajones
+        if (enough != _animator.GetBool("Out") && GameManager.self.IsInGame)
+        { 
+            if( enough)
+            {
+                AudioManager.self.Stop(SoundId.Close_drawer);
+                AudioManager.self.PlayOverriding(SoundId.Open_drawer);
+            }
+            else
+            {
+                AudioManager.self.Stop(SoundId.Open_drawer);
+                AudioManager.self.PlayOverriding(SoundId.Close_drawer);
+            }
+        }
+        _animator.SetBool("Out", enough);
 
         var color = Background.color;
         color.a = (hasSkills || enough) ? 1f : noSkillAlpha;

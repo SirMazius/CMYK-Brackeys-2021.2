@@ -1114,7 +1114,7 @@ MonoBehaviour:
       Data: 0
     - Name: duration
       Entry: 4
-      Data: 60
+      Data: 40
     - Name: spawnCooldownRange
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1195,7 +1195,7 @@ MonoBehaviour:
       Data: 60
     - Name: duration
       Entry: 4
-      Data: 60
+      Data: 40
     - Name: spawnCooldownRange
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1318,7 +1318,7 @@ MonoBehaviour:
       Data: 120
     - Name: duration
       Entry: 4
-      Data: 60
+      Data: 40
     - Name: spawnCooldownRange
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1421,7 +1421,7 @@ MonoBehaviour:
       Data: 180
     - Name: duration
       Entry: 4
-      Data: 60
+      Data: 40
     - Name: spawnCooldownRange
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1587,7 +1587,7 @@ MonoBehaviour:
       Data: 240
     - Name: duration
       Entry: 4
-      Data: 60
+      Data: 40
     - Name: spawnCooldownRange
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -7457,8 +7457,8 @@ MonoBehaviour:
   - source: {fileID: 0}
     name: Black contagion
     _clip: {fileID: 8300000, guid: 88f69da05047a5f4fb11135e68f9b258, type: 3}
-    volume: 0.6
-    pitch: 1
+    volume: 0.9
+    pitch: 1.5
     mixer: 0
     loop: 0
     pitchRandMaxOffset: 0.25
@@ -7586,8 +7586,8 @@ MonoBehaviour:
     playable: 1
   - source: {fileID: 0}
     name: Dye
-    _clip: {fileID: 8300000, guid: 52eece78bda39254ba89ff98eac9dae8, type: 3}
-    volume: 0.6
+    _clip: {fileID: 8300000, guid: aca303dfdb491b44bb0ce0be6579cbd6, type: 3}
+    volume: 0.9
     pitch: 1
     mixer: 0
     loop: 0

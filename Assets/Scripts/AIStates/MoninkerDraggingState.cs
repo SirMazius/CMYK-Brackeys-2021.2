@@ -42,20 +42,10 @@ public class MoninkerDraggingState : MoninkerState
         controller.agent.radius = normalCollRadius;
         controller.grabbed = false;
         //Reseteamos HeatTime
-        controller.wanderState.currHeatTime = 0;
+        controller.wanderState.InterruptHeat();
     }
 
     public void UpdateState()
     {
-        //Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //RaycastHit hit;
-        //if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 6))
-        //{
-        //    lastPos = hit.point + controller.dragOffset;
-        //    lastPos.y = controller.transform.position.y;
-
-        //    controller.transform.position = lastPos;
-        //}
     }
 }

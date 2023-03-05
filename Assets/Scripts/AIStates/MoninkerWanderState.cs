@@ -85,26 +85,6 @@ public class MoninkerWanderState : MoninkerState
         //Al entrar en celo buscar moninker más cercano de la lista
         else
         {
-            //MoninkerController nearest = null;
-            //float minDist = 100000;
-            //foreach(var m in controller.nearMoninkers)
-            //{
-            //    if (m.color != Globals.InkColorIndex.BLACK && !m.dragging && m.heat)
-            //    {
-            //        float dist = Vector3.Distance(m.transform.position, controller.transform.position);
-            //        if (dist < minDist)
-            //        {
-            //            minDist = dist;
-            //            nearest = m;
-            //        }
-            //    }
-            //}
-
-            //if(nearest != null)
-            //{
-            //    controller.currTarget = nearest.transform;
-            //    StartPursue();
-            //}
 
             Vector2Int[] checkCells = {controller.currCell,
                 new Vector2Int(controller.currCell.x-1, controller.currCell.y),
@@ -176,4 +156,11 @@ public class MoninkerWanderState : MoninkerState
     public void OnTriggerStay(Collider coll) { }
 
     public void OnTriggerExit(Collider coll) { }
+
+    //Interrumpimos el tiempo faltante para celo sin dejarlo a 0
+    public void InterruptHeat()
+    {
+        float offset = Random.Range(GameManager.self.interruptOffsetTime.x, GameManager.self.interruptOffsetTime.y);
+        currHeatTime = Mathf.Min(currHeatTime, nextHeatTime - offset);
+    }
 }

@@ -50,9 +50,10 @@ public class MoninkerController : SerializedMonoBehaviour
                 mainSpriteRender.material.SetColor("TintColor", UIManager.self.InkColors[MoninkerColor]);
 
                 //Reseteamos tiempo de heat al teñir
-                if(wanderState!=null)
-                    wanderState.currHeatTime = 0;
-                
+                if (wanderState != null)
+                    wanderState.InterruptHeat();
+
+
                 Heat = false;
 
                 //Si es negro cambiamos sus caracteristicas
@@ -182,6 +183,8 @@ public class MoninkerController : SerializedMonoBehaviour
         other.ReproductionCompanion = this;
         other.currTarget = this;
 
+        mainSpriteRender.sprite = UIManager.self.MoninkerHeatSprite;
+        other.mainSpriteRender.sprite = UIManager.self.MoninkerHeatSprite;
         contourSpriteRender.enabled = true;
         other.contourSpriteRender.enabled = true;
 
@@ -212,25 +215,31 @@ public class MoninkerController : SerializedMonoBehaviour
         GameManager.self.ActivateMoninker(pos, childColor);
         GameManager.self.currFrameSpawn++;
 
-        EndReproduction();
+        //REPRODUCCION COMPLETADA
+        EndReproduction(true);
         currState.StartWander();
     }
 
-    public void EndReproduction()
+    public void EndReproduction(bool reproductionCompleted = false)
     {
         reproducing = false;
         Heat = false;
         contourSpriteRender.enabled = false;
         currTarget = null;
-        wanderState.currHeatTime = 0;
         mainSpriteRender.sprite = UIManager.self.MoninkerIdleSprite;
         ReproductionCoroutine = null;
+
+        //Reseteamos heat solo si está completa la reproduccion, si no le ponemos unos segundos de delay
+        if (reproductionCompleted)
+            wanderState.currHeatTime = 0;
+        else
+            wanderState.InterruptHeat();
 
         //Cortamos reproduccion del compañero tambien (evitando bucle infinito)
         if (ReproductionCompanion)
         {
             ReproductionCompanion.ReproductionCompanion = null;
-            ReproductionCompanion.EndReproduction();
+            ReproductionCompanion.EndReproduction(reproductionCompleted);
             ReproductionCompanion = null;
         }
     }

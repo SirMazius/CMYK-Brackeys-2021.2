@@ -32,7 +32,6 @@ public class GameManager : SerializedMonoBehaviour
     public GameObject moninkerPrefab;
     public GameObject paintShotPrefab, eraserPrefab;
     public GameObject SkillPrefab;
-    public GameObject MoninkerSpawnParticles;
 
     [Header("Entorno")]
     public Transform floor;
@@ -53,6 +52,8 @@ public class GameManager : SerializedMonoBehaviour
     public float maxHeatTime = 12, blackHeatTime = 3;
     [FoldoutGroup("Heat")]
     public float reproduceTime = 1;
+    [FoldoutGroup("Heat")]
+    public Vector2 interruptOffsetTime = new Vector2(1f, 2f);
 
     [FoldoutGroup("Wander", GroupName ="Merodear IA", Expanded = true)]
     public float wanderTargetMinDist = 0.3f, wanderTargetMaxDist = 1f;
@@ -104,11 +105,15 @@ public class GameManager : SerializedMonoBehaviour
 
     private void Update()
     {
-        //Contadores de tiempo de partida y borrador
-        currGameTime += Time.deltaTime;
+        if(IsInGame)
+        {
+            //Contadores de tiempo de partida y borrador
+            currGameTime += Time.deltaTime;
+            UIManager.self.UpdateTimer(currGameTime);
         
-        //Reset limite de spawns de monigotes por frame
-        currFrameSpawn = 0;
+            //Reset limite de spawns de monigotes por frame
+            currFrameSpawn = 0;
+        }
     }
 
 

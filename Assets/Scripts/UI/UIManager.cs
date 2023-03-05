@@ -22,6 +22,7 @@ public class UIManager : SingletonMono<UIManager>
     public Dictionary<InkColorIndex,TextMeshProUGUI> primaryCounts = new Dictionary<InkColorIndex, TextMeshProUGUI>();
     public Dictionary<SkillType, GameObject> skillsIcons = new Dictionary<SkillType, GameObject>();
     public TextMeshProUGUI score;
+    public TextMeshProUGUI timer;
     public Color countWarningColor;
     public TextMeshProUGUI comboText;
 
@@ -115,6 +116,15 @@ public class UIManager : SingletonMono<UIManager>
     public void UpdateScore(int _score)
     {
         score.text = _score.ToString();
+    }
+    //Actualizar contador de puntos
+    public void UpdateTimer(float time)
+    {
+        int totalSeconds = Mathf.FloorToInt(time);
+        int mins = totalSeconds / 60;
+        int secs = totalSeconds % 60;
+
+        timer.text = string.Format("{0:0}:{1:00}", mins, secs);
     }
 
     //Mostrar pantalla de derrota

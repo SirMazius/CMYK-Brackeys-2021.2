@@ -38,7 +38,10 @@ public abstract class Skill : MonoBehaviour
         }
     }
 
-    public abstract void Launch();
+    public virtual void Launch()
+    {
+        Grabbing = false;
+    }
 
     public virtual void StartGrabbing()
     {
@@ -52,7 +55,9 @@ public abstract class Skill : MonoBehaviour
 
     protected virtual void EndGrabbing()
     {
-        Launch();
+        if(IsCursorHoverFloor)
+            Launch();
+
         Grabbing = false;
     }
 

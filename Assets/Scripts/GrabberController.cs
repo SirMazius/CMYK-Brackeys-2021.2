@@ -41,16 +41,31 @@ public class GrabberController : SingletonMono<GrabberController>
 
     void Update()
     {
-        //Si se hace click sobre el escenario (no UI) se comienza a atraer moninkers
-        if (Input.GetMouseButtonDown(0) && !InputModule.OveredUIElement)
-            StartGrabMoninkers(GameGlobals.Cursor);
-        //Si se esta agarrando o atrayendo moninkers controlamos el drag y el drop
-        else if(_grabbing)
+        //MODO LANZAMIENTO HABILIDADES
+        if(SkillExchanger.IsAnyLaunching)
         {
-            if (Input.GetMouseButton(0))
-                WhileGrabbingMoninkers(GameGlobals.Cursor);
-            else if (Input.GetMouseButtonUp(0))
-                EndGrabMoninkers();
+            if(Input.GetMouseButtonDown(0) && !InputModule.OveredUIElement)
+            {
+                if(IsCursorHoverFloor)
+                    SkillExchanger.LaunchCurrentExchanger();
+                else
+                    SkillExchanger.QuitLaunchMode();
+            }
+        }
+        //MODO NORMAL
+        else
+        {
+            //Si se hace click sobre el escenario (no UI) se comienza a atraer moninkers
+            if (Input.GetMouseButtonDown(0) && !InputModule.OveredUIElement)
+                StartGrabMoninkers(GameGlobals.Cursor);
+            //Si se esta agarrando o atrayendo moninkers controlamos el drag y el drop
+            else if(_grabbing)
+            {
+                if (Input.GetMouseButton(0))
+                    WhileGrabbingMoninkers(GameGlobals.Cursor);
+                else if (Input.GetMouseButtonUp(0))
+                    EndGrabMoninkers();
+            }
         }
 
         _lastCursorPos = GameGlobals.Cursor;
@@ -134,7 +149,7 @@ public class GrabberController : SingletonMono<GrabberController>
         {
             MoninkerController m = grabbedMoninkers[i];
             //Si se sueltan los moninkers fuera del mapa los dejamos en la posicion del primer grab
-            if(CursorHoveredGO != GameManager.self.floor.gameObject)
+            if(!IsCursorHoverFloor)
                 m.transform.position = _firstGrabbedPos + m.grabOffset;
 
             m.currState.StartWander();

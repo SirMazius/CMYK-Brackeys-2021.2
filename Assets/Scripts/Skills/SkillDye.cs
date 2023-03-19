@@ -43,6 +43,8 @@ public class SkillDye : Skill
     //Soltar chorro de pintura
     public override void Launch()
     {
+        base.Launch();
+
         if (paintShot)
         {
             //paintShot.SetPaintColor(Color);

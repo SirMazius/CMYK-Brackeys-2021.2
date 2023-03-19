@@ -11,17 +11,16 @@ using UnityEngine.EventSystems;
 // y moninkers arrastrados a el como el almacenaje de habilidades conseguidas
 public class SkillExchanger : SerializedMonoBehaviour
 {
+    public const int SkillsLimit = 2;
+
     private UISkillExchanger _ui;
     private UIElementCursor _cursorController;
 
     public ExchangerType Type = ExchangerType.NONE;
-    public static int SkillsLimit = 2;
     public int ExchangeQuantity;
-
     [SerializeField]
     private Queue<Skill> _skills = new Queue<Skill>();
     
-
     private int _grabbeds = 0;
     public int Grabbeds
     {
@@ -33,6 +32,54 @@ public class SkillExchanger : SerializedMonoBehaviour
         }
     }
 
+    //Launching
+    private bool _launching = false;
+    public static SkillExchanger LaunchingExchanger = null;
+    public static bool IsAnyLaunching { get => LaunchingExchanger != null; }
+
+    public bool Launching
+    {
+        get => _launching;
+        set
+        {
+            //Evitar lanzar cuando hay uno en lanzamiento
+            if(value && IsAnyLaunching)
+                return;
+
+            _launching = value;
+            LaunchingExchanger = value ? this : null;
+
+            if(value)
+                UIManager.self.SetLaunchMode(value, _skills.Peek());
+            else
+                UIManager.self.SetLaunchMode(value);
+
+
+            //TODO:
+            //- Evitar tocar moninkers u otro exchanger en este modo
+            //- Start drag de la habilidad
+        }
+    }
+
+
+    #region METODOS ESTATICOS EXCHANGERS
+
+    public static void QuitLaunchMode()
+    {
+        LaunchingExchanger.Launching = false;
+    }
+
+    public static void LaunchCurrentExchanger()
+    {
+        var skill = LaunchingExchanger.RemoveSkill();
+        LaunchingExchanger.Launching = false;
+        skill.StartGrabbing();
+    }
+
+    #endregion
+
+
+    #region METODOS EXCHANGER
 
     private void Awake()
     {
@@ -102,11 +149,14 @@ public class SkillExchanger : SerializedMonoBehaviour
     //Cuando se pulsa un exchanger se obtiene la skill disponible mas antigua
     public void OnClick()
     {
-        if (_skills.Count > 0)
+        if (_skills.Count > 0 && !Launching)
         {
-            RemoveSkill().StartGrabbing();
+            //RemoveSkill().StartGrabbing();
+            Launching = true;
         }
     }
+
+    #endregion
 
 
     #region METODOS INTERNOS

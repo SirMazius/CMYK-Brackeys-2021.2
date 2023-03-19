@@ -17,6 +17,8 @@ public class SkillBlackBomb : Skill
 
     public override void Launch()
     {
+        base.Launch();
+
         var moninkers = FindObjectsOfType<MoninkerController>();
         foreach(var m in moninkers)
         {

@@ -25,6 +25,7 @@ public class UIManager : SingletonMono<UIManager>
     public TextMeshProUGUI timer;
     public Color countWarningColor;
     public TextMeshProUGUI comboText;
+    public List<SkillExchanger> exchangers;
 
     [Header("End game")]
     public GameObject gameOverScreen;
@@ -163,6 +164,22 @@ public class UIManager : SingletonMono<UIManager>
             comboText.text = "";
             DOTween.Rewind(comboText.transform);
         });
+    }
+
+    public void SetLaunchMode(bool launchMode, Skill skill = null)
+    {
+        //TODO: Mostrar letrero y efectos de en lanzamiento
+        //Actualizar UI mostrando claramente que estamos en modo lanzamiento (sonido de alerta o algo y un efecto muy visible continuo)
+        UISkillLauncher.self.Show(launchMode, skill);
+        foreach(var exchanger in exchangers)
+        {
+            exchanger.gameObject.SetActive(!launchMode);
+        }
+
+        if(launchMode)
+            AudioManager.self.PlayOverriding(SoundId.Select_launch);
+        else
+            AudioManager.self.PlayOverriding(SoundId.Cancel_launch);
     }
 
     #endregion

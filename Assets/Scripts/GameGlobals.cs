@@ -65,6 +65,10 @@ public static class GameGlobals
 
     public static Vector3 Cursor { get => GetCursor3DPoint(); }
     public static GameObject CursorHoveredGO = null;
+    public static bool IsCursorHoverFloor
+    {
+        get => CursorHoveredGO == GameManager.self.floor.gameObject;
+    }
 
     public enum CurveType
     {

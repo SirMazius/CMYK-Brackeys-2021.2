@@ -56,4 +56,9 @@ public class UISkillExchanger : MonoBehaviour
     {
         Destroy(skill.ExchangerIcon);
     }
+
+    public void SetLaunchMode(bool active)
+    {
+        //TODO: Alternar UI para mostrar la habilidad que se esta lanzando
+    }
 }

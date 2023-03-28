@@ -44,9 +44,10 @@ public class GrabberController : SingletonMono<GrabberController>
         //MODO LANZAMIENTO HABILIDADES
         if(SkillExchanger.IsAnyLaunching)
         {
-            if(Input.GetMouseButtonDown(0) && !InputModule.OveredUIElement)
+            if(Input.GetMouseButtonDown(0) && !InputModule.OveredUIElement && !SkillExchanger.ExchangerClickedThisFrame)
             {
-                if(IsCursorHoverFloor)
+                GetCursor3DPoint();
+                if (IsCursorHoverFloor)
                     SkillExchanger.LaunchCurrentExchanger();
                 else
                     SkillExchanger.QuitLaunchMode();

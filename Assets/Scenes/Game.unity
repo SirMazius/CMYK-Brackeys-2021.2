@@ -12236,6 +12236,9 @@ MonoBehaviour:
   OnPressed:
     m_PersistentCalls:
       m_Calls: []
+  OnReleased:
+    m_PersistentCalls:
+      m_Calls: []
   OnHoverStarts:
     m_PersistentCalls:
       m_Calls: []

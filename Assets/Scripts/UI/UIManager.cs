@@ -178,8 +178,6 @@ public class UIManager : SingletonMono<UIManager>
 
         if(launchMode)
             AudioManager.self.PlayOverriding(SoundId.Select_launch);
-        else
-            AudioManager.self.PlayOverriding(SoundId.Cancel_launch);
     }
 
     #endregion

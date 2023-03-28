@@ -61,12 +61,23 @@ public class SkillExchanger : SerializedMonoBehaviour
         }
     }
 
+    private static bool _exchangerClickedThisFrame = false;
+    public static bool ExchangerClickedThisFrame { 
+        get => _exchangerClickedThisFrame;
+        set
+        {
+            if(true)
+                CoroutineExecutor.Instance.StartCoroutine(FrameDelayClicked());
+        }
+    }
+
 
     #region METODOS ESTATICOS EXCHANGERS
 
     public static void QuitLaunchMode()
     {
         LaunchingExchanger.Launching = false;
+        AudioManager.self.PlayOverriding(SoundId.Cancel_launch);
     }
 
     public static void LaunchCurrentExchanger()
@@ -149,10 +160,11 @@ public class SkillExchanger : SerializedMonoBehaviour
     //Cuando se pulsa un exchanger se obtiene la skill disponible mas antigua
     public void OnClick()
     {
-        if (_skills.Count > 0 && !Launching)
+        if (_skills.Count > 0 && !Launching && !ExchangerClickedThisFrame)
         {
             //RemoveSkill().StartGrabbing();
             Launching = true;
+            ExchangerClickedThisFrame = true;
         }
     }
 
@@ -191,6 +203,13 @@ public class SkillExchanger : SerializedMonoBehaviour
     private void UpdateUI()
     {
         _ui.UpdateExchangeBox(AreGrabbedsEnough(Grabbeds), (_skills.Count > 0));
+    }
+
+    private static IEnumerator FrameDelayClicked()
+    {
+        _exchangerClickedThisFrame = true;
+        yield return new WaitForEndOfFrame();
+        _exchangerClickedThisFrame = false;
     }
 
     #endregion

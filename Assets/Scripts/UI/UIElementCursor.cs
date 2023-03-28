@@ -14,6 +14,7 @@ public class UIElementCursor : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     [HideInInspector]
     public UnityEvent OnPressed = new UnityEvent();
+    public UnityEvent OnReleased = new UnityEvent();
     [HideInInspector]
     public UnityEvent OnHoverStarts = new UnityEvent();
 
@@ -44,6 +45,7 @@ public class UIElementCursor : MonoBehaviour, IPointerEnterHandler, IPointerExit
         IsPressed = false;
         if (CurrentPressed == this)
             CurrentPressed = null;
+        OnReleased.Invoke();
     }
 
     private IEnumerator DelayedChangeHovered()

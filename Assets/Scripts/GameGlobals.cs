@@ -279,5 +279,11 @@ public static class GameGlobals
         destination.outputAudioMixerGroup = original.outputAudioMixerGroup;
     }
 
+    public static IEnumerator ExecuteNextFrame<T>(Func<T> funct)
+    {
+        yield return new WaitForEndOfFrame();
+        funct.Invoke();
+    }
+
     #endregion
 }

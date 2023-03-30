@@ -32,6 +32,11 @@ public class UIManager : SingletonMono<UIManager>
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI scoreEndText;
 
+    [Header("Back fade")]
+    public Image BlackScreen;
+    public float BlackFadeDuration = 2f;
+    private Tween BlackFadeTween = null;
+
     [Header("Tweens parameters")]
     public float ComboTweenDuration = 0.8f;
     public float ComboHideTweenDuration = 0.4f;
@@ -183,6 +188,22 @@ public class UIManager : SingletonMono<UIManager>
     #endregion
 
 
+    #region BLACK FADE
+
+    public void DoBlackFade(bool toBlack)
+    {
+        if(BlackFadeTween != null)
+            BlackFadeTween.Kill(false);
+
+        if (toBlack)
+            BlackFadeTween = BlackScreen.DOFade(1, BlackFadeDuration).ChangeStartValue(0);
+        else
+            BlackFadeTween = BlackScreen.DOFade(0, BlackFadeDuration).ChangeStartValue(1);
+    }
+
+    #endregion
+
+
     #region FUNCIONES GENERICAS
 
     //Reiniciar escena
@@ -191,10 +212,11 @@ public class UIManager : SingletonMono<UIManager>
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    //Salir de la aplicacion
+    //Salir de la aplicacion con un fade
     public void ExitApplication()
     {
-        Application.Quit();
+        DoBlackFade(true);
+        BlackFadeTween.OnComplete(() => Application.Quit());
     }
 
     #endregion

@@ -19,12 +19,13 @@ public class SkillBlackBomb : Skill
     {
         base.Launch();
 
-        var moninkers = FindObjectsOfType<MoninkerController>();
-        foreach(var m in moninkers)
-        {
-            if (m.MoninkerColor == InkColorIndex.BLACK)
-                GameManager.self.DeactivateMoninker(m);
-        }
+        //TODO:CAMBIAR LAZAMIENTO
+        //var moninkers = FindObjectsOfType<MoninkerController>();
+        //foreach(var m in moninkers)
+        //{
+        //    if (m.MoninkerColor == InkColorIndex.BLACK)
+        //        GameManager.self.DeactivateMoninker(m);
+        //}
 
         AudioManager.self.PlayAdditively(SoundId.Black_bomb);
         CameraMotion.self.ShakeCamera();

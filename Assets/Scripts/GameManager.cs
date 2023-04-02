@@ -32,7 +32,8 @@ public class GameManager : SerializedMonoBehaviour
     public GameObject moninkerPrefab;
     public GameObject paintShotPrefab, eraserPrefab;
     public GameObject SkillPrefab;
-
+    public GameObject BlackBombWavesPrefab;
+    
     [Header("Entorno")]
     public Transform floor;
     public BoxCollider floorColl;

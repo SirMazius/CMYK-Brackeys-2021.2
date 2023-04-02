@@ -9,6 +9,10 @@ using DG.Tweening;
 public class SkillBlackBomb : Skill
 {
     public const float radius = 5f;
+    private GameObject wavesObject;
+    private ParticleSystem wavesParticles;
+    private Collider wavesCollider;
+
 
     public void Awake()
     {
@@ -27,7 +31,22 @@ public class SkillBlackBomb : Skill
         //        GameManager.self.DeactivateMoninker(m);
         //}
 
+        wavesObject = Instantiate(GameManager.self.BlackBombWavesPrefab);
+        wavesObject.transform.position = GameGlobals.Cursor;
+        wavesParticles = wavesObject.GetComponentInChildren<ParticleSystem>(true);
+        StartCoroutine(DoBombWaveEffect());
+
         AudioManager.self.PlayAdditively(SoundId.Black_bomb);
         CameraMotion.self.ShakeCamera();
+    }
+
+    public IEnumerator DoBombWaveEffect()
+    {
+        wavesParticles.Play();
+        wavesCollider.enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        wavesCollider.enabled = true;
+        yield return new WaitForSeconds(1.5f);
+        wavesCollider.enabled = false;
     }
 }

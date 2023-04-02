@@ -1306,6 +1306,7 @@ MonoBehaviour:
   paintShotPrefab: {fileID: 3561863081966820995, guid: 5a2b7e47305fb4a43a475ed23c72ff4c, type: 3}
   eraserPrefab: {fileID: 5065130615346141601, guid: 8a1a83e9d1931c444ae6e2dbbd45c246, type: 3}
   SkillPrefab: {fileID: 3471495652255657565, guid: c2eee327c84ae1c41b3f5f6fe97ffb6f, type: 3}
+  BlackBombWavesPrefab: {fileID: 0}
   floor: {fileID: 657980654}
   floorColl: {fileID: 657980651}
   floorLimits: {x: 0, y: 0, z: 0}

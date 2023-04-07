@@ -8,7 +8,8 @@ using DG.Tweening;
 //Habilidad de eliminar un color selectivamente en una zona amplia
 public class SkillBlackBomb : Skill
 {
-    public const float radius = 5f;
+    public const float finalScale = 16;
+    public const float duration = 2f;
     private GameObject wavesObject;
     //private ParticleSystem wavesParticles;
     private Collider wavesCollider;
@@ -33,19 +34,18 @@ public class SkillBlackBomb : Skill
 
         wavesObject = Instantiate(GameManager.self.BlackBombWavesPrefab);
         Vector3 pos = GameGlobals.Cursor;
-        //pos.z = wavesObject.transform.position.z;
         wavesObject.transform.position = pos;
         //wavesParticles = wavesObject.GetComponentInChildren<ParticleSystem>(true);
         //wavesCollider = wavesObject.GetComponentInChildren<Collider>(true);
         //StartCoroutine(DoBombWaveEffect());
 
-        wavesObject.transform.DOScale(16f,2f).ChangeStartValue(Vector3.zero);
-        Material material =  wavesObject.GetComponent<MeshRenderer>().material;
-        material.DOFade(0,2);
-        material.DOFloat(2, "Tiling", 2).ChangeStartValue(0.5f).OnComplete(() => Destroy(wavesObject));
+        wavesObject.transform.DOScale(finalScale, duration).ChangeStartValue(Vector3.zero).SetEase(Ease.OutSine);
+        Material material = wavesObject.GetComponent<MeshRenderer>().material;
+        material.DOFade(0f, duration).SetEase(Ease.InSine);
+        material.DOFloat(2f, "Tiling", duration).ChangeStartValue(0.5f).OnComplete(() => Destroy(wavesObject)).SetEase(Ease.InQuad);
 
         AudioManager.self.PlayAdditively(SoundId.Black_bomb);
-        CameraMotion.self.ShakeCamera(2);
+        CameraMotion.self.ShakeCamera(duration);
     }
 
     public IEnumerator DoBombWaveEffect()

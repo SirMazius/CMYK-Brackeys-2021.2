@@ -62,6 +62,8 @@ public static class GameGlobals
 
     public const string animPressedParam = "Pressed";
     public static string tagMoninker = "Moninker";
+    public static int layerMoninker = 7;
+    public static int layerBlackMoninker = 10;
 
     public static Vector3 Cursor { get => GetCursor3DPoint(); }
     public static GameObject CursorHoveredGO = null;

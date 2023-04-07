@@ -66,10 +66,12 @@ public class MoninkerController : SerializedMonoBehaviour
                         wanderState.currHeatTime = 0;
                     }
                     mainSpriteRender.sprite = UIManager.self.EvilMoninkerSprite;
+                    gameObject.layer = layerBlackMoninker;
                 }
                 else
                 {
                     mainSpriteRender.sprite = UIManager.self.MoninkerIdleSprite;
+                    gameObject.layer = layerMoninker;
                 }
             }
             //Borrar
@@ -256,5 +258,14 @@ public class MoninkerController : SerializedMonoBehaviour
             .Insert(0, blackWaveRenderer.DOColor(new Color(0, 0, 0, 0), UIManager.self.BlackWaveDuration-0.1f).ChangeStartValue(new Color(0, 0, 0, 1)).SetEase(Ease.OutCirc));
 
         AudioManager.self.PlayAdditively(SoundId.First_black);
+    }
+
+    //Al tocar la bomba negra, se eliminan los moninkers negros
+    public void OnTriggerEnter(Collider other)
+    {
+        if (/*MoninkerColor == InkColorIndex.BLACK &&*/ other.gameObject.layer == LayerMask.NameToLayer("BlackBomb"))
+        {
+            GameManager.self.DeactivateMoninker(this);
+        }
     }
 }

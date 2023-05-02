@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -59,6 +60,8 @@ public static class GameGlobals
         {ExchangerType.SIMPLE, 10},
         {ExchangerType.BETTER, 20}
     };
+
+    public const string RecordsStoragePath = "LocalStorage";
 
     public const string animPressedParam = "Pressed";
     public static string tagMoninker = "Moninker";
@@ -285,6 +288,11 @@ public static class GameGlobals
     {
         yield return new WaitForEndOfFrame();
         funct.Invoke();
+    }
+
+    public static string GetJsonLocalPath(string fileName)
+    {
+        return Path.Combine(RecordsStoragePath, fileName + ".json");
     }
 
     #endregion

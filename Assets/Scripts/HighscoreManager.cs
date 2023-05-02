@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +20,6 @@ public class HighscoreManager : SerializedMonoBehaviour
     }
 
     public const int MaxRecords = 10;
-    public const string RecordsStoragePath = "Highscores";
     public const string RecordsStorageFile = "Highscores";
 
     public List<HighscoreRecord> Records = new List<HighscoreRecord>();
@@ -27,13 +27,9 @@ public class HighscoreManager : SerializedMonoBehaviour
 
     public void Start()
     {
-        //ReadRecordsFromFile();
+        ReadRecordsFromFile();
     }
 
-    public static string GetJsonLocalPath(string fileName)
-    {
-        return Path.Combine(RecordsStoragePath, fileName + ".json");
-    }
 
     //Leemos el fichero local y cargamos la lista de records
     [Button, SerializeField, ExecuteAlways]
@@ -46,14 +42,19 @@ public class HighscoreManager : SerializedMonoBehaviour
         Records = Newtonsoft.Json.JsonConvert.DeserializeObject<List<HighscoreRecord>>(jsonText);
     }
 
+    private string GetJsonLocalPath(string recordsStorageFile)
+    {
+        throw new NotImplementedException();
+    }
+
     //Gruardamos el json de la lista de records en un fichero local
     [Button, SerializeField, ExecuteAlways]
     private void SaveRecordsOnFile()
     {
         string jsonText = Newtonsoft.Json.JsonConvert.SerializeObject(Records);
         string path = GetJsonLocalPath(RecordsStorageFile);
-        if (!Directory.Exists(RecordsStoragePath))
-            Directory.CreateDirectory(RecordsStoragePath);
+        if (!Directory.Exists(GameGlobals.RecordsStoragePath))
+            Directory.CreateDirectory(GameGlobals.RecordsStoragePath);
         FileStream file = new FileStream(path, FileMode.Create);
         file.Write(Encoding.UTF8.GetBytes(jsonText), 0, Encoding.UTF8.GetByteCount(jsonText));
         file.Close();

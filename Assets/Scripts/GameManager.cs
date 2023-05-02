@@ -195,6 +195,9 @@ public class GameManager : SerializedMonoBehaviour
             await UIManager.self.LoseUI(color, score);
             //TODO: mostrar opciones reinicio, volver a menus, highscores
             _currentState = GameState.MENU;
+
+            //TODO: Highsore
+            //HighscoreManager.self.AddNewRecord(score);
         }
     }
 

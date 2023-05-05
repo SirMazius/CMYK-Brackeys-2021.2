@@ -142,7 +142,10 @@ public class MoninkerController : SerializedMonoBehaviour
 
     void Update()
     {
-        currState.UpdateState();
+        if(currState!=null)
+        {
+            currState.UpdateState();
+        }
 
         //Billboard sprite
         Vector3 pos = Camera.main.transform.position;

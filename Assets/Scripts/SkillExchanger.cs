@@ -140,6 +140,14 @@ public class SkillExchanger : SerializedMonoBehaviour
         return skill;
     }
 
+    public void RemoveAllSkills()
+    {
+        while(_skills.Count>0)
+        {
+            RemoveSkill();
+        }
+    }
+
     //Devuelve la skill conseguida en función del tipo de exchanger y los moninkers cogidos
     public bool TryExchange(int nMoninkers, InkColorIndex grabbedsColor = InkColorIndex.NONE)
     {

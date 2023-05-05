@@ -57,14 +57,14 @@ public class TransitionsController : SingletonMono<TransitionsController>
     {
         UIManager.self.inGameUI.SetActive(false);
         UIManager.self.gameOverScreen.SetActive(true);
-        await (Task.Delay(1.5f.ToMillis()));
+        await (Task.Delay(2.5f.ToMillis()));
         UIManager.self.gameOverScreen.SetActive(false);
     }
 
     public async Task FlashHighScoreTransition()
     {
         UIManager.self.highscoresScreen.SetActive(true);
-        await (Task.Delay(3f.ToMillis()));
+        await (Task.Delay(4f.ToMillis()));
         UIManager.self.highscoresScreen.SetActive(false);
     }
 

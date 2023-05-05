@@ -88,6 +88,7 @@ public class UIManager : SingletonMono<UIManager>
 
     private async Task StartButtonPressedAsync()
     {
+        GameManager.self.PrepareNewGame();
         await TransitionsController.self.StartGameTransition();
     }
 
@@ -221,7 +222,7 @@ public class UIManager : SingletonMono<UIManager>
             HighscoreManager.ScoreRecord score = HighscoreManager.self.ScoreRecords[i];
             GameObject recordGO = Instantiate(scoreRecordPrefab, scoreRecordsPanel);
             TextMeshProUGUI recordText = recordGO.GetComponentInChildren<TextMeshProUGUI>(true);
-            recordText.text = i + ".  " + score.Score;
+            recordText.text = (i+1) + ".  " + score.Score;
 
             //Resaltar resultado actual
             if(highlightRecord && score.Score == currentScore)

@@ -100,7 +100,7 @@ public class GameManager : SerializedMonoBehaviour
     private void Start()
     {
         ShowMenu();
-        PrepareGame();
+        InitPools();
         floorLimits = floorColl.bounds.extents;
     }
 
@@ -127,10 +127,8 @@ public class GameManager : SerializedMonoBehaviour
         UIManager.self.SetMainMenuShow(true);
     }
 
-    public void PrepareGame()
+    public void InitPools()
     {
-        currGameTime = 0;
-
         //Llenar pool de moninkers
         moninkersPool = new Queue<MoninkerController>();
         for (int i = 0; i < poolSize; i++)
@@ -138,6 +136,15 @@ public class GameManager : SerializedMonoBehaviour
             GameObject go = Instantiate(moninkerPrefab);
             moninkersPool.Enqueue(go.GetComponent<MoninkerController>());
             go.SetActive(false);
+        }    
+    }
+
+    public void PrepareNewGame()
+    {
+        //Eliminar todos los moninkers si los hay
+        foreach (MoninkerController moninker in FindObjectsOfType<MoninkerController>(false))
+        {
+            DeactivateMoninker(moninker);
         }
 
         //Preparar grid de listas de moninkers
@@ -154,6 +161,10 @@ public class GameManager : SerializedMonoBehaviour
             }
         }
 
+        //Iniciar contadores
+        primariesCount = new int[] { 0, 0, 0 };
+        currGameTime = 0;
+
         //Colocar moninkers iniciales
         foreach (Transform t in cyanInitPos)
             ActivateMoninker(t.position, InkColorIndex.CYAN);
@@ -164,6 +175,12 @@ public class GameManager : SerializedMonoBehaviour
 
         //Preparar putuacion inicial
         score = 0;
+
+        //Reiniciar skill exchangers
+        foreach (var exchanger in FindObjectsOfType<SkillExchanger>(true))
+        {
+            exchanger.RemoveAllSkills();
+        }
     }
 
     //Activa moninkers, muestra UI in game, comienza lluvia de pintura
@@ -219,7 +236,11 @@ public class GameManager : SerializedMonoBehaviour
             m.gameObject.SetActive(true);
             m.transform.position = pos;
             m.MoninkerColor = color;
-            if(_currentState == GameState.GAME)
+            
+            if(m.wanderState != null)
+                m.currState = m.wanderState;
+
+            if (_currentState == GameState.GAME)
             {
                 AudioManager.self.PlayAdditively(SoundId.New_Moninker);
             }
@@ -234,12 +255,13 @@ public class GameManager : SerializedMonoBehaviour
             AddScore();
         }
         else
-            Debug.Log("ERROR: Cola sin elementos");
+            Debug.LogError("ERROR: Cola sin elementos");
     }
 
     //Desactivar monigote y devolverlo a la pool
     public void DeactivateMoninker(MoninkerController m)
     {
+        m.currState = null;
         RemoveColorCount(m.MoninkerColor);
         m.gameObject.SetActive(false);
         moninkersPool.Enqueue(m);

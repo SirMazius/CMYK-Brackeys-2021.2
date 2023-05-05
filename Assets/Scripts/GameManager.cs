@@ -192,12 +192,16 @@ public class GameManager : SerializedMonoBehaviour
         {
             _currentState = GameState.ENDGAME;
             //Animacion final
-            await UIManager.self.LoseUI(color, score);
-            //TODO: mostrar opciones reinicio, volver a menus, highscores
-            _currentState = GameState.MENU;
+            await UIManager.self.ShowGameOverUI(color, score);
 
-            //TODO: Highsore
-            //HighscoreManager.self.AddNewRecord(score);
+            //Mostrar highscores
+            HighscoreManager.self.TryAddNewRecord(score);
+            await UIManager.self.ShowHighscores(score, true);
+
+            //Transicion de volver a menu inicial
+            await TransitionsController.self.BackToMainMenuTransition();
+
+            _currentState = GameState.MENU;
         }
     }
 

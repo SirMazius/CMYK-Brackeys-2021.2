@@ -32,6 +32,12 @@ public class UIManager : SingletonMono<UIManager>
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI scoreEndText;
 
+    [Header("Highscores")]
+    public GameObject highscoresScreen;
+    public GameObject scoreRecordPrefab;
+    public Transform scoreRecordsPanel;
+    public Color highlightedScoreColor;
+
     [Header("Back fade")]
     public Image BlackScreen;
     public float BlackFadeDuration = 2f;
@@ -97,6 +103,11 @@ public class UIManager : SingletonMono<UIManager>
         //TODO:
     }
 
+    public void SetHighscoresShow(bool show)
+    {
+        highscoresScreen.SetActive(show);
+    }
+
     #endregion
 
 
@@ -123,6 +134,7 @@ public class UIManager : SingletonMono<UIManager>
     {
         score.text = _score.ToString();
     }
+
     //Actualizar contador de puntos
     public void UpdateTimer(float time)
     {
@@ -131,16 +143,6 @@ public class UIManager : SingletonMono<UIManager>
         int secs = totalSeconds % 60;
 
         timer.text = string.Format("{0:0}:{1:00}", mins, secs);
-    }
-
-    //Mostrar pantalla de derrota
-    public async Task LoseUI(InkColorIndex color, int score)
-    {
-        gameOverText.text = "Out of\n" + color;
-        gameOverText.color = InkColors[color];
-        scoreEndText.text = "Score: " + score;
-
-        await TransitionsController.self.EndGameTransition();
     }
 
     //Modifica el contador de moninkers cogidos
@@ -183,6 +185,53 @@ public class UIManager : SingletonMono<UIManager>
 
         if(launchMode)
             AudioManager.self.PlayOverriding(SoundId.Select_launch);
+    }
+
+    #endregion
+
+
+    #region ENDGAME
+
+    //Mostrar pantalla de derrota
+    public async Task ShowGameOverUI(InkColorIndex color, int score)
+    {
+        gameOverText.text = "Out of\n" + color;
+        gameOverText.color = InkColors[color];
+        scoreEndText.text = "Score: " + score;
+
+        await TransitionsController.self.GameOverTransition();
+    }
+
+    public async Task ShowHighscores(int currentScore = -1, bool highlightRecord = true)
+    {
+        SetHighscoresShow(true);
+
+        if (currentScore < 0)
+            highlightRecord = false;
+
+        //Destruimos todos los registros previos de puntuaciones en UI
+        foreach(Transform child in scoreRecordsPanel)
+        {
+            Destroy(child.gameObject);
+        }
+        
+        //Creamos los registros con las nuevas puntuaciones
+        for (int i = 0; i < HighscoreManager.self.ScoreRecords.Count; i++)
+        {
+            HighscoreManager.ScoreRecord score = HighscoreManager.self.ScoreRecords[i];
+            GameObject recordGO = Instantiate(scoreRecordPrefab, scoreRecordsPanel);
+            TextMeshProUGUI recordText = recordGO.GetComponentInChildren<TextMeshProUGUI>(true);
+            recordText.text = i + ".  " + score.Score;
+
+            //Resaltar resultado actual
+            if(highlightRecord && score.Score == currentScore)
+            {
+                recordText.color = highlightedScoreColor;
+                highlightRecord = false;
+            }
+        }
+
+        await TransitionsController.self.FlashHighScoreTransition();
     }
 
     #endregion

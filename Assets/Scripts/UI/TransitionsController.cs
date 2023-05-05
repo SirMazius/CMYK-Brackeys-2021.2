@@ -53,14 +53,23 @@ public class TransitionsController : SingletonMono<TransitionsController>
         GameManager.self.StartGame();
     }
 
-    public async Task EndGameTransition()
+    public async Task GameOverTransition()
     {
         UIManager.self.inGameUI.SetActive(false);
         UIManager.self.gameOverScreen.SetActive(true);
-
-        await (Task.Delay(3f.ToMillis()));
-
+        await (Task.Delay(1.5f.ToMillis()));
         UIManager.self.gameOverScreen.SetActive(false);
+    }
+
+    public async Task FlashHighScoreTransition()
+    {
+        UIManager.self.highscoresScreen.SetActive(true);
+        await (Task.Delay(3f.ToMillis()));
+        UIManager.self.highscoresScreen.SetActive(false);
+    }
+
+    public async Task BackToMainMenuTransition()
+    {
         UIManager.self.SetMainMenuShow(true);
         _cameraMotion.EndPrinting(endPrintTime);
         _background.StartStopping(bgSpeedTime);

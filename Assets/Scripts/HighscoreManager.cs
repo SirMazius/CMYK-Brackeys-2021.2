@@ -6,30 +6,28 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-public class HighscoreManager : SerializedMonoBehaviour
+public class HighscoreManager : SingletonMono<HighscoreManager>
 {
-    public class HighscoreRecord
+    public class ScoreRecord
     {
         public string Name = "Local";
         public int Score = 0;
 
-        public HighscoreRecord(int score)
+        public ScoreRecord(int score)
         {
             Score = score;
         }
     }
 
-    public const int MaxRecords = 10;
+    public List<ScoreRecord> ScoreRecords = new List<ScoreRecord>();
+    public const int MaxScoreRecords = 10;
     public const string RecordsStorageFile = "Highscores";
-
-    public List<HighscoreRecord> Records = new List<HighscoreRecord>();
-
+    
 
     public void Start()
     {
         ReadRecordsFromFile();
     }
-
 
     //Leemos el fichero local y cargamos la lista de records
     [Button, SerializeField, ExecuteAlways]
@@ -39,19 +37,20 @@ public class HighscoreManager : SerializedMonoBehaviour
         string path = GetJsonLocalPath(RecordsStorageFile);
         StreamReader reader = new StreamReader(path);
         jsonText = reader.ReadToEnd();
-        Records = Newtonsoft.Json.JsonConvert.DeserializeObject<List<HighscoreRecord>>(jsonText);
+        ScoreRecords = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ScoreRecord>>(jsonText);
+        reader.Close();
     }
 
-    private string GetJsonLocalPath(string recordsStorageFile)
+    private string GetJsonLocalPath(string jsonsFolderPath)
     {
-        throw new NotImplementedException();
+        return Path.Combine(jsonsFolderPath, RecordsStorageFile + ".json");
     }
 
     //Gruardamos el json de la lista de records en un fichero local
     [Button, SerializeField, ExecuteAlways]
     private void SaveRecordsOnFile()
     {
-        string jsonText = Newtonsoft.Json.JsonConvert.SerializeObject(Records);
+        string jsonText = Newtonsoft.Json.JsonConvert.SerializeObject(ScoreRecords);
         string path = GetJsonLocalPath(RecordsStorageFile);
         if (!Directory.Exists(GameGlobals.RecordsStoragePath))
             Directory.CreateDirectory(GameGlobals.RecordsStoragePath);
@@ -61,13 +60,13 @@ public class HighscoreManager : SerializedMonoBehaviour
     }
 
     //Añadimos un record a la lista en el orden correcto y truncando si hay mas records de los permitidos
-    public void AddNewRecord(HighscoreRecord record)
+    public void TryAddNewRecord(ScoreRecord record)
     {
-        for (int i = 0; i < Records.Count; i++)
+        for (int i = 0; i < MaxScoreRecords; i++)
         {
-            if (Records[i].Score < record.Score)
+            if (i >= ScoreRecords.Count || ScoreRecords[i].Score < record.Score)
             {
-                Records.Insert(i, record);
+                ScoreRecords.Insert(i, record);
                 TrunkateRecordsList();
                 break;
             }
@@ -76,18 +75,18 @@ public class HighscoreManager : SerializedMonoBehaviour
         SaveRecordsOnFile();
     }
 
-    [Button]
-    public void AddNewRecord(int score)
+    [Button, ExecuteAlways]
+    public void TryAddNewRecord(int score)
     {
-        AddNewRecord(new HighscoreRecord(score));
+        TryAddNewRecord(new ScoreRecord(score));
     }
 
     //Eliminamos los resgistros excedidos de la lista de records
     public void TrunkateRecordsList()
     {
-        while(Records.Count > MaxRecords)
+        while(ScoreRecords.Count > MaxScoreRecords)
         {
-            Records.RemoveAt(Records.Count - 1);
+            ScoreRecords.RemoveAt(ScoreRecords.Count - 1);
         }
     }
 }

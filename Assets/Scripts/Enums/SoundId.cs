@@ -21,4 +21,10 @@ public enum SoundId
 	Printer_Button,
 	UI_Button,
 	Defeat,
+	Erase,
+	Dye,
+	PrinterOn,
+	PrinterOff,
+	GameMusic,
+	InkFill,
 }

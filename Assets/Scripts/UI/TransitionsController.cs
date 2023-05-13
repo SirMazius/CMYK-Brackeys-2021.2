@@ -37,8 +37,11 @@ public class TransitionsController : SingletonMono<TransitionsController>
 
         //Rellenar titulo
         transitions.Add(titleFiller.StartCompleteFill(titleFillTime).AsyncWaitForCompletion());
+        AudioManager.self.PlayOverriding(SoundId.InkFill);
         await Task.Delay(1f.ToMillis());
 
+        //Sonido encender impresora
+        AudioManager.self.PlayOverriding(SoundId.PrinterOn);
         //Mostrar fondo poco a poco acelerando su movimiento
         transitions.Add(_background.Show(bgAppearingTime).AsyncWaitForCompletion());
         _ =(_background.StartMoving(bgSpeedTime).AsyncWaitForCompletion());
@@ -75,6 +78,9 @@ public class TransitionsController : SingletonMono<TransitionsController>
         _background.StartStopping(bgSpeedTime);
         titleFiller.StartCompleteDrain(bgAppearingTime);
         titleMotion.GoToStartPoint(bgAppearingTime);
+
+        //Sonido apagar impresora
+        AudioManager.self.PlayOverriding(SoundId.PrinterOff);
 
         await (Task.Delay(1f.ToMillis()));
 

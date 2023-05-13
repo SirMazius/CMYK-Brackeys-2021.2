@@ -6,7 +6,9 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class TouchableUI : Text
 {
@@ -15,7 +17,8 @@ public class TouchableUI : Text
         base.Awake();
     }
 }
- 
+
+#if UNITY_EDITOR
 // Touchable_Editor component, to prevent treating the component as a Text object.
 [CustomEditor(typeof(TouchableUI))]
 public class Touchable_Editor : Editor
@@ -25,3 +28,4 @@ public class Touchable_Editor : Editor
         // Do nothing
     }
 }
+#endif

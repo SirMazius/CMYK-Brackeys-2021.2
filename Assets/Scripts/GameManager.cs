@@ -189,6 +189,7 @@ public class GameManager : SerializedMonoBehaviour
         _currentState = GameState.GAME;
         PaintSpawner.self.StartSpawn();
         UIManager.self.StartGameUI();
+        AudioManager.self.PlayOverriding(SoundId.GameMusic);
     }
 
     public void Pause()
@@ -208,6 +209,10 @@ public class GameManager : SerializedMonoBehaviour
         if(IsInGame)
         {
             _currentState = GameState.ENDGAME;
+            //Quitar musica y sonido de perder
+            AudioManager.self.Stop(SoundId.GameMusic);
+            AudioManager.self.PlayOverriding(SoundId.Defeat);
+
             //Animacion final
             await UIManager.self.ShowGameOverUI(color, score);
 

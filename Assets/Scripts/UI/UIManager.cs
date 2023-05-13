@@ -107,6 +107,7 @@ public class UIManager : SingletonMono<UIManager>
     public void SetGameUIShow(bool show)
     {
         inGameUI.SetActive(show);
+        tutorialScreen.SetActive(!show);
         //TODO:
     }
 
@@ -126,15 +127,20 @@ public class UIManager : SingletonMono<UIManager>
         if(show)
         {
             currentTutorial = 0;
-            ChangeTutorialPage(currentTutorial);
+            ChangeTutorialPage(currentTutorial, false);
         }
 
-        //tutorialScreen.SetActive(show);
-        tutorialScreen.GetComponent<Animator>().SetBool("Show", show);
+        tutorialScreen.SetActive(true);
+
+        var anim = tutorialScreen.GetComponent<Animator>();
+        if(anim.GetBool("Show")!=show)
+            tutorialScreen.GetComponent<Animator>().SetBool("Show", show);
+
+        AudioManager.self.PlayOverriding(SoundId.InkFill);
     }
 
     //Mostrar una pagina concreta del tutorial
-    private void ChangeTutorialPage(int page)
+    private void ChangeTutorialPage(int page, bool playsound)
     {
         for(int i = 0; i< tutorialPages.Count; i++)
         { 
@@ -143,6 +149,9 @@ public class UIManager : SingletonMono<UIManager>
 
         tutorialArrows[0].SetActive(page != 0);
         tutorialArrows[1].SetActive(true);
+
+        if (playsound)
+            AudioManager.self.PlayAdditively(SoundId.Printer_Button);
     }
 
     //Pasar a la siguiente pagina o a la anterior
@@ -158,7 +167,7 @@ public class UIManager : SingletonMono<UIManager>
             SetTutorialShow(false);
         //Cambiar a otra página
         else if(currentTutorial != prevTutorial)
-            ChangeTutorialPage(currentTutorial);
+            ChangeTutorialPage(currentTutorial, true);
     }
 
     #endregion

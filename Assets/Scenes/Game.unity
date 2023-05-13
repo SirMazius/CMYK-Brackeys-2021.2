@@ -8507,7 +8507,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 400647664}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: ReloadScene
         m_Mode: 1
@@ -8704,7 +8704,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 400647664}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: ExitApplication
         m_Mode: 1
@@ -9920,8 +9920,8 @@ MonoBehaviour:
     playable: 1
   - source: {fileID: 0}
     name: Defeat
-    _clip: {fileID: 8300000, guid: 2fb0c80fab4420040843b66a8c79f1a3, type: 3}
-    volume: 0.6
+    _clip: {fileID: 8300000, guid: 82ed4f0f9e8859546a3c28503cda0c9f, type: 3}
+    volume: 1
     pitch: 1
     mixer: 0
     loop: 0
@@ -9942,6 +9942,46 @@ MonoBehaviour:
     name: Dye
     _clip: {fileID: 8300000, guid: aca303dfdb491b44bb0ce0be6579cbd6, type: 3}
     volume: 0.9
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0.15
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: PrinterOn
+    _clip: {fileID: 8300000, guid: bc2ff52c2d9bc3b419fee34784437db6, type: 3}
+    volume: 0.6
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: PrinterOff
+    _clip: {fileID: 8300000, guid: 069ae2dba0a936346ae66af7f8e2aa73, type: 3}
+    volume: 0.6
+    pitch: 1
+    mixer: 0
+    loop: 0
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: GameMusic
+    _clip: {fileID: 8300000, guid: eff27cb21b863bf4fbd7ecc973a73202, type: 3}
+    volume: 0.6
+    pitch: 1
+    mixer: 1
+    loop: 1
+    pitchRandMaxOffset: 0
+    originalPitch: 0
+    playable: 1
+  - source: {fileID: 0}
+    name: InkFill
+    _clip: {fileID: 8300000, guid: c0e57c0a568057348bfa4ecea17aa3d2, type: 3}
+    volume: 0.6
     pitch: 1
     mixer: 0
     loop: 0

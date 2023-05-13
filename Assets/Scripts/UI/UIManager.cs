@@ -123,13 +123,14 @@ public class UIManager : SingletonMono<UIManager>
     //Mostrar/ocultar tutoriales
     public void SetTutorialShow(bool show)
     {
-        if(show && !tutorialScreen.activeSelf)
+        if(show)
         {
             currentTutorial = 0;
             ChangeTutorialPage(currentTutorial);
         }
 
-        tutorialScreen.SetActive(show);
+        //tutorialScreen.SetActive(show);
+        tutorialScreen.GetComponent<Animator>().SetBool("Show", show);
     }
 
     //Mostrar una pagina concreta del tutorial

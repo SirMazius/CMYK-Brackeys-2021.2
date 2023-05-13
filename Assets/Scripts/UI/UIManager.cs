@@ -38,6 +38,12 @@ public class UIManager : SingletonMono<UIManager>
     public Transform scoreRecordsPanel;
     public Color highlightedScoreColor;
 
+    [Header("Tutorial")]
+    public GameObject tutorialScreen;
+    public List<GameObject> tutorialPages;
+    public List<GameObject> tutorialArrows;
+    private int currentTutorial = 0;
+
     [Header("Back fade")]
     public Image BlackScreen;
     public float BlackFadeDuration = 2f;
@@ -107,6 +113,51 @@ public class UIManager : SingletonMono<UIManager>
     public void SetHighscoresShow(bool show)
     {
         highscoresScreen.SetActive(show);
+    }
+
+    #endregion
+
+
+    #region TUTORIAL
+
+    //Mostrar/ocultar tutoriales
+    public void SetTutorialShow(bool show)
+    {
+        if(show && !tutorialScreen.activeSelf)
+        {
+            currentTutorial = 0;
+            ChangeTutorialPage(currentTutorial);
+        }
+
+        tutorialScreen.SetActive(show);
+    }
+
+    //Mostrar una pagina concreta del tutorial
+    private void ChangeTutorialPage(int page)
+    {
+        for(int i = 0; i< tutorialPages.Count; i++)
+        { 
+            tutorialPages[i].SetActive(i == page);
+        }
+
+        tutorialArrows[0].SetActive(page != 0);
+        tutorialArrows[1].SetActive(true);
+    }
+
+    //Pasar a la siguiente pagina o a la anterior
+    public void NextTutorialPage(int pageStep)
+    {
+        int prevTutorial = currentTutorial;
+
+        currentTutorial += pageStep;
+        currentTutorial = Mathf.Max(currentTutorial, 0);
+
+        //Fin de los tutoriales
+        if(currentTutorial >= tutorialPages.Count)
+            SetTutorialShow(false);
+        //Cambiar a otra página
+        else if(currentTutorial != prevTutorial)
+            ChangeTutorialPage(currentTutorial);
     }
 
     #endregion

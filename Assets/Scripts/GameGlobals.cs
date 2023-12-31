@@ -186,8 +186,8 @@ public static class GameGlobals
     }
 
     /// <summary>
-    /// Igual que ParabolicDecrease pero al revés: el resultado parte de 0 y va a aumentando cada vez mas hasta alcanzar su máximo cuando el valor tambien es máximo, 
-    /// describiendo una parábola ascendente con asintotas en el eje Y y en X = maxValue
+    /// Igual que ParabolicDecrease pero al revÃ©s: el resultado parte de 0 y va a aumentando cada vez mas hasta alcanzar su mÃ¡ximo cuando el valor tambien es mÃ¡ximo, 
+    /// describiendo una parÃ¡bola ascendente con asintotas en el eje Y y en X = maxValue
     /// 
     ///                   .
     ///                   .
@@ -206,7 +206,7 @@ public static class GameGlobals
     }
 
     /// <summary>
-    /// Cambia progresivamente un valor en el tiempo, siguiendo una función de curva específica.
+    /// Cambia progresivamente un valor en el tiempo, siguiendo una funciÃ³n de curva especÃ­fica.
     /// Hay que devolver el valor de la corrutina por un action, ya que las corrutinas no aceptan atributos por referencia.
     /// </summary>
     /// <param name="outValue"></param>
@@ -254,7 +254,7 @@ public static class GameGlobals
     }
 
     /// <summary>
-    /// Metodo de extensión que devuelve convierete un float de segundos a un int de milisegundos
+    /// Metodo de extensiÃ³n que devuelve convierete un float de segundos a un int de milisegundos
     /// </summary>
     /// <param name="secs"></param>
     /// <returns></returns>
